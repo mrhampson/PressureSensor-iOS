@@ -1,18 +1,18 @@
 //
-//  FirstViewController.m
+//  SecondViewController.m
 //  Sensor Prototype
 //
 //  Created by Bill Otwell on 2/28/15.
 //  Copyright (c) 2015 BRIM. All rights reserved.
 //
 
-#import "FirstViewController.h"
+#import "CalendarViewController.h"
 
-@interface FirstViewController ()
+@interface CalendarViewController ()
 
 @end
 
-@implementation FirstViewController
+@implementation CalendarViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -9,12 +9,13 @@
 /* Begin PBXBuildFile section */
 		A023F3341AA2B48600CE7AA2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A023F3331AA2B48600CE7AA2 /* main.m */; };
 		A023F3371AA2B48600CE7AA2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A023F3361AA2B48600CE7AA2 /* AppDelegate.m */; };
-		A023F33A1AA2B48600CE7AA2 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A023F3391AA2B48600CE7AA2 /* FirstViewController.m */; };
-		A023F33D1AA2B48600CE7AA2 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A023F33C1AA2B48600CE7AA2 /* SecondViewController.m */; };
+		A023F33A1AA2B48600CE7AA2 /* BluetoothViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A023F3391AA2B48600CE7AA2 /* BluetoothViewController.m */; };
+		A023F33D1AA2B48600CE7AA2 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A023F33C1AA2B48600CE7AA2 /* CalendarViewController.m */; };
 		A023F3401AA2B48600CE7AA2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A023F33E1AA2B48600CE7AA2 /* Main.storyboard */; };
 		A023F3421AA2B48600CE7AA2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A023F3411AA2B48600CE7AA2 /* Images.xcassets */; };
 		A023F3451AA2B48600CE7AA2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A023F3431AA2B48600CE7AA2 /* LaunchScreen.xib */; };
 		A023F3511AA2B48600CE7AA2 /* Sensor_PrototypeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A023F3501AA2B48600CE7AA2 /* Sensor_PrototypeTests.m */; };
+		A023F35C1AA2B4F600CE7AA2 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A023F35B1AA2B4F600CE7AA2 /* GraphViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,16 +34,18 @@
 		A023F3331AA2B48600CE7AA2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A023F3351AA2B48600CE7AA2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A023F3361AA2B48600CE7AA2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		A023F3381AA2B48600CE7AA2 /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		A023F3391AA2B48600CE7AA2 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		A023F33B1AA2B48600CE7AA2 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		A023F33C1AA2B48600CE7AA2 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		A023F3381AA2B48600CE7AA2 /* BluetoothViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BluetoothViewController.h; sourceTree = "<group>"; };
+		A023F3391AA2B48600CE7AA2 /* BluetoothViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BluetoothViewController.m; sourceTree = "<group>"; };
+		A023F33B1AA2B48600CE7AA2 /* CalendarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
+		A023F33C1AA2B48600CE7AA2 /* CalendarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 		A023F33F1AA2B48600CE7AA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A023F3411AA2B48600CE7AA2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A023F3441AA2B48600CE7AA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		A023F34A1AA2B48600CE7AA2 /* Sensor PrototypeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sensor PrototypeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A023F34F1AA2B48600CE7AA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A023F3501AA2B48600CE7AA2 /* Sensor_PrototypeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sensor_PrototypeTests.m; sourceTree = "<group>"; };
+		A023F35A1AA2B4F600CE7AA2 /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphViewController.h; sourceTree = "<group>"; };
+		A023F35B1AA2B4F600CE7AA2 /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,10 +89,12 @@
 			children = (
 				A023F3351AA2B48600CE7AA2 /* AppDelegate.h */,
 				A023F3361AA2B48600CE7AA2 /* AppDelegate.m */,
-				A023F3381AA2B48600CE7AA2 /* FirstViewController.h */,
-				A023F3391AA2B48600CE7AA2 /* FirstViewController.m */,
-				A023F33B1AA2B48600CE7AA2 /* SecondViewController.h */,
-				A023F33C1AA2B48600CE7AA2 /* SecondViewController.m */,
+				A023F3381AA2B48600CE7AA2 /* BluetoothViewController.h */,
+				A023F3391AA2B48600CE7AA2 /* BluetoothViewController.m */,
+				A023F33B1AA2B48600CE7AA2 /* CalendarViewController.h */,
+				A023F33C1AA2B48600CE7AA2 /* CalendarViewController.m */,
+				A023F35A1AA2B4F600CE7AA2 /* GraphViewController.h */,
+				A023F35B1AA2B4F600CE7AA2 /* GraphViewController.m */,
 				A023F33E1AA2B48600CE7AA2 /* Main.storyboard */,
 				A023F3411AA2B48600CE7AA2 /* Images.xcassets */,
 				A023F3431AA2B48600CE7AA2 /* LaunchScreen.xib */,
@@ -224,9 +229,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A023F33D1AA2B48600CE7AA2 /* SecondViewController.m in Sources */,
+				A023F33D1AA2B48600CE7AA2 /* CalendarViewController.m in Sources */,
 				A023F3371AA2B48600CE7AA2 /* AppDelegate.m in Sources */,
-				A023F33A1AA2B48600CE7AA2 /* FirstViewController.m in Sources */,
+				A023F33A1AA2B48600CE7AA2 /* BluetoothViewController.m in Sources */,
+				A023F35C1AA2B4F600CE7AA2 /* GraphViewController.m in Sources */,
 				A023F3341AA2B48600CE7AA2 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

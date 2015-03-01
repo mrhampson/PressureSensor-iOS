@@ -1,18 +1,18 @@
 //
-//  SecondViewController.m
+//  FirstViewController.m
 //  Sensor Prototype
 //
 //  Created by Bill Otwell on 2/28/15.
 //  Copyright (c) 2015 BRIM. All rights reserved.
 //
 
-#import "SecondViewController.h"
+#import "BluetoothViewController.h"
 
-@interface SecondViewController ()
+@interface BluetoothViewController ()
 
 @end
 
-@implementation SecondViewController
+@implementation BluetoothViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

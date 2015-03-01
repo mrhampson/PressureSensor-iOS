@@ -1,5 +1,5 @@
 //
-//  SecondViewController.h
+//  GraphViewController.h
 //  Sensor Prototype
 //
 //  Created by Bill Otwell on 2/28/15.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SecondViewController : UIViewController
-
+@interface GraphViewController : UIViewController
 
 @end
-
