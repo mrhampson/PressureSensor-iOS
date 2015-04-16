@@ -12,11 +12,12 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
     let _headerHeight:CGFloat = 80
     let _footerHeight:CGFloat = 40
     let _padding:CGFloat = 10
-    let graphData:[CGFloat] = [1.0, 10.0, 3.0, 4.0];
+    let graphData:[CGFloat] = [37,89,48,95,54,50,46,31,77,40,61,58,74,76,100,72,56,44,59,73,92,60,17,29,7,24,18,71,52,51,69,68,55,99,67,70,84,28,30,27,79,97,75,90,49,62,12,96,14,83,35,5,22,11,66,53,45,98,8,94,16,21,36,93,91,20,65,34,2,25,32,15,86,6,23,81,39,88,10,47,63,57,64,87,26,80,3,42,1,41,78,19,9,43,33,85,13,38,4,82];
     let chartHeaderView = ChartHeaderView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     let _tooltipView = ChartTooltipView();
     let _tooltipTipView = ChartTooltipTipView();
-    
+
+
     override func supportedInterfaceOrientations() -> Int {
         return Int(UIInterfaceOrientationMask.Landscape.rawValue)
     }
