@@ -12,9 +12,10 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
     let _headerHeight:CGFloat = 80
     let _footerHeight:CGFloat = 40
     let _padding:CGFloat = 10
-    var graphData:[CGFloat] = []
+    let graphData:[CGFloat] = [1.0, 10.0, 3.0, 4.0];
     let chartHeaderView = ChartHeaderView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-    
+    let _tooltipView = ChartTooltipView();
+    let _tooltipTipView = ChartTooltipTipView();
     
     override func supportedInterfaceOrientations() -> Int {
         return Int(UIInterfaceOrientationMask.Landscape.rawValue)
@@ -22,10 +23,6 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        graphData = [1.0, 2.0, 3.0, 4.0];
-        
-        
         
         let lineChartView = JBLineChartView();
         lineChartView.dataSource = self;
@@ -42,8 +39,10 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
         chartHeaderView.titleLabel.text = "Temperature vs Time";
         lineChartView.headerView = chartHeaderView;
         
-        
-        
+        _tooltipView.alpha = 0.0;
+        lineChartView.addSubview(_tooltipView);
+        _tooltipTipView.alpha = 0.0;
+        lineChartView.addSubview(_tooltipTipView);
     }
     
     override func didReceiveMemoryWarning() {
@@ -82,6 +81,54 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
     
     func lineChartView(lineChartView: JBLineChartView!, colorForLineAtLineIndex lineIndex: UInt) -> UIColor! {
         return uicolorFromHex(0x34b234)
+    }
+    
+
+     func lineChartView(lineChartView: JBLineChartView!, didSelectLineAtIndex lineIndex: UInt, horizontalIndex: UInt, touchPoint: CGPoint) {
+
+        // Adjust tooltip position
+        var convertedTouchPoint:CGPoint = touchPoint
+        let minChartX:CGFloat = (lineChartView.frame.origin.x + ceil(_tooltipView.frame.size.width * 0.5))
+        if (convertedTouchPoint.x < minChartX)
+        {
+            convertedTouchPoint.x = minChartX
+        }
+        var maxChartX:CGFloat = (lineChartView.frame.origin.x + lineChartView.frame.size.width - ceil(_tooltipView.frame.size.width * 0.5))
+        if (convertedTouchPoint.x > maxChartX)
+        {
+            convertedTouchPoint.x = maxChartX
+        }
+        _tooltipView.frame = CGRectMake(convertedTouchPoint.x - ceil(_tooltipView.frame.size.width * 0.5),
+            CGRectGetMaxY(chartHeaderView.frame),
+            _tooltipView.frame.size.width,
+            _tooltipView.frame.size.height)
+        
+        let formatter = NSNumberFormatter();
+        formatter.maximumSignificantDigits = 2;
+        let currentValue:CGFloat = graphData[Int(horizontalIndex)];
+        let string = formatter.stringFromNumber(currentValue) ?? "0.00";
+        _tooltipView.setText(string);
+        
+        
+        var originalTouchPoint:CGPoint = touchPoint
+        let minTipX:CGFloat = (lineChartView.frame.origin.x + _tooltipTipView.frame.size.width)
+        if (touchPoint.x < minTipX)
+        {
+            originalTouchPoint.x = minTipX
+        }
+        let maxTipX = (lineChartView.frame.origin.x + lineChartView.frame.size.width - _tooltipTipView.frame.size.width)
+        if (originalTouchPoint.x > maxTipX)
+        {
+            originalTouchPoint.x = maxTipX
+        }
+        _tooltipTipView.frame = CGRectMake(originalTouchPoint.x - ceil(_tooltipTipView.frame.size.width * 0.5), CGRectGetMaxY(_tooltipView.frame), _tooltipTipView.frame.size.width, _tooltipTipView.frame.size.height)
+        _tooltipView.alpha = 1.0
+        _tooltipTipView.alpha = 1.0
+    }
+    
+    func didDeselectLineInLineChartView(lineChartView: JBLineChartView!) {
+        _tooltipView.alpha = 0.0
+        _tooltipTipView.alpha = 0.0
     }
     
     func uicolorFromHex(rgbValue:UInt32)->UIColor{

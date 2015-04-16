@@ -21,6 +21,8 @@
 		655885531ADF8BDE00B29F61 /* JBChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6558854F1ADF8BDE00B29F61 /* JBChartView.m */; };
 		655885541ADF8BDE00B29F61 /* JBLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 655885511ADF8BDE00B29F61 /* JBLineChartView.m */; };
 		655885571ADF8D2300B29F61 /* ChartHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655885561ADF8D2300B29F61 /* ChartHeaderView.swift */; };
+		655885591ADFA23F00B29F61 /* ChartTooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655885581ADFA23F00B29F61 /* ChartTooltipView.swift */; };
+		6558855B1ADFA25D00B29F61 /* ChartTooltipTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6558855A1ADFA25D00B29F61 /* ChartTooltipTipView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,8 @@
 		655885511ADF8BDE00B29F61 /* JBLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBLineChartView.m; sourceTree = "<group>"; };
 		655885551ADF8C1200B29F61 /* JBChartViewBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JBChartViewBridgingHeader.h; sourceTree = "<group>"; };
 		655885561ADF8D2300B29F61 /* ChartHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartHeaderView.swift; sourceTree = "<group>"; };
+		655885581ADFA23F00B29F61 /* ChartTooltipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartTooltipView.swift; sourceTree = "<group>"; };
+		6558855A1ADFA25D00B29F61 /* ChartTooltipTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartTooltipTipView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,8 @@
 				6526FB971ACF6FC7007AAB8B /* Images.xcassets */,
 				6526FB991ACF6FC7007AAB8B /* LaunchScreen.xib */,
 				6526FB8E1ACF6FC7007AAB8B /* Supporting Files */,
+				655885581ADFA23F00B29F61 /* ChartTooltipView.swift */,
+				6558855A1ADFA25D00B29F61 /* ChartTooltipTipView.swift */,
 			);
 			path = "Mobile Medicine";
 			sourceTree = "<group>";
@@ -257,6 +263,8 @@
 				655885541ADF8BDE00B29F61 /* JBLineChartView.m in Sources */,
 				655885571ADF8D2300B29F61 /* ChartHeaderView.swift in Sources */,
 				655885531ADF8BDE00B29F61 /* JBChartView.m in Sources */,
+				655885591ADFA23F00B29F61 /* ChartTooltipView.swift in Sources */,
+				6558855B1ADFA25D00B29F61 /* ChartTooltipTipView.swift in Sources */,
 				6526FBB11ACF72AF007AAB8B /* DataViewPortrait.swift in Sources */,
 				6526FBB71ACF7390007AAB8B /* CalendarViewPortrait.swift in Sources */,
 				6526FB931ACF6FC7007AAB8B /* IntroViewController.swift in Sources */,
