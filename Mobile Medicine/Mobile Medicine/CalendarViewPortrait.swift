@@ -10,6 +10,7 @@ import UIKit
 
 class CalendarViewPortrait: UIViewController {
     
+    var isShowingLandscapeView = false
     
     override func shouldAutorotate() -> Bool {
         return false
@@ -32,19 +33,25 @@ class CalendarViewPortrait: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: "orientationChanged:", name: UIDeviceOrientationDidChangeNotification, object: nil)
         
     }
     
+   
     func orientationChanged(notification: NSNotification){
         let deviceOrientation = UIDevice.currentDevice().orientation;
-        if (UIDeviceOrientationIsLandscape(deviceOrientation)){
+        if (UIDeviceOrientationIsLandscape(deviceOrientation) && !isShowingLandscapeView){
             self.performSegueWithIdentifier("CalToLandscape", sender: self)
+            isShowingLandscapeView = true
             
+        }
+        else if(UIDeviceOrientationIsPortrait(deviceOrientation) && isShowingLandscapeView){
+            self.dismissViewControllerAnimated(true, completion: nil)
+            isShowingLandscapeView = false
         }
         
     }
