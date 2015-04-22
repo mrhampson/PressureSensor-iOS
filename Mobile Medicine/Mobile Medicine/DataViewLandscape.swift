@@ -10,6 +10,10 @@ import UIKit
 
 class DataViewLandscape: UIViewController {
 
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
     override func supportedInterfaceOrientations() -> Int {
         return Int(UIInterfaceOrientationMask.Landscape.rawValue)
     }

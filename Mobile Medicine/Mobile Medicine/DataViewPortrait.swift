@@ -13,6 +13,10 @@ class DataViewPortrait: UIViewController {
     var titleLabel : UILabel!
     var statusLabel : UILabel!
     var tempLabel : UILabel!
+    
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
 
     override func supportedInterfaceOrientations() -> Int {
         return Int(UIInterfaceOrientationMask.Portrait.rawValue)
