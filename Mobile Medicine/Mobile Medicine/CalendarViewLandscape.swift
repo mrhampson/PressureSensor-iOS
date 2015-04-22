@@ -10,6 +10,12 @@ import UIKit
 
 class CalendarViewLandscape: UIViewController {
 
+    
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
+    
     override func supportedInterfaceOrientations() -> Int {
         return Int(UIInterfaceOrientationMask.Landscape.rawValue)
     }
@@ -27,20 +33,10 @@ class CalendarViewLandscape: UIViewController {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
-        let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserver(self, selector: "orientationChanged:", name: UIDeviceOrientationDidChangeNotification, object: nil)
         
     }
     
-    func orientationChanged(notification: NSNotification){
-        let deviceOrientation = UIDevice.currentDevice().orientation;
-        if (UIDeviceOrientationIsPortrait(deviceOrientation)){
-            self.performSegueWithIdentifier("CalToPortrait", sender: self)
-            
-        }
-        
-    }
+    
     
 
     /*

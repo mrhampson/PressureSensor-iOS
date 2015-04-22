@@ -13,6 +13,11 @@ class DataViewPortrait: UIViewController {
     var titleLabel : UILabel!
     var statusLabel : UILabel!
     var tempLabel : UILabel!
+    var isShowingLandscapeView = false
+    
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
 
     override func supportedInterfaceOrientations() -> Int {
         return Int(UIInterfaceOrientationMask.Portrait.rawValue)
@@ -65,13 +70,40 @@ class DataViewPortrait: UIViewController {
     
     func orientationChanged(notification: NSNotification){
         let deviceOrientation = UIDevice.currentDevice().orientation;
-        if (UIDeviceOrientationIsLandscape(deviceOrientation)){
+        if (UIDeviceOrientationIsLandscape(deviceOrientation) && !isShowingLandscapeView){
             self.performSegueWithIdentifier("DataToLandscape", sender: self)
+            isShowingLandscapeView = true
             
         }
-        
+        else if(UIDeviceOrientationIsPortrait(deviceOrientation) && isShowingLandscapeView){
+            self.dismissViewControllerAnimated(true, completion: nil)
+            isShowingLandscapeView = false
+        }
+
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(segue.identifier == "DataToCal"){
+            let notificationCenter = NSNotificationCenter.defaultCenter()
+            notificationCenter.removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
+        }
+    }
+    /* Apple example code (in Obj C)
+    
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsLandscape(deviceOrientation) &&
+    !isShowingLandscapeView)
+    {
+    [self performSegueWithIdentifier:@"DisplayAlternateView" sender:self];
+    isShowingLandscapeView = YES;
+    }
+    else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
+    isShowingLandscapeView)
+    {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    isShowingLandscapeView = NO;
+    }
+    */
 
     /*
     // MARK: - Navigation
