@@ -55,6 +55,13 @@ class CalendarViewPortrait: UIViewController {
         }
         
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(segue.identifier == "CalToData"){
+            let notificationCenter = NSNotificationCenter.defaultCenter()
+            notificationCenter.removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
+        }
+    }
 
     /*
     // MARK: - Navigation

@@ -28,7 +28,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="BNd-by-KvD" kind="modal" id="rUq-q5-Kwg"/>
+                                    <segue destination="BNd-by-KvD" kind="modal" identifier="IntroToCal" id="rUq-q5-Kwg"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0UT-PR-ELO">
@@ -37,7 +37,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="MNO-fU-UIO" kind="modal" id="L6A-UZ-wcd"/>
+                                    <segue destination="MNO-fU-UIO" kind="modal" identifier="IntroToData" id="L6A-UZ-wcd"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -61,18 +61,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Calendar Portrait" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n42-gx-2Xl">
-                                <rect key="frame" x="135" y="389" width="131" height="21"/>
+                                <rect key="frame" x="94" y="77" width="132" height="22"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h5s-AW-0bY">
-                                <rect key="frame" x="327" y="617" width="32" height="30"/>
+                                <rect key="frame" x="194" y="34" width="32" height="30"/>
                                 <state key="normal" title="Data">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="MNO-fU-UIO" kind="modal" id="D0b-ab-zFL"/>
+                                    <segue destination="MNO-fU-UIO" kind="modal" identifier="CalToData" id="D0b-ab-zFL"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -100,18 +100,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Data Collection Portrait" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e9F-W3-mgH">
-                                <rect key="frame" x="111" y="389" width="179" height="21"/>
+                                <rect key="frame" x="97" y="68" width="180" height="22"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tXO-6q-vwA">
-                                <rect key="frame" x="297" y="619" width="62" height="30"/>
+                                <rect key="frame" x="215" y="20" width="62" height="30"/>
                                 <state key="normal" title="Calendar">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="BNd-by-KvD" kind="modal" id="ojC-mO-BKA"/>
+                                    <segue destination="BNd-by-KvD" kind="modal" identifier="DataToCal" id="ojC-mO-BKA"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -155,7 +155,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OOt-Xo-Nkw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-75.599999999999994" y="1737.7249999999999"/>
+            <point key="canvasLocation" x="-213.5" y="1737.5"/>
         </scene>
         <!--Calendar View Landscape-->
         <scene sceneID="xrc-UV-aWT">
@@ -186,7 +186,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lC9-P7-CPS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="574.79999999999995" y="1737.7249999999999"/>
+            <point key="canvasLocation" x="690.5" y="1737.5"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -195,7 +195,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="rUq-q5-Kwg"/>
-        <segue reference="L6A-UZ-wcd"/>
+        <segue reference="ojC-mO-BKA"/>
+        <segue reference="D0b-ab-zFL"/>
     </inferredMetricsTieBreakers>
 </document>

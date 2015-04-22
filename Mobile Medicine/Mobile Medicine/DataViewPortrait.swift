@@ -81,6 +81,13 @@ class DataViewPortrait: UIViewController {
         }
 
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(segue.identifier == "DataToCal"){
+            let notificationCenter = NSNotificationCenter.defaultCenter()
+            notificationCenter.removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
+        }
+    }
     /* Apple example code (in Obj C)
     
     UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
