@@ -17,7 +17,16 @@
 		6526FBB31ACF7345007AAB8B /* DataViewLandscape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6526FBB21ACF7345007AAB8B /* DataViewLandscape.swift */; };
 		6526FBB51ACF736B007AAB8B /* CalendarViewLandscape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6526FBB41ACF736B007AAB8B /* CalendarViewLandscape.swift */; };
 		6526FBB71ACF7390007AAB8B /* CalendarViewPortrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6526FBB61ACF7390007AAB8B /* CalendarViewPortrait.swift */; };
+<<<<<<< HEAD
 		A0192ED61AE4871200A589C6 /* Bluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0192ED51AE4871200A589C6 /* Bluetooth.swift */; };
+=======
+		655885521ADF8BDE00B29F61 /* JBBarChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6558854D1ADF8BDE00B29F61 /* JBBarChartView.m */; };
+		655885531ADF8BDE00B29F61 /* JBChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6558854F1ADF8BDE00B29F61 /* JBChartView.m */; };
+		655885541ADF8BDE00B29F61 /* JBLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 655885511ADF8BDE00B29F61 /* JBLineChartView.m */; };
+		655885571ADF8D2300B29F61 /* ChartHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655885561ADF8D2300B29F61 /* ChartHeaderView.swift */; };
+		655885591ADFA23F00B29F61 /* ChartTooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655885581ADFA23F00B29F61 /* ChartTooltipView.swift */; };
+		6558855B1ADFA25D00B29F61 /* ChartTooltipTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6558855A1ADFA25D00B29F61 /* ChartTooltipTipView.swift */; };
+>>>>>>> 85bfe2b957109a9a2a066e99f663ff67d2f0a3ba
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,7 +54,20 @@
 		6526FBB21ACF7345007AAB8B /* DataViewLandscape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewLandscape.swift; sourceTree = "<group>"; };
 		6526FBB41ACF736B007AAB8B /* CalendarViewLandscape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewLandscape.swift; sourceTree = "<group>"; };
 		6526FBB61ACF7390007AAB8B /* CalendarViewPortrait.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewPortrait.swift; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		A0192ED51AE4871200A589C6 /* Bluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bluetooth.swift; sourceTree = "<group>"; };
+=======
+		6558854C1ADF8BDE00B29F61 /* JBBarChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBBarChartView.h; sourceTree = "<group>"; };
+		6558854D1ADF8BDE00B29F61 /* JBBarChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBBarChartView.m; sourceTree = "<group>"; };
+		6558854E1ADF8BDE00B29F61 /* JBChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBChartView.h; sourceTree = "<group>"; };
+		6558854F1ADF8BDE00B29F61 /* JBChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBChartView.m; sourceTree = "<group>"; };
+		655885501ADF8BDE00B29F61 /* JBLineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBLineChartView.h; sourceTree = "<group>"; };
+		655885511ADF8BDE00B29F61 /* JBLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBLineChartView.m; sourceTree = "<group>"; };
+		655885551ADF8C1200B29F61 /* JBChartViewBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JBChartViewBridgingHeader.h; sourceTree = "<group>"; };
+		655885561ADF8D2300B29F61 /* ChartHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartHeaderView.swift; sourceTree = "<group>"; };
+		655885581ADFA23F00B29F61 /* ChartTooltipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartTooltipView.swift; sourceTree = "<group>"; };
+		6558855A1ADFA25D00B29F61 /* ChartTooltipTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartTooltipTipView.swift; sourceTree = "<group>"; };
+>>>>>>> 85bfe2b957109a9a2a066e99f663ff67d2f0a3ba
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +91,8 @@
 		6526FB821ACF6FC7007AAB8B = {
 			isa = PBXGroup;
 			children = (
+				655885551ADF8C1200B29F61 /* JBChartViewBridgingHeader.h */,
+				6558854B1ADF8BDE00B29F61 /* JBChartView */,
 				6526FB8D1ACF6FC7007AAB8B /* Mobile Medicine */,
 				6526FBA31ACF6FC7007AAB8B /* Mobile MedicineTests */,
 				6526FB8C1ACF6FC7007AAB8B /* Products */,
@@ -87,6 +111,7 @@
 		6526FB8D1ACF6FC7007AAB8B /* Mobile Medicine */ = {
 			isa = PBXGroup;
 			children = (
+				655885561ADF8D2300B29F61 /* ChartHeaderView.swift */,
 				6526FB901ACF6FC7007AAB8B /* AppDelegate.swift */,
 				6526FB941ACF6FC7007AAB8B /* Main.storyboard */,
 				6526FB921ACF6FC7007AAB8B /* IntroViewController.swift */,
@@ -98,6 +123,8 @@
 				6526FB971ACF6FC7007AAB8B /* Images.xcassets */,
 				6526FB991ACF6FC7007AAB8B /* LaunchScreen.xib */,
 				6526FB8E1ACF6FC7007AAB8B /* Supporting Files */,
+				655885581ADFA23F00B29F61 /* ChartTooltipView.swift */,
+				6558855A1ADFA25D00B29F61 /* ChartTooltipTipView.swift */,
 			);
 			path = "Mobile Medicine";
 			sourceTree = "<group>";
@@ -125,6 +152,20 @@
 				6526FBA51ACF6FC7007AAB8B /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6558854B1ADF8BDE00B29F61 /* JBChartView */ = {
+			isa = PBXGroup;
+			children = (
+				6558854C1ADF8BDE00B29F61 /* JBBarChartView.h */,
+				6558854D1ADF8BDE00B29F61 /* JBBarChartView.m */,
+				6558854E1ADF8BDE00B29F61 /* JBChartView.h */,
+				6558854F1ADF8BDE00B29F61 /* JBChartView.m */,
+				655885501ADF8BDE00B29F61 /* JBLineChartView.h */,
+				655885511ADF8BDE00B29F61 /* JBLineChartView.m */,
+			);
+			name = JBChartView;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,6 +268,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				655885521ADF8BDE00B29F61 /* JBBarChartView.m in Sources */,
+				655885541ADF8BDE00B29F61 /* JBLineChartView.m in Sources */,
+				655885571ADF8D2300B29F61 /* ChartHeaderView.swift in Sources */,
+				655885531ADF8BDE00B29F61 /* JBChartView.m in Sources */,
+				655885591ADFA23F00B29F61 /* ChartTooltipView.swift in Sources */,
+				6558855B1ADFA25D00B29F61 /* ChartTooltipTipView.swift in Sources */,
 				6526FBB11ACF72AF007AAB8B /* DataViewPortrait.swift in Sources */,
 				6526FBB71ACF7390007AAB8B /* CalendarViewPortrait.swift in Sources */,
 				6526FB931ACF6FC7007AAB8B /* IntroViewController.swift in Sources */,
@@ -359,6 +406,7 @@
 				INFOPLIST_FILE = "Mobile Medicine/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = JBChartViewBridgingHeader.h;
 			};
 			name = Debug;
 		};
@@ -369,6 +417,7 @@
 				INFOPLIST_FILE = "Mobile Medicine/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = JBChartViewBridgingHeader.h;
 			};
 			name = Release;
 		};
