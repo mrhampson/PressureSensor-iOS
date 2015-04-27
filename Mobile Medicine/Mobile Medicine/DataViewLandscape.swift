@@ -18,6 +18,10 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
     let _tooltipTipView = ChartTooltipTipView();
 
 
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
     override func supportedInterfaceOrientations() -> Int {
         return Int(UIInterfaceOrientationMask.Landscape.rawValue)
     }
@@ -55,22 +59,7 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
         // Dispose of any resources that can be recreated.
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
-        let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserver(self, selector: "orientationChanged:", name: UIDeviceOrientationDidChangeNotification, object: nil)
-        
-    }
     
-    func orientationChanged(notification: NSNotification){
-        let deviceOrientation = UIDevice.currentDevice().orientation;
-        if (UIDeviceOrientationIsPortrait(deviceOrientation)){
-            self.performSegueWithIdentifier("DataToPortrait", sender: self)
-            
-        }
-        
-    }
     
     func numberOfLinesInLineChartView(lineChartView: JBLineChartView!) -> UInt {
         return 1;
