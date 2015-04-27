@@ -13,7 +13,7 @@ class ChartTooltipView: UIView {
     let _defaultWidth:CGFloat = 50
     let _defaultHeight:CGFloat = 25
     
-    let _tooltipColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
+    let _tooltipColor = UIColor.darkGrayColor().colorWithAlphaComponent(0.9)
     let _textLabel = UILabel()
     let _font = UIFont(name:"HelveticaNeue-Bold", size:14.0)
     
@@ -29,7 +29,7 @@ class ChartTooltipView: UIView {
         
         _textLabel.font = _font
         _textLabel.backgroundColor = UIColor.clearColor()
-        _textLabel.textColor = uicolorFromHex(0x313131)
+        _textLabel.textColor = UIColor.whiteColor()
         _textLabel.adjustsFontSizeToFitWidth = true
         _textLabel.numberOfLines = 1
         _textLabel.textAlignment = NSTextAlignment.Center

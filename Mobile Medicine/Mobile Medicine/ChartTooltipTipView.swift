@@ -12,7 +12,7 @@ class ChartTooltipTipView: UIView {
     let _defaultWidth:CGFloat = 8
     let _defaultHeight:CGFloat = 5
     
-    let _tooltipColor = UIColor.whiteColor().colorWithAlphaComponent(0.9).CGColor
+    let _tooltipColor = UIColor.darkGrayColor().colorWithAlphaComponent(0.9).CGColor
     
     
     override convenience init() {
