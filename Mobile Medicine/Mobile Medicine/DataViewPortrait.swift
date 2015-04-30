@@ -10,10 +10,19 @@ import UIKit
 
 class DataViewPortrait: UIViewController {
     
+
     var titleLabel : UILabel!
     var statusLabel : UILabel!
     var tempLabel : UILabel!
     var isShowingLandscapeView = false
+    
+    //The variables we will record data to
+    var startDate: NSDate!
+    var dataName : String = ""
+    var dataArray: [Double] = []
+    var recording: Bool = false
+    //temp for testing
+    var count:Int = 0
     
     override func shouldAutorotate() -> Bool {
         return false
@@ -24,12 +33,14 @@ class DataViewPortrait: UIViewController {
     }
     
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Set up title label
         titleLabel = UILabel()
-        titleLabel.text = "My SensorTag"
+        titleLabel.text = "Mobile Medicine"
         titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
         titleLabel.sizeToFit()
         titleLabel.center = CGPoint(x: self.view.frame.midX, y: self.titleLabel.bounds.midY+28)
@@ -53,6 +64,38 @@ class DataViewPortrait: UIViewController {
         self.view.addSubview(tempLabel)
 
         // Do any additional setup after loading the view.
+        let button   = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+        button.frame = CGRectMake(100, 100, 100, 50)
+        button.backgroundColor = UIColor.greenColor()
+        button.setTitle("Start", forState: UIControlState.Normal)
+        button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        button.center = CGPoint(x: self.view.frame.midX, y: self.view.bounds.maxY - 100 )
+        
+        self.view.addSubview(button)
+    }
+    
+    func buttonAction(sender:UIButton!)
+    {
+        let btn:UIButton = sender
+        let title = btn.titleLabel?.text
+        if (title == "Start")
+        {
+            //Start
+            startDate = NSDate()
+            recording = true
+            count = 0
+            //Start bluetooth recording (or have that automatic based on flag
+            btn.setTitle("Stop", forState: UIControlState.Normal)
+            btn.backgroundColor = UIColor.redColor()
+        }
+        else
+        {
+            //Stop
+            //Save data to NSData here
+            
+            btn.setTitle("Start", forState: UIControlState.Normal)
+            btn.backgroundColor = UIColor.greenColor()
+        }
     }
 
     override func didReceiveMemoryWarning() {

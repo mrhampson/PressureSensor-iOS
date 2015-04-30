@@ -17,15 +17,14 @@
 		6526FBB31ACF7345007AAB8B /* DataViewLandscape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6526FBB21ACF7345007AAB8B /* DataViewLandscape.swift */; };
 		6526FBB51ACF736B007AAB8B /* CalendarViewLandscape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6526FBB41ACF736B007AAB8B /* CalendarViewLandscape.swift */; };
 		6526FBB71ACF7390007AAB8B /* CalendarViewPortrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6526FBB61ACF7390007AAB8B /* CalendarViewPortrait.swift */; };
-		A0192ED21AE47E2500A589C6 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A0192ED01AE47E2500A589C6 /* DataModel.xcdatamodeld */; };
-		A0192ED61AE4871200A589C6 /* Bluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0192ED51AE4871200A589C6 /* Bluetooth.swift */; };
 		655885521ADF8BDE00B29F61 /* JBBarChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6558854D1ADF8BDE00B29F61 /* JBBarChartView.m */; };
 		655885531ADF8BDE00B29F61 /* JBChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6558854F1ADF8BDE00B29F61 /* JBChartView.m */; };
 		655885541ADF8BDE00B29F61 /* JBLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 655885511ADF8BDE00B29F61 /* JBLineChartView.m */; };
 		655885571ADF8D2300B29F61 /* ChartHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655885561ADF8D2300B29F61 /* ChartHeaderView.swift */; };
 		655885591ADFA23F00B29F61 /* ChartTooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655885581ADFA23F00B29F61 /* ChartTooltipView.swift */; };
 		6558855B1ADFA25D00B29F61 /* ChartTooltipTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6558855A1ADFA25D00B29F61 /* ChartTooltipTipView.swift */; };
-
+		A0192ED21AE47E2500A589C6 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A0192ED01AE47E2500A589C6 /* DataModel.xcdatamodeld */; };
+		A0192ED61AE4871200A589C6 /* Bluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0192ED51AE4871200A589C6 /* Bluetooth.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,8 +52,6 @@
 		6526FBB21ACF7345007AAB8B /* DataViewLandscape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewLandscape.swift; sourceTree = "<group>"; };
 		6526FBB41ACF736B007AAB8B /* CalendarViewLandscape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewLandscape.swift; sourceTree = "<group>"; };
 		6526FBB61ACF7390007AAB8B /* CalendarViewPortrait.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewPortrait.swift; sourceTree = "<group>"; };
-		A0192ED11AE47E2500A589C6 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
-		A0192ED51AE4871200A589C6 /* Bluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bluetooth.swift; sourceTree = "<group>"; };
 		6558854C1ADF8BDE00B29F61 /* JBBarChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBBarChartView.h; sourceTree = "<group>"; };
 		6558854D1ADF8BDE00B29F61 /* JBBarChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBBarChartView.m; sourceTree = "<group>"; };
 		6558854E1ADF8BDE00B29F61 /* JBChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBChartView.h; sourceTree = "<group>"; };
@@ -65,7 +62,8 @@
 		655885561ADF8D2300B29F61 /* ChartHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartHeaderView.swift; sourceTree = "<group>"; };
 		655885581ADFA23F00B29F61 /* ChartTooltipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartTooltipView.swift; sourceTree = "<group>"; };
 		6558855A1ADFA25D00B29F61 /* ChartTooltipTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartTooltipTipView.swift; sourceTree = "<group>"; };
-
+		A0192ED11AE47E2500A589C6 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		A0192ED51AE4871200A589C6 /* Bluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bluetooth.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

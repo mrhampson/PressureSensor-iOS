@@ -15,9 +15,9 @@ class ChartTooltipTipView: UIView {
     let _tooltipColor = UIColor.darkGrayColor().colorWithAlphaComponent(0.9).CGColor
     
     
-    override convenience init() {
+    /*override convenience init() {
         self.init(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-    }
+    }*/
     
     override init(frame: CGRect) {
         super.init(frame: CGRect(x: 0, y: 0, width: _defaultWidth, height: _defaultHeight))
