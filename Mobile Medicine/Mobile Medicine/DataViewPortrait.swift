@@ -89,6 +89,8 @@ class DataViewPortrait: UIViewController {
             startDate = NSDate()
             recording = true
             count = 0
+            dataArray = []
+            dataName = String()
             //Start bluetooth recording (or have that automatic based on flag
             btn.setTitle("Stop", forState: UIControlState.Normal)
             btn.backgroundColor = UIColor.redColor()
@@ -96,9 +98,14 @@ class DataViewPortrait: UIViewController {
         else
         {
             //Stop
+            recording = false
             //Save data to NSData here
+            addName(self)
+            
             println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
             println(dataArray)
+
+            println()
             btn.setTitle("Start", forState: UIControlState.Normal)
             btn.backgroundColor = UIColor.greenColor()
         }
@@ -138,6 +145,36 @@ class DataViewPortrait: UIViewController {
         }
     }
     
+    //give our data a name
+    @IBAction func addName(sender: AnyObject) {
+        
+        var alert = UIAlertController(title: "New name",
+            message: "Add a new name",
+            preferredStyle: .Alert)
+        
+        let saveAction = UIAlertAction(title: "Save",
+            style: .Default) { (action: UIAlertAction!) -> Void in
+                
+                let textField = alert.textFields![0] as! UITextField
+                self.dataName = textField.text
+                println(self.dataName) //There is some sort of threading going on, tis isn't waiting for addName
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel",
+            style: .Default) { (action: UIAlertAction!) -> Void in
+        }
+        
+        alert.addTextFieldWithConfigurationHandler {
+            (textField: UITextField!) -> Void in
+        }
+        
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        
+        presentViewController(alert,
+            animated: true,
+            completion: nil)
+    }
 
     
     func recordData() {
