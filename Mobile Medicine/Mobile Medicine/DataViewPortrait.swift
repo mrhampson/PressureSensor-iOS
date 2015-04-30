@@ -7,16 +7,24 @@
 //
 
 import UIKit
+import CoreData
 
 class DataViewPortrait: UIViewController {
     
-
+    //UI info
     var titleLabel : UILabel!
     var statusLabel : UILabel!
     var tempLabel : UILabel!
     var button : UIButton!
     var isShowingLandscapeView = false
     var timer : NSTimer!
+    
+    var context:NSManagedObjectContext!
+    var insertData:NSManagedObject!
+    var appDel:AppDelegate!
+    
+
+
     
     //The variables we will record data to
     var startDate: NSDate!
@@ -25,6 +33,23 @@ class DataViewPortrait: UIViewController {
     var recording: Bool = false
     //temp for testing
     var count:Int = 0
+
+    
+    convenience init(){
+        self.init()
+        //Core data context
+        appDel = (UIApplication.sharedApplication().delegate as! AppDelegate)
+        context = appDel.managedObjectContext
+        insertData = NSEntityDescription.insertNewObjectForEntityForName("RecordInfo", inManagedObjectContext: self.context) as! NSManagedObject
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        //Core data context
+        appDel = (UIApplication.sharedApplication().delegate as! AppDelegate)
+        context = appDel.managedObjectContext
+        insertData = NSEntityDescription.insertNewObjectForEntityForName("RecordInfo", inManagedObjectContext: self.context) as! NSManagedObject
+     }
     
     override func shouldAutorotate() -> Bool {
         return false
@@ -104,6 +129,13 @@ class DataViewPortrait: UIViewController {
             
             println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
             println(dataArray)
+            
+            /*for data in dataArray {
+                var newData = NSEntityDescription.insertNewObjectForEntityForName ("RecordData",
+                    inManagedObjectContext: context) as! NSManagedObject
+                
+                newData.setValue(data, forKey: "rData")
+            }*/
 
             println()
             btn.setTitle("Start", forState: UIControlState.Normal)
