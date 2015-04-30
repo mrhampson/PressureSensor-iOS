@@ -14,7 +14,9 @@ class DataViewPortrait: UIViewController {
     var titleLabel : UILabel!
     var statusLabel : UILabel!
     var tempLabel : UILabel!
+    var button : UIButton!
     var isShowingLandscapeView = false
+    var timer : NSTimer!
     
     //The variables we will record data to
     var startDate: NSDate!
@@ -64,7 +66,7 @@ class DataViewPortrait: UIViewController {
         self.view.addSubview(tempLabel)
 
         // Do any additional setup after loading the view.
-        let button   = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+        button   = UIButton.buttonWithType(UIButtonType.System) as! UIButton
         button.frame = CGRectMake(100, 100, 100, 50)
         button.backgroundColor = UIColor.greenColor()
         button.setTitle("Start", forState: UIControlState.Normal)
@@ -72,6 +74,9 @@ class DataViewPortrait: UIViewController {
         button.center = CGPoint(x: self.view.frame.midX, y: self.view.bounds.maxY - 100 )
         
         self.view.addSubview(button)
+        
+        //start timer at 20Hz
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("recordData"), userInfo: nil, repeats: true)
     }
     
     func buttonAction(sender:UIButton!)
@@ -92,7 +97,8 @@ class DataViewPortrait: UIViewController {
         {
             //Stop
             //Save data to NSData here
-            
+            println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
+            println(dataArray)
             btn.setTitle("Start", forState: UIControlState.Normal)
             btn.backgroundColor = UIColor.greenColor()
         }
@@ -131,6 +137,17 @@ class DataViewPortrait: UIViewController {
             notificationCenter.removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
         }
     }
+    
+
+    
+    func recordData() {
+        if(recording){
+            // Call bluetooth here
+            count++
+            dataArray.append(Double(count))
+        }
+    }
+    
     /* Apple example code (in Obj C)
     
     UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
