@@ -20,8 +20,12 @@ class DataViewPortrait: UIViewController {
     var timer : NSTimer!
     
     var context:NSManagedObjectContext!
-    var insertData:NSManagedObject!
+    var infoEntity:NSEntityDescription
+    var dataEntity:NSEntityDescription
+    var insertDataInfo:NSManagedObject
+    var insertData:NSMutableOrderedSet = []
     var appDel:AppDelegate!
+    
     
 
 
@@ -40,15 +44,24 @@ class DataViewPortrait: UIViewController {
         //Core data context
         appDel = (UIApplication.sharedApplication().delegate as! AppDelegate)
         context = appDel.managedObjectContext
-        insertData = NSEntityDescription.insertNewObjectForEntityForName("RecordInfo", inManagedObjectContext: self.context) as! NSManagedObject
+        infoEntity = NSEntityDescription.entityForName("RecordInfo", inManagedObjectContext: context)!
+        dataEntity = NSEntityDescription.entityForName("RecordData", inManagedObjectContext: context)!
+        //insertDataInfo = NSManagedObject(entity: infoEntity, insertIntoManagedObjectContext: context)
+        insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: context) as! RecordInfo
+        
     }
 
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        
         //Core data context
         appDel = (UIApplication.sharedApplication().delegate as! AppDelegate)
         context = appDel.managedObjectContext
-        insertData = NSEntityDescription.insertNewObjectForEntityForName("RecordInfo", inManagedObjectContext: self.context) as! NSManagedObject
+        infoEntity = NSEntityDescription.entityForName("RecordInfo", inManagedObjectContext: context)!
+        dataEntity = NSEntityDescription.entityForName("RecordData", inManagedObjectContext: context)!
+        //insertDataInfo = NSManagedObject(entity: infoEntity, insertIntoManagedObjectContext: context)
+        insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: context) as! RecordInfo
+        super.init(coder: aDecoder)
+        
      }
     
     override func shouldAutorotate() -> Bool {
@@ -116,26 +129,41 @@ class DataViewPortrait: UIViewController {
             count = 0
             dataArray = []
             dataName = String()
+            //creating new objects
+            insertData = []
             //Start bluetooth recording (or have that automatic based on flag
             btn.setTitle("Stop", forState: UIControlState.Normal)
             btn.backgroundColor = UIColor.redColor()
+            var error: NSError?
+            
+            let fetchRequest = NSFetchRequest(entityName:"RecordInfo")
+            let fetchedResults = context.executeFetchRequest(fetchRequest,
+                error: &error) as? [NSManagedObject]
+            if let results = fetchedResults {
+                for result in results{
+                    println(result.valueForKey("rName"))
+                }
+            }
         }
         else
         {
             //Stop
             recording = false
             //Save data to NSData here
-            addName(self)
-            
+            addName(self) //sets and saves rName
             println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
+            insertDataInfo.setValue(startDate, forKey: "rDate")
             println(dataArray)
-            
-            /*for data in dataArray {
+            for data in dataArray {
                 var newData = NSEntityDescription.insertNewObjectForEntityForName ("RecordData",
                     inManagedObjectContext: context) as! NSManagedObject
-                
                 newData.setValue(data, forKey: "rData")
-            }*/
+                
+                insertData.addObject(newData)
+            }
+            insertDataInfo.setValue(insertData, forKey: "dataRelation")
+            println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
+            println(dataArray)
 
             println()
             btn.setTitle("Start", forState: UIControlState.Normal)
@@ -189,6 +217,7 @@ class DataViewPortrait: UIViewController {
                 
                 let textField = alert.textFields![0] as! UITextField
                 self.dataName = textField.text
+                self.insertDataInfo.setValue(self.dataName, forKey: "rName")
                 println(self.dataName) //There is some sort of threading going on, tis isn't waiting for addName
         }
         
