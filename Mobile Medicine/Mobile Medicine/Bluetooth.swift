@@ -91,7 +91,7 @@ class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         //self.statusLabel.text = "Looking at peripheral services"
         sensorStatus = 4
         for service in peripheral.services {
-            let thisService = service as CBService
+            let thisService = service as! CBService
             if service.UUID == IRTemperatureServiceUUID {
                 // Discover characteristics of IR Temperature Service
                 peripheral.discoverCharacteristics(nil, forService: thisService)
@@ -114,7 +114,7 @@ class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         
         // check the uuid of each characteristic to find config and data characteristics
         for charateristic in service.characteristics {
-            let thisCharacteristic = charateristic as CBCharacteristic
+            let thisCharacteristic = charateristic as! CBCharacteristic
             // check for data characteristic
             if thisCharacteristic.UUID == IRTemperatureDataUUID {
                 // Enable Sensor Notification
