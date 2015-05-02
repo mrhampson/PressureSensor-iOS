@@ -150,7 +150,6 @@ class DataViewPortrait: UIViewController {
             //Stop
             recording = false
             //Save data to NSData here
-            addName(self) //sets and saves rName
             println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
             insertDataInfo.setValue(startDate, forKey: "rDate")
             println(dataArray)
@@ -162,6 +161,7 @@ class DataViewPortrait: UIViewController {
                 insertData.addObject(newData)
             }
             insertDataInfo.setValue(insertData, forKey: "dataRelation")
+            addName(self) //sets and saves rName
             println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
             println(dataArray)
 
@@ -219,10 +219,19 @@ class DataViewPortrait: UIViewController {
                 self.dataName = textField.text
                 self.insertDataInfo.setValue(self.dataName, forKey: "rName")
                 println(self.dataName) //There is some sort of threading going on, tis isn't waiting for addName
+                println()
+                var error: NSError?
+                if !self.context.save(&error) {
+                    println("Could not save \(error), \(error?.userInfo)")
+                }
+                self.insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: self.context) as! RecordInfo
+                
         }
         
         let cancelAction = UIAlertAction(title: "Cancel",
             style: .Default) { (action: UIAlertAction!) -> Void in
+                self.insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: self.context) as! RecordInfo
+
         }
         
         alert.addTextFieldWithConfigurationHandler {
