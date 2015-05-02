@@ -1,0 +1,504 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6526FB911ACF6FC7007AAB8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6526FB901ACF6FC7007AAB8B /* AppDelegate.swift */; };
+		6526FB931ACF6FC7007AAB8B /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6526FB921ACF6FC7007AAB8B /* IntroViewController.swift */; };
+		6526FB961ACF6FC7007AAB8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6526FB941ACF6FC7007AAB8B /* Main.storyboard */; };
+		6526FB981ACF6FC7007AAB8B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6526FB971ACF6FC7007AAB8B /* Images.xcassets */; };
+		6526FB9B1ACF6FC7007AAB8B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6526FB991ACF6FC7007AAB8B /* LaunchScreen.xib */; };
+		6526FBA71ACF6FC7007AAB8B /* Mobile_MedicineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6526FBA61ACF6FC7007AAB8B /* Mobile_MedicineTests.swift */; };
+		6526FBB11ACF72AF007AAB8B /* DataViewPortrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6526FBB01ACF72AF007AAB8B /* DataViewPortrait.swift */; };
+		6526FBB31ACF7345007AAB8B /* DataViewLandscape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6526FBB21ACF7345007AAB8B /* DataViewLandscape.swift */; };
+		6526FBB51ACF736B007AAB8B /* CalendarViewLandscape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6526FBB41ACF736B007AAB8B /* CalendarViewLandscape.swift */; };
+		6526FBB71ACF7390007AAB8B /* CalendarViewPortrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6526FBB61ACF7390007AAB8B /* CalendarViewPortrait.swift */; };
+		A0192ED21AE47E2500A589C6 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A0192ED01AE47E2500A589C6 /* DataModel.xcdatamodeld */; };
+		A0192ED61AE4871200A589C6 /* Bluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0192ED51AE4871200A589C6 /* Bluetooth.swift */; };
+		655885521ADF8BDE00B29F61 /* JBBarChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6558854D1ADF8BDE00B29F61 /* JBBarChartView.m */; };
+		655885531ADF8BDE00B29F61 /* JBChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6558854F1ADF8BDE00B29F61 /* JBChartView.m */; };
+		655885541ADF8BDE00B29F61 /* JBLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 655885511ADF8BDE00B29F61 /* JBLineChartView.m */; };
+		655885571ADF8D2300B29F61 /* ChartHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655885561ADF8D2300B29F61 /* ChartHeaderView.swift */; };
+		655885591ADFA23F00B29F61 /* ChartTooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655885581ADFA23F00B29F61 /* ChartTooltipView.swift */; };
+		6558855B1ADFA25D00B29F61 /* ChartTooltipTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6558855A1ADFA25D00B29F61 /* ChartTooltipTipView.swift */; };
+
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6526FBA11ACF6FC7007AAB8B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6526FB831ACF6FC7007AAB8B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6526FB8A1ACF6FC7007AAB8B;
+			remoteInfo = "Mobile Medicine";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6526FB8B1ACF6FC7007AAB8B /* Mobile Medicine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Medicine.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6526FB8F1ACF6FC7007AAB8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6526FB901ACF6FC7007AAB8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6526FB921ACF6FC7007AAB8B /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
+		6526FB951ACF6FC7007AAB8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6526FB971ACF6FC7007AAB8B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		6526FB9A1ACF6FC7007AAB8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		6526FBA01ACF6FC7007AAB8B /* Mobile MedicineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mobile MedicineTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6526FBA51ACF6FC7007AAB8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6526FBA61ACF6FC7007AAB8B /* Mobile_MedicineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mobile_MedicineTests.swift; sourceTree = "<group>"; };
+		6526FBB01ACF72AF007AAB8B /* DataViewPortrait.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewPortrait.swift; sourceTree = "<group>"; };
+		6526FBB21ACF7345007AAB8B /* DataViewLandscape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewLandscape.swift; sourceTree = "<group>"; };
+		6526FBB41ACF736B007AAB8B /* CalendarViewLandscape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewLandscape.swift; sourceTree = "<group>"; };
+		6526FBB61ACF7390007AAB8B /* CalendarViewPortrait.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewPortrait.swift; sourceTree = "<group>"; };
+		A0192ED11AE47E2500A589C6 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		A0192ED51AE4871200A589C6 /* Bluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bluetooth.swift; sourceTree = "<group>"; };
+		6558854C1ADF8BDE00B29F61 /* JBBarChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBBarChartView.h; sourceTree = "<group>"; };
+		6558854D1ADF8BDE00B29F61 /* JBBarChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBBarChartView.m; sourceTree = "<group>"; };
+		6558854E1ADF8BDE00B29F61 /* JBChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBChartView.h; sourceTree = "<group>"; };
+		6558854F1ADF8BDE00B29F61 /* JBChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBChartView.m; sourceTree = "<group>"; };
+		655885501ADF8BDE00B29F61 /* JBLineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBLineChartView.h; sourceTree = "<group>"; };
+		655885511ADF8BDE00B29F61 /* JBLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBLineChartView.m; sourceTree = "<group>"; };
+		655885551ADF8C1200B29F61 /* JBChartViewBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JBChartViewBridgingHeader.h; sourceTree = "<group>"; };
+		655885561ADF8D2300B29F61 /* ChartHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartHeaderView.swift; sourceTree = "<group>"; };
+		655885581ADFA23F00B29F61 /* ChartTooltipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartTooltipView.swift; sourceTree = "<group>"; };
+		6558855A1ADFA25D00B29F61 /* ChartTooltipTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartTooltipTipView.swift; sourceTree = "<group>"; };
+
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6526FB881ACF6FC7007AAB8B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6526FB9D1ACF6FC7007AAB8B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6526FB821ACF6FC7007AAB8B = {
+			isa = PBXGroup;
+			children = (
+				655885551ADF8C1200B29F61 /* JBChartViewBridgingHeader.h */,
+				6558854B1ADF8BDE00B29F61 /* JBChartView */,
+				6526FB8D1ACF6FC7007AAB8B /* Mobile Medicine */,
+				6526FBA31ACF6FC7007AAB8B /* Mobile MedicineTests */,
+				6526FB8C1ACF6FC7007AAB8B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6526FB8C1ACF6FC7007AAB8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6526FB8B1ACF6FC7007AAB8B /* Mobile Medicine.app */,
+				6526FBA01ACF6FC7007AAB8B /* Mobile MedicineTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6526FB8D1ACF6FC7007AAB8B /* Mobile Medicine */ = {
+			isa = PBXGroup;
+			children = (
+				655885561ADF8D2300B29F61 /* ChartHeaderView.swift */,
+				6526FB901ACF6FC7007AAB8B /* AppDelegate.swift */,
+				6526FB941ACF6FC7007AAB8B /* Main.storyboard */,
+				6526FB921ACF6FC7007AAB8B /* IntroViewController.swift */,
+				6526FBB01ACF72AF007AAB8B /* DataViewPortrait.swift */,
+				6526FBB21ACF7345007AAB8B /* DataViewLandscape.swift */,
+				6526FBB61ACF7390007AAB8B /* CalendarViewPortrait.swift */,
+				6526FBB41ACF736B007AAB8B /* CalendarViewLandscape.swift */,
+				A0192ED01AE47E2500A589C6 /* DataModel.xcdatamodeld */,
+				A0192ED51AE4871200A589C6 /* Bluetooth.swift */,
+				6526FB971ACF6FC7007AAB8B /* Images.xcassets */,
+				6526FB991ACF6FC7007AAB8B /* LaunchScreen.xib */,
+				6526FB8E1ACF6FC7007AAB8B /* Supporting Files */,
+				655885581ADFA23F00B29F61 /* ChartTooltipView.swift */,
+				6558855A1ADFA25D00B29F61 /* ChartTooltipTipView.swift */,
+			);
+			path = "Mobile Medicine";
+			sourceTree = "<group>";
+		};
+		6526FB8E1ACF6FC7007AAB8B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6526FB8F1ACF6FC7007AAB8B /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6526FBA31ACF6FC7007AAB8B /* Mobile MedicineTests */ = {
+			isa = PBXGroup;
+			children = (
+				6526FBA61ACF6FC7007AAB8B /* Mobile_MedicineTests.swift */,
+				6526FBA41ACF6FC7007AAB8B /* Supporting Files */,
+			);
+			path = "Mobile MedicineTests";
+			sourceTree = "<group>";
+		};
+		6526FBA41ACF6FC7007AAB8B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6526FBA51ACF6FC7007AAB8B /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6558854B1ADF8BDE00B29F61 /* JBChartView */ = {
+			isa = PBXGroup;
+			children = (
+				6558854C1ADF8BDE00B29F61 /* JBBarChartView.h */,
+				6558854D1ADF8BDE00B29F61 /* JBBarChartView.m */,
+				6558854E1ADF8BDE00B29F61 /* JBChartView.h */,
+				6558854F1ADF8BDE00B29F61 /* JBChartView.m */,
+				655885501ADF8BDE00B29F61 /* JBLineChartView.h */,
+				655885511ADF8BDE00B29F61 /* JBLineChartView.m */,
+			);
+			name = JBChartView;
+			path = Classes;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6526FB8A1ACF6FC7007AAB8B /* Mobile Medicine */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6526FBAA1ACF6FC7007AAB8B /* Build configuration list for PBXNativeTarget "Mobile Medicine" */;
+			buildPhases = (
+				6526FB871ACF6FC7007AAB8B /* Sources */,
+				6526FB881ACF6FC7007AAB8B /* Frameworks */,
+				6526FB891ACF6FC7007AAB8B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Mobile Medicine";
+			productName = "Mobile Medicine";
+			productReference = 6526FB8B1ACF6FC7007AAB8B /* Mobile Medicine.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6526FB9F1ACF6FC7007AAB8B /* Mobile MedicineTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6526FBAD1ACF6FC7007AAB8B /* Build configuration list for PBXNativeTarget "Mobile MedicineTests" */;
+			buildPhases = (
+				6526FB9C1ACF6FC7007AAB8B /* Sources */,
+				6526FB9D1ACF6FC7007AAB8B /* Frameworks */,
+				6526FB9E1ACF6FC7007AAB8B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6526FBA21ACF6FC7007AAB8B /* PBXTargetDependency */,
+			);
+			name = "Mobile MedicineTests";
+			productName = "Mobile MedicineTests";
+			productReference = 6526FBA01ACF6FC7007AAB8B /* Mobile MedicineTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6526FB831ACF6FC7007AAB8B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0620;
+				ORGANIZATIONNAME = BRIM;
+				TargetAttributes = {
+					6526FB8A1ACF6FC7007AAB8B = {
+						CreatedOnToolsVersion = 6.2;
+					};
+					6526FB9F1ACF6FC7007AAB8B = {
+						CreatedOnToolsVersion = 6.2;
+						TestTargetID = 6526FB8A1ACF6FC7007AAB8B;
+					};
+				};
+			};
+			buildConfigurationList = 6526FB861ACF6FC7007AAB8B /* Build configuration list for PBXProject "Mobile Medicine" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6526FB821ACF6FC7007AAB8B;
+			productRefGroup = 6526FB8C1ACF6FC7007AAB8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6526FB8A1ACF6FC7007AAB8B /* Mobile Medicine */,
+				6526FB9F1ACF6FC7007AAB8B /* Mobile MedicineTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6526FB891ACF6FC7007AAB8B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6526FB961ACF6FC7007AAB8B /* Main.storyboard in Resources */,
+				6526FB9B1ACF6FC7007AAB8B /* LaunchScreen.xib in Resources */,
+				6526FB981ACF6FC7007AAB8B /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6526FB9E1ACF6FC7007AAB8B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6526FB871ACF6FC7007AAB8B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				655885521ADF8BDE00B29F61 /* JBBarChartView.m in Sources */,
+				655885541ADF8BDE00B29F61 /* JBLineChartView.m in Sources */,
+				655885571ADF8D2300B29F61 /* ChartHeaderView.swift in Sources */,
+				655885531ADF8BDE00B29F61 /* JBChartView.m in Sources */,
+				655885591ADFA23F00B29F61 /* ChartTooltipView.swift in Sources */,
+				6558855B1ADFA25D00B29F61 /* ChartTooltipTipView.swift in Sources */,
+				6526FBB11ACF72AF007AAB8B /* DataViewPortrait.swift in Sources */,
+				6526FBB71ACF7390007AAB8B /* CalendarViewPortrait.swift in Sources */,
+				6526FB931ACF6FC7007AAB8B /* IntroViewController.swift in Sources */,
+				A0192ED21AE47E2500A589C6 /* DataModel.xcdatamodeld in Sources */,
+				6526FBB31ACF7345007AAB8B /* DataViewLandscape.swift in Sources */,
+				6526FBB51ACF736B007AAB8B /* CalendarViewLandscape.swift in Sources */,
+				6526FB911ACF6FC7007AAB8B /* AppDelegate.swift in Sources */,
+				A0192ED61AE4871200A589C6 /* Bluetooth.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6526FB9C1ACF6FC7007AAB8B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6526FBA71ACF6FC7007AAB8B /* Mobile_MedicineTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6526FBA21ACF6FC7007AAB8B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6526FB8A1ACF6FC7007AAB8B /* Mobile Medicine */;
+			targetProxy = 6526FBA11ACF6FC7007AAB8B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6526FB941ACF6FC7007AAB8B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6526FB951ACF6FC7007AAB8B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		6526FB991ACF6FC7007AAB8B /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6526FB9A1ACF6FC7007AAB8B /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6526FBA81ACF6FC7007AAB8B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6526FBA91ACF6FC7007AAB8B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6526FBAB1ACF6FC7007AAB8B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Mobile Medicine/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = JBChartViewBridgingHeader.h;
+			};
+			name = Debug;
+		};
+		6526FBAC1ACF6FC7007AAB8B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Mobile Medicine/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = JBChartViewBridgingHeader.h;
+			};
+			name = Release;
+		};
+		6526FBAE1ACF6FC7007AAB8B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Mobile MedicineTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mobile Medicine.app/Mobile Medicine";
+			};
+			name = Debug;
+		};
+		6526FBAF1ACF6FC7007AAB8B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Mobile MedicineTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mobile Medicine.app/Mobile Medicine";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6526FB861ACF6FC7007AAB8B /* Build configuration list for PBXProject "Mobile Medicine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6526FBA81ACF6FC7007AAB8B /* Debug */,
+				6526FBA91ACF6FC7007AAB8B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6526FBAA1ACF6FC7007AAB8B /* Build configuration list for PBXNativeTarget "Mobile Medicine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6526FBAB1ACF6FC7007AAB8B /* Debug */,
+				6526FBAC1ACF6FC7007AAB8B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6526FBAD1ACF6FC7007AAB8B /* Build configuration list for PBXNativeTarget "Mobile MedicineTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6526FBAE1ACF6FC7007AAB8B /* Debug */,
+				6526FBAF1ACF6FC7007AAB8B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A0192ED01AE47E2500A589C6 /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A0192ED11AE47E2500A589C6 /* DataModel.xcdatamodel */,
+			);
+			currentVersion = A0192ED11AE47E2500A589C6 /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 6526FB831ACF6FC7007AAB8B /* Project object */;
+}
