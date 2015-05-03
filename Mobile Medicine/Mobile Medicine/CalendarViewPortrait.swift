@@ -52,7 +52,8 @@ extension ViewController: CVCalendarViewDelegate {
     func didSelectDayView(dayView: CVCalendarDayView) {
         let date = dayView.date
         println("\(calendarView.presentedDate.commonDescription) is selected!")
-    }
+        self.performSegueWithIdentifier("calendarToData", sender: nil)
+    } // this shit right hurr
     
     func presentedDateUpdated(date: CVDate) {
         if monthLabel.text != date.globalDescription && self.animationFinished {
