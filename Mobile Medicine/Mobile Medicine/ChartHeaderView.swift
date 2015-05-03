@@ -49,13 +49,14 @@ class ChartHeaderView: UIView {
         self.addSubview(_separatorView)
         
     }
-    
-    /*func setSeparatorColor(separatorColor:UIColor) {
+
+    /* Causing Errors w/XCode
+    func setSeparatorColor(separatorColor:UIColor) {
         self.separatorColor = separatorColor
         self._separatorView.backgroundColor = separatorColor
         self.setNeedsLayout()
-    }*/
-    
+    }
+    */
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
