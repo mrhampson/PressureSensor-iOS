@@ -43,7 +43,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ped-dr-P1x">
                                 <rect key="frame" x="102" y="356" width="116" height="30"/>
-                                <state key="normal" title="Horse Cock">
+                                <state key="normal" title="Good Calendar">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -201,7 +201,6 @@
         <!--View Controller-->
         <scene sceneID="lGt-dS-av3">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2k5-ka-2B7" sceneMemberID="firstResponder"/>
                 <viewController id="SCf-yV-Wtv" customClass="ViewController" customModule="Mobile_Medicine" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aOm-6M-vZY"/>
@@ -235,7 +234,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable showing days out" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2On-hm-ZWc">
                                 <rect key="frame" x="16" y="524" width="221" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aRF-KO-Y6a">
@@ -246,7 +245,6 @@
                             </switch>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9FU-gr-XUl" customClass="CVCalendarView" customModule="Mobile_Medicine" customModuleProvider="target">
                                 <rect key="frame" x="16" y="103" width="288" height="300"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="Es5-rI-ReF">
                                         <variation key="heightClass=regular-widthClass=regular" constant="480"/>
@@ -260,7 +258,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Autolayout" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pIv-zU-G5B">
                                 <rect key="frame" x="119" y="411" width="83" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sul-eX-0uK">
@@ -338,6 +336,7 @@
                         <outlet property="monthLabel" destination="Gmw-da-73o" id="Uee-Z2-otn"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2k5-ka-2B7" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="630" y="401"/>
         </scene>
