@@ -17,15 +17,16 @@
 		6526FBB31ACF7345007AAB8B /* DataViewLandscape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6526FBB21ACF7345007AAB8B /* DataViewLandscape.swift */; };
 		6526FBB51ACF736B007AAB8B /* CalendarViewLandscape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6526FBB41ACF736B007AAB8B /* CalendarViewLandscape.swift */; };
 		6526FBB71ACF7390007AAB8B /* CalendarViewPortrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6526FBB61ACF7390007AAB8B /* CalendarViewPortrait.swift */; };
-		A0192ED21AE47E2500A589C6 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A0192ED01AE47E2500A589C6 /* DataModel.xcdatamodeld */; };
-		A0192ED61AE4871200A589C6 /* Bluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0192ED51AE4871200A589C6 /* Bluetooth.swift */; };
 		655885521ADF8BDE00B29F61 /* JBBarChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6558854D1ADF8BDE00B29F61 /* JBBarChartView.m */; };
 		655885531ADF8BDE00B29F61 /* JBChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6558854F1ADF8BDE00B29F61 /* JBChartView.m */; };
 		655885541ADF8BDE00B29F61 /* JBLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 655885511ADF8BDE00B29F61 /* JBLineChartView.m */; };
 		655885571ADF8D2300B29F61 /* ChartHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655885561ADF8D2300B29F61 /* ChartHeaderView.swift */; };
 		655885591ADFA23F00B29F61 /* ChartTooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655885581ADFA23F00B29F61 /* ChartTooltipView.swift */; };
 		6558855B1ADFA25D00B29F61 /* ChartTooltipTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6558855A1ADFA25D00B29F61 /* ChartTooltipTipView.swift */; };
-
+		A01228C51AF1FD060030D369 /* RecordData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01228C41AF1FD060030D369 /* RecordData.swift */; };
+		A01228C71AF1FD070030D369 /* RecordInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01228C61AF1FD070030D369 /* RecordInfo.swift */; };
+		A0192ED21AE47E2500A589C6 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A0192ED01AE47E2500A589C6 /* DataModel.xcdatamodeld */; };
+		A0192ED61AE4871200A589C6 /* Bluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0192ED51AE4871200A589C6 /* Bluetooth.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,19 +54,19 @@
 		6526FBB21ACF7345007AAB8B /* DataViewLandscape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewLandscape.swift; sourceTree = "<group>"; };
 		6526FBB41ACF736B007AAB8B /* CalendarViewLandscape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewLandscape.swift; sourceTree = "<group>"; };
 		6526FBB61ACF7390007AAB8B /* CalendarViewPortrait.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewPortrait.swift; sourceTree = "<group>"; };
-		A0192ED11AE47E2500A589C6 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
-		A0192ED51AE4871200A589C6 /* Bluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bluetooth.swift; sourceTree = "<group>"; };
 		6558854C1ADF8BDE00B29F61 /* JBBarChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBBarChartView.h; sourceTree = "<group>"; };
 		6558854D1ADF8BDE00B29F61 /* JBBarChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBBarChartView.m; sourceTree = "<group>"; };
 		6558854E1ADF8BDE00B29F61 /* JBChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBChartView.h; sourceTree = "<group>"; };
 		6558854F1ADF8BDE00B29F61 /* JBChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBChartView.m; sourceTree = "<group>"; };
 		655885501ADF8BDE00B29F61 /* JBLineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBLineChartView.h; sourceTree = "<group>"; };
 		655885511ADF8BDE00B29F61 /* JBLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBLineChartView.m; sourceTree = "<group>"; };
-		655885551ADF8C1200B29F61 /* JBChartViewBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JBChartViewBridgingHeader.h; sourceTree = "<group>"; };
 		655885561ADF8D2300B29F61 /* ChartHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartHeaderView.swift; sourceTree = "<group>"; };
 		655885581ADFA23F00B29F61 /* ChartTooltipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartTooltipView.swift; sourceTree = "<group>"; };
 		6558855A1ADFA25D00B29F61 /* ChartTooltipTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartTooltipTipView.swift; sourceTree = "<group>"; };
-
+		A01228C41AF1FD060030D369 /* RecordData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordData.swift; sourceTree = "<group>"; };
+		A01228C61AF1FD070030D369 /* RecordInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordInfo.swift; sourceTree = "<group>"; };
+		A0192ED11AE47E2500A589C6 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		A0192ED51AE4871200A589C6 /* Bluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bluetooth.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +90,8 @@
 		6526FB821ACF6FC7007AAB8B = {
 			isa = PBXGroup;
 			children = (
-				655885551ADF8C1200B29F61 /* JBChartViewBridgingHeader.h */,
+				A01228C61AF1FD070030D369 /* RecordInfo.swift */,
+				A01228C41AF1FD060030D369 /* RecordData.swift */,
 				6558854B1ADF8BDE00B29F61 /* JBChartView */,
 				6526FB8D1ACF6FC7007AAB8B /* Mobile Medicine */,
 				6526FBA31ACF6FC7007AAB8B /* Mobile MedicineTests */,
@@ -268,10 +270,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				655885521ADF8BDE00B29F61 /* JBBarChartView.m in Sources */,
+				A01228C51AF1FD060030D369 /* RecordData.swift in Sources */,
 				655885541ADF8BDE00B29F61 /* JBLineChartView.m in Sources */,
 				655885571ADF8D2300B29F61 /* ChartHeaderView.swift in Sources */,
 				655885531ADF8BDE00B29F61 /* JBChartView.m in Sources */,
 				655885591ADFA23F00B29F61 /* ChartTooltipView.swift in Sources */,
+				A01228C71AF1FD070030D369 /* RecordInfo.swift in Sources */,
 				6558855B1ADFA25D00B29F61 /* ChartTooltipTipView.swift in Sources */,
 				6526FBB11ACF72AF007AAB8B /* DataViewPortrait.swift in Sources */,
 				6526FBB71ACF7390007AAB8B /* CalendarViewPortrait.swift in Sources */,
