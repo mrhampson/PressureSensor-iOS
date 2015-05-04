@@ -10,12 +10,138 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobile Medicine/DataViewPortrait.swift"
-            timestampString = "449806971.581312"
+            timestampString = "452404648.037215"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "awakeFromNib()"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "DataViewPortrait"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobile Medicine/DataViewLandscape.swift"
+            timestampString = "452404648.037215"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "DataViewLandscape"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Mobile_Medicine.DataViewLandscape.startDate.setter : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.NSDate&gt;"
+                  moduleName = "Mobile Medicine"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marshallhampson/Code/Senior%20Design%20Project/PressureSensoriOS/Mobile%20Medicine/Mobile%20Medicine/DataViewLandscape.swift"
+                  timestampString = "452404648.538626"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Mobile_Medicine.DataViewLandscape.startDate.materializeForSet : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.NSDate&gt;"
+                  moduleName = "Mobile Medicine"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marshallhampson/Code/Senior%20Design%20Project/PressureSensoriOS/Mobile%20Medicine/Mobile%20Medicine/DataViewLandscape.swift"
+                  timestampString = "452404648.538965"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Mobile_Medicine.DataViewLandscape.init (Mobile_Medicine.DataViewLandscape.Type)(nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;ObjectiveC.NSBundle&gt;) -&gt; Mobile_Medicine.DataViewLandscape"
+                  moduleName = "Mobile Medicine"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marshallhampson/Code/Senior%20Design%20Project/PressureSensoriOS/Mobile%20Medicine/Mobile%20Medicine/DataViewLandscape.swift"
+                  timestampString = "452404648.539271"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "325">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Mobile_Medicine.DataViewLandscape.init (Mobile_Medicine.DataViewLandscape.Type)(coder : ObjectiveC.NSCoder) -&gt; Mobile_Medicine.DataViewLandscape"
+                  moduleName = "Mobile Medicine"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marshallhampson/Code/Senior%20Design%20Project/PressureSensoriOS/Mobile%20Medicine/Mobile%20Medicine/DataViewLandscape.swift"
+                  timestampString = "452404648.539856"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "255">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobile Medicine/DataViewPortrait.swift"
+            timestampString = "452404648.037215"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "209"
+            endingLineNumber = "209"
+            landmarkName = "prepareForSegue(_:sender:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobile Medicine/DataViewPortrait.swift"
+            timestampString = "452404648.037215"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
+            landmarkName = "prepareForSegue(_:sender:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobile Medicine/DataViewPortrait.swift"
+            timestampString = "452404648.037215"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
+            landmarkName = "prepareForSegue(_:sender:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

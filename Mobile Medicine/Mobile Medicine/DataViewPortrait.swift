@@ -26,10 +26,6 @@ class DataViewPortrait: UIViewController {
     var insertData:NSMutableOrderedSet = []
     var appDel:AppDelegate!
     
-    
-
-
-    
     //The variables we will record data to
     var startDate: NSDate!
     var dataName : String = ""
@@ -37,7 +33,6 @@ class DataViewPortrait: UIViewController {
     var recording: Bool = false
     //temp for testing
     var count:Int = 0
-
     
     convenience init(){
         self.init()
@@ -206,8 +201,16 @@ class DataViewPortrait: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier == "DataToCal"){
+            // Notification center will detect when you rotate to landscape view and will call
+            // a segue to DataLandscape
             let notificationCenter = NSNotificationCenter.defaultCenter()
             notificationCenter.removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
+        } else if(segue.identifier == "DataToLandscape") {
+            var destinationView:DataViewLandscape = segue.destinationViewController as! DataViewLandscape;
+            destinationView.startDate = self.startDate;
+            destinationView.dataName = self.dataName;
+            destinationView.graphData = self.dataArray;
+            destinationView.recording = self.recording;
         }
     }
     

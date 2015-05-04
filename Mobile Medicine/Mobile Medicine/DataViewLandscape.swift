@@ -12,12 +12,19 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
     let _headerHeight:CGFloat = 80
     let _footerHeight:CGFloat = 40
     let _padding:CGFloat = 10
-    let graphData:[CGFloat] = [37,89,48,95,54,50,46,31,77,40,61,58];
+    //let graphData:[CGFloat] = [37,89,48,95,54,50,46,31,77,40,61,58];
     let chartHeaderView = ChartHeaderView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     let _tooltipView = ChartTooltipView();
     let _tooltipTipView = ChartTooltipTipView();
-
-
+    
+    // Variables to be set from the segue DataToLandscape
+    // internal is an access specifier that is somewhere in between public and private
+    // used so the Portrait View Controller can set that vars
+    internal var startDate: NSDate!
+    internal var dataName : String = ""
+    internal var graphData: [Double] = []
+    internal var recording: Bool = false
+    
     override func shouldAutorotate() -> Bool {
         return false
     }
@@ -80,7 +87,7 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
     }
     
     func lineChartView(lineChartView: JBLineChartView!, verticalValueForHorizontalIndex horizontalIndex: UInt, atLineIndex lineIndex: UInt) -> CGFloat {
-        return graphData[Int(horizontalIndex)];
+        return CGFloat(graphData[Int(horizontalIndex)]);
     }
     
     func lineChartView(lineChartView: JBLineChartView!, colorForLineAtLineIndex lineIndex: UInt) -> UIColor! {
@@ -130,7 +137,7 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
         let formatter = NSNumberFormatter();
         formatter.maximumSignificantDigits = 2;
         formatter.minimumSignificantDigits = 2;
-        let currentValue:CGFloat = graphData[Int(horizontalIndex)];
+        let currentValue:CGFloat = CGFloat(graphData[Int(horizontalIndex)]);
         let string = formatter.stringFromNumber(currentValue) ?? "0.00";
         _tooltipView.setText(string);
         
