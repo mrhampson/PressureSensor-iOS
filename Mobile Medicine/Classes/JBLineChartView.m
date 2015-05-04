@@ -900,9 +900,9 @@ static UIColor *kJBLineChartViewDefaultDotSelectionColor = nil;
     for (JBLineChartPoint *lineChartPoint in lineData)
     {
         BOOL clamped = (indexClamp == JBLineChartHorizontalIndexClampNone) ? YES : (indexClamp == JBLineChartHorizontalIndexClampLeft) ? (point.x - lineChartPoint.position.x >= 0) : (point.x - lineChartPoint.position.x <= 0);
-        if ((abs(point.x - lineChartPoint.position.x)) < currentDistance && clamped == YES)
+        if ((fabsf(point.x - lineChartPoint.position.x)) < currentDistance && clamped == YES)
         {
-            currentDistance = (abs(point.x - lineChartPoint.position.x));
+            currentDistance = (fabsf(point.x - lineChartPoint.position.x));
             selectedIndex = index;
         }
         index++;
@@ -968,7 +968,7 @@ static UIColor *kJBLineChartViewDefaultDotSelectionColor = nil;
             // Insersection point
             CGPoint interesectionPoint = CGPointMake(normalizedTouchPoint.x, (lineSlope * (normalizedTouchPoint.x - leftPoint.x)) + leftPoint.y);
 
-            CGFloat currentDistance = abs(interesectionPoint.y - normalizedTouchPoint.y);
+            CGFloat currentDistance = fabsf(interesectionPoint.y - normalizedTouchPoint.y);
             if (currentDistance < shortestDistance)
             {
                 shortestDistance = currentDistance;

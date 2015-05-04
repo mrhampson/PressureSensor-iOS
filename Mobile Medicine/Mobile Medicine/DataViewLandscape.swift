@@ -17,6 +17,7 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
     let _tooltipView = ChartTooltipView();
     let _tooltipTipView = ChartTooltipTipView();
 
+    //var graphData:[CGFloat] = []
 
     override func shouldAutorotate() -> Bool {
         return false
@@ -40,6 +41,9 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
                                 UIScreen.mainScreen().applicationFrame.width);
                                 lineChartView.reloadData();
         self.view.addSubview(lineChartView);
+        
+        //let model = (self.tabBarController as! CustomTabBarController).model
+        //graphData = model.tempArray
         
         chartHeaderView.frame =  CGRectMake(_padding,ceil(self.view.bounds.size.height * 0.5) - ceil(_headerHeight * 0.5),self.view.bounds.width - _padding*2, _headerHeight);
         chartHeaderView.titleLabel.text = "Temperature vs Time";
