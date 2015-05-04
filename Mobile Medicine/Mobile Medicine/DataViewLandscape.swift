@@ -33,19 +33,18 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
         return Int(UIInterfaceOrientationMask.Landscape.rawValue)
     }
     
+    @IBAction func StartStopButtonAction(sender: AnyObject) {
+        println("Start/Stop button pressed");
+    }
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad();
         
         let lineChartView = JBLineChartView();
         lineChartView.dataSource = self;
         lineChartView.delegate = self;
         lineChartView.backgroundColor = UIColor.whiteColor();
-        lineChartView.frame = CGRectMake(
-                                0,
-                                0,
-                                UIScreen.mainScreen().applicationFrame.height,
-                                UIScreen.mainScreen().applicationFrame.width);
-                                lineChartView.reloadData();
+        lineChartView.frame = CGRectMake(0, 44, self.view.frame.height, self.view.frame.width-44);
+        lineChartView.reloadData();
         self.view.addSubview(lineChartView);
         
         chartHeaderView.frame =  CGRectMake(_padding,ceil(self.view.bounds.size.height * 0.5) - ceil(_headerHeight * 0.5),self.view.bounds.width - _padding*2, _headerHeight);
