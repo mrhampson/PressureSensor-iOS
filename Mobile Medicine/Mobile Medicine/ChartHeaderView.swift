@@ -49,6 +49,7 @@ class ChartHeaderView: UIView {
         self.addSubview(_separatorView)
         
     }
+
     /* Causing Errors w/XCode
     func setSeparatorColor(separatorColor:UIColor) {
         self.separatorColor = separatorColor

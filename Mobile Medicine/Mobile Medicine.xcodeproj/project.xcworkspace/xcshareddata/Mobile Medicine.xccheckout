@@ -7,25 +7,21 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>049384E1-7ABB-47AA-AC8F-F2FA80CC090D</string>
 	<key>IDESourceControlProjectName</key>
-	<string>Mobile Medicine</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>A31C04743691FEA62971CC16ED36133B28095C3F</key>
-		<string>github.com:Jawbone/JBChartView.git</string>
 		<key>C2A95ABA1C6B55A2FEBEE520E2BECC9102874FF5</key>
-		<string>github.com:mrhampson/PressureSensor-iOS.git</string>
+		<string>https://github.com/mrhampson/PressureSensor-iOS.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Mobile Medicine/Mobile Medicine.xcodeproj</string>
+	<string>Mobile Medicine/Mobile Medicine.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>A31C04743691FEA62971CC16ED36133B28095C3F</key>
-		<string>../../../../JBChartViewDemo/JBChartView</string>
 		<key>C2A95ABA1C6B55A2FEBEE520E2BECC9102874FF5</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>github.com:mrhampson/PressureSensor-iOS.git</string>
+	<string>https://github.com/mrhampson/PressureSensor-iOS.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
@@ -36,17 +32,9 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>A31C04743691FEA62971CC16ED36133B28095C3F</string>
-			<key>IDESourceControlWCCName</key>
-			<string>JBChartView</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>C2A95ABA1C6B55A2FEBEE520E2BECC9102874FF5</string>
 			<key>IDESourceControlWCCName</key>
-			<string>PressureSensoriOS</string>
+			<string>PressureSensor-iOS</string>
 		</dict>
 	</array>
 </dict>

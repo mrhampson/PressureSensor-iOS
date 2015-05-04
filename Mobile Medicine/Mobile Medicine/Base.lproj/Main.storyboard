@@ -17,21 +17,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Launch Screen" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PET-rd-WcH">
-                                <rect key="frame" x="102" y="273" width="116" height="22"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LMU-80-546">
-                                <rect key="frame" x="129" y="293" width="62" height="30"/>
-                                <state key="normal" title="Calendar">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="BNd-by-KvD" kind="modal" identifier="IntroToCal" id="rUq-q5-Kwg"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0UT-PR-ELO">
                                 <rect key="frame" x="136" y="318" width="48" height="30"/>
                                 <state key="normal" title="Collect">
@@ -42,14 +27,20 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ped-dr-P1x">
-                                <rect key="frame" x="102" y="356" width="116" height="30"/>
-                                <state key="normal" title="Good Calendar">
+                                <rect key="frame" x="102" y="295" width="116" height="30"/>
+                                <state key="normal" title="Calendar">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <segue destination="SCf-yV-Wtv" kind="modal" id="zYb-pw-p1d"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Launch Screen" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PET-rd-WcH">
+                                <rect key="frame" x="102" y="273" width="116" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -57,45 +48,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="169" y="410"/>
-        </scene>
-        <!--Calendar View Portrait-->
-        <scene sceneID="i92-J1-N7S">
-            <objects>
-                <viewController id="BNd-by-KvD" customClass="CalendarViewPortrait" customModule="Mobile_Medicine" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="RaZ-lJ-hL4"/>
-                        <viewControllerLayoutGuide type="bottom" id="3hr-f8-68K"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ARG-RQ-fs8">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Calendar Portrait" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n42-gx-2Xl">
-                                <rect key="frame" x="94" y="77" width="132" height="22"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h5s-AW-0bY">
-                                <rect key="frame" x="194" y="34" width="32" height="30"/>
-                                <state key="normal" title="Data">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="MNO-fU-UIO" kind="modal" identifier="CalToData" id="D0b-ab-zFL"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-                    <connections>
-                        <segue destination="hpa-g9-60e" kind="modal" identifier="CalToLandscape" id="NqY-cQ-3Hu"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eIt-Sa-1CM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="472.80000000000001" y="1108.3099999999999"/>
         </scene>
         <!--Data View Portrait-->
         <scene sceneID="DaL-bM-svG">
@@ -115,13 +67,17 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gUa-rx-SXP">
+                                <rect key="frame" x="137" y="248" width="46" height="30"/>
+                                <state key="normal" title="Start"/>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tXO-6q-vwA">
-                                <rect key="frame" x="215" y="20" width="62" height="30"/>
-                                <state key="normal" title="Calendar">
+                                <rect key="frame" x="11" y="20" width="41" height="30"/>
+                                <state key="normal" title="Home">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="BNd-by-KvD" kind="modal" identifier="DataToCal" id="ojC-mO-BKA"/>
+                                    <segue destination="vXZ-lx-hvc" kind="modal" id="osl-Zn-Gfz"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -134,7 +90,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bNa-mv-hbi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-40" y="1108.3099999999999"/>
+            <point key="canvasLocation" x="-40" y="1108"/>
         </scene>
         <!--Data View Landscape-->
         <scene sceneID="QnQ-JO-w2P">
@@ -167,37 +123,6 @@
             </objects>
             <point key="canvasLocation" x="-213.5" y="1737.5"/>
         </scene>
-        <!--Calendar View Landscape-->
-        <scene sceneID="xrc-UV-aWT">
-            <objects>
-                <viewController id="hpa-g9-60e" customClass="CalendarViewLandscape" customModule="Mobile_Medicine" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="bBw-ea-upV"/>
-                        <viewControllerLayoutGuide type="bottom" id="dhf-BJ-7kQ"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="WCM-Vh-qG0">
-                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Calendar Landscape" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VQ1-f1-kyV">
-                                <rect key="frame" x="254" y="177" width="159" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                    <connections>
-                        <segue destination="BNd-by-KvD" kind="modal" identifier="CalToPortrait" id="PwP-4X-JIB"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lC9-P7-CPS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="690.5" y="1737.5"/>
-        </scene>
         <!--View Controller-->
         <scene sceneID="lGt-dS-av3">
             <objects>
@@ -210,9 +135,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="January, 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gmw-da-73o">
-                                <rect key="frame" x="97" y="28" width="127" height="24"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="January, 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gmw-da-73o">
+                                <rect key="frame" x="108" y="28" width="105" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -261,17 +186,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sul-eX-0uK">
-                                <rect key="frame" x="16" y="25" width="38" height="30"/>
-                                <state key="normal" title="Week">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="toWeekView:" destination="SCf-yV-Wtv" eventType="touchUpInside" id="Mh5-Yy-e45"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hY5-x8-J4m">
-                                <rect key="frame" x="62" y="25" width="44" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hY5-x8-J4m">
+                                <rect key="frame" x="54" y="26" width="46" height="30"/>
                                 <state key="normal" title="Month">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -295,6 +211,24 @@
                                 </state>
                                 <connections>
                                     <action selector="loadPrevious:" destination="SCf-yV-Wtv" eventType="touchUpInside" id="vYQ-U4-9tM"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Hx-zV-did">
+                                <rect key="frame" x="231" y="25" width="41" height="30"/>
+                                <state key="normal" title="Home">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="vXZ-lx-hvc" kind="modal" id="e3t-eC-EVf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sul-eX-0uK">
+                                <rect key="frame" x="16" y="26" width="38" height="30"/>
+                                <state key="normal" title="Week">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="toWeekView:" destination="SCf-yV-Wtv" eventType="touchUpInside" id="Mh5-Yy-e45"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -334,41 +268,76 @@
                         <outlet property="daysOutSwitch" destination="aRF-KO-Y6a" id="T0Z-7Z-1ke"/>
                         <outlet property="menuView" destination="yC2-rr-OQm" id="SN2-kl-tEH"/>
                         <outlet property="monthLabel" destination="Gmw-da-73o" id="Uee-Z2-otn"/>
-                        <segue destination="aMv-3b-0GB" kind="modal" identifier="calendarToData" id="pgB-FV-r6i"/>
+                        <segue destination="sL0-fH-b69" kind="modal" identifier="calendarToData" id="aE5-Y3-ev1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2k5-ka-2B7" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="630" y="401"/>
+            <point key="canvasLocation" x="382" y="1108"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="WLE-lt-iu7">
+        <!--dayDataView-->
+        <scene sceneID="xJ8-vP-Eb4">
             <objects>
-                <viewController id="aMv-3b-0GB" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="WiC-Tg-uLa"/>
-                        <viewControllerLayoutGuide type="bottom" id="MrC-I2-3Bi"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Vvm-fr-cCe">
+                <tableViewController title="dayDataView" id="sL0-fH-b69" customClass="dayDataViewTable" customModule="Mobile_Medicine" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="kBe-SU-OnO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <button key="tableHeaderView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="XWL-2i-xdd">
+                            <rect key="frame" x="-23" y="-15" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Back">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <segue destination="SCf-yV-Wtv" kind="modal" id="e3d-xx-GRF"/>
+                            </connections>
+                        </button>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="m3z-kK-jxG">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m3z-kK-jxG" id="nYt-WQ-euK">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="sL0-fH-b69" id="Hq5-zE-j5N"/>
+                            <outlet property="delegate" destination="sL0-fH-b69" id="P76-pQ-sRq"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ud5-Dd-xpf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="765" y="1108"/>
+        </scene>
+        <!--Data View Landscape-->
+        <scene sceneID="hfX-rn-Nui">
+            <objects>
+                <viewController storyboardIdentifier="dayDataViewGraph" id="cFy-YF-6fY" customClass="DataViewLandscape" customModule="Mobile_Medicine" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZzU-nF-g1B"/>
+                        <viewControllerLayoutGuide type="bottom" id="Jgu-i3-hrr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CcS-Q0-zHR">
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ImI-ht-YbR">
-                                <rect key="frame" x="16" y="20" width="35" height="30"/>
-                                <state key="normal" title="Back">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="SCf-yV-Wtv" kind="modal" id="0mi-mw-CwW"/>
-                                </connections>
-                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Day Data View Graph" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="byF-B2-H0j">
+                                <rect key="frame" x="230" y="177" width="164" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8d8-QI-f8e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s2O-xa-BUm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1145" y="380"/>
+            <point key="canvasLocation" x="1415.5" y="1057.5"/>
         </scene>
     </scenes>
     <resources>
@@ -380,8 +349,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="rUq-q5-Kwg"/>
-        <segue reference="D0b-ab-zFL"/>
-        <segue reference="0mi-mw-CwW"/>
+        <segue reference="L6A-UZ-wcd"/>
+        <segue reference="e3t-eC-EVf"/>
+        <segue reference="e3d-xx-GRF"/>
     </inferredMetricsTieBreakers>
 </document>

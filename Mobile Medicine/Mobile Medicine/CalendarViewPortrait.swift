@@ -9,6 +9,9 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    var date:CVDate!
+
     // MARK: - Properties
     @IBOutlet weak var calendarView: CVCalendarView!
     @IBOutlet weak var menuView: CVCalendarMenuView!
@@ -50,10 +53,19 @@ extension ViewController: CVCalendarViewDelegate {
     }
     
     func didSelectDayView(dayView: CVCalendarDayView) {
-        let date = dayView.date
+        date = dayView.date
         println("\(calendarView.presentedDate.commonDescription) is selected!")
+        
         self.performSegueWithIdentifier("calendarToData", sender: nil)
-    } // this shit right hurr
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
+        if segue.identifier == "calendarToData" {
+            var destinationView:dayDataViewTable = segue.destinationViewController as! dayDataViewTable
+            destinationView.date = date
+    
+        }
+    }
     
     func presentedDateUpdated(date: CVDate) {
         if monthLabel.text != date.globalDescription && self.animationFinished {
