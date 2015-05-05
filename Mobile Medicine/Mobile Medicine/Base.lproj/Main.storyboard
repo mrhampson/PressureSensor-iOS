@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Intro View Controller-->
@@ -142,13 +143,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Data Collection Landscape" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9R-Tq-3Ne">
-                                <rect key="frame" x="230" y="177" width="207" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a1Y-IZ-inE">
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1Y-IZ-inE">
                                 <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
                                 <items>
                                     <navigationItem title="Graph" id="hqf-WP-obV">
@@ -160,8 +155,21 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data Collection Landscape" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9R-Tq-3Ne">
+                                <rect key="frame" x="230" y="177" width="207" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="a1Y-IZ-inE" secondAttribute="trailing" constant="-16" id="3nb-pr-T7e"/>
+                            <constraint firstAttribute="centerY" secondItem="C9R-Tq-3Ne" secondAttribute="centerY" id="5zw-VP-LaK"/>
+                            <constraint firstItem="a1Y-IZ-inE" firstAttribute="leading" secondItem="Wjd-im-XNz" secondAttribute="leadingMargin" constant="-16" id="RyD-wt-9fl"/>
+                            <constraint firstItem="a1Y-IZ-inE" firstAttribute="top" secondItem="Wjd-im-XNz" secondAttribute="topMargin" id="ZDu-29-qPN"/>
+                            <constraint firstAttribute="centerX" secondItem="C9R-Tq-3Ne" secondAttribute="centerX" id="ilY-N1-cdL"/>
+                        </constraints>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>

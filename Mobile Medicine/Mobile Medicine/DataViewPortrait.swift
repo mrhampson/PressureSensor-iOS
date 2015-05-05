@@ -27,10 +27,10 @@ class DataViewPortrait: UIViewController {
     var appDel:AppDelegate!
     
     //The variables we will record data to
-    var startDate: NSDate!
-    var dataName : String = ""
-    var dataArray: [Double] = []
-    var recording: Bool = false
+    internal var startDate: NSDate!
+    internal var dataName : String = ""
+    internal var dataArray: [Double] = []
+    internal var recording: Bool = false
     //temp for testing
     var count:Int = 0
     
@@ -116,7 +116,7 @@ class DataViewPortrait: UIViewController {
     {
         let btn:UIButton = sender
         let title = btn.titleLabel?.text
-        if (title == "Start")
+        if (!recording)
         {
             //Start
             startDate = NSDate()
@@ -148,9 +148,11 @@ class DataViewPortrait: UIViewController {
         }
         else
         {
+            println("Portrait stopping")
             //Stop
             recording = false
             //Save data to NSData here
+            println("landscape date")
             println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
             insertDataInfo.setValue(startDate, forKey: "rDate")
             println(dataArray)
@@ -209,7 +211,9 @@ class DataViewPortrait: UIViewController {
             var destinationView:DataViewLandscape = segue.destinationViewController as! DataViewLandscape;
             destinationView.startDate = self.startDate;
             destinationView.dataName = self.dataName;
-            destinationView.graphData = self.dataArray;
+            if self.dataArray != []{
+                destinationView.graphData = self.dataArray;
+            }
             destinationView.recording = self.recording;
         }
     }
@@ -223,7 +227,7 @@ class DataViewPortrait: UIViewController {
         
         let saveAction = UIAlertAction(title: "Save",
             style: .Default) { (action: UIAlertAction!) -> Void in
-                
+                println("saving")
                 let textField = alert.textFields![0] as! UITextField
                 self.dataName = textField.text
                 self.insertDataInfo.setValue(self.dataName, forKey: "rName")
