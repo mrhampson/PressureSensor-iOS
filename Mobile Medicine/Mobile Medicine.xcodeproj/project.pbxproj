@@ -23,6 +23,9 @@
 		655885571ADF8D2300B29F61 /* ChartHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655885561ADF8D2300B29F61 /* ChartHeaderView.swift */; };
 		655885591ADFA23F00B29F61 /* ChartTooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655885581ADFA23F00B29F61 /* ChartTooltipView.swift */; };
 		6558855B1ADFA25D00B29F61 /* ChartTooltipTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6558855A1ADFA25D00B29F61 /* ChartTooltipTipView.swift */; };
+		9B09EEB31AF84CB7001B68BA /* SensorTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09EEB21AF84CB7001B68BA /* SensorTag.swift */; };
+		9B09EEB51AF86C9A001B68BA /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09EEB41AF86C9A001B68BA /* CustomTabBarController.swift */; };
+		9B09EEB71AF88553001B68BA /* SensorTagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09EEB61AF88553001B68BA /* SensorTagTableViewCell.swift */; };
 		A01228C51AF1FD060030D369 /* RecordData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01228C41AF1FD060030D369 /* RecordData.swift */; };
 		A01228C71AF1FD070030D369 /* RecordInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01228C61AF1FD070030D369 /* RecordInfo.swift */; };
 		A0192ED21AE47E2500A589C6 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A0192ED01AE47E2500A589C6 /* DataModel.xcdatamodeld */; };
@@ -91,6 +94,9 @@
 		655885561ADF8D2300B29F61 /* ChartHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartHeaderView.swift; sourceTree = "<group>"; };
 		655885581ADFA23F00B29F61 /* ChartTooltipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartTooltipView.swift; sourceTree = "<group>"; };
 		6558855A1ADFA25D00B29F61 /* ChartTooltipTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartTooltipTipView.swift; sourceTree = "<group>"; };
+		9B09EEB21AF84CB7001B68BA /* SensorTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorTag.swift; sourceTree = "<group>"; };
+		9B09EEB41AF86C9A001B68BA /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		9B09EEB61AF88553001B68BA /* SensorTagTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorTagTableViewCell.swift; sourceTree = "<group>"; };
 		A01228C41AF1FD060030D369 /* RecordData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordData.swift; sourceTree = "<group>"; };
 		A01228C61AF1FD070030D369 /* RecordInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordInfo.swift; sourceTree = "<group>"; };
 		A0192ED11AE47E2500A589C6 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -185,6 +191,9 @@
 				655885581ADFA23F00B29F61 /* ChartTooltipView.swift */,
 				6558855A1ADFA25D00B29F61 /* ChartTooltipTipView.swift */,
 				E15791441AF734BE0072B86A /* dayDataViewTable.swift */,
+				9B09EEB21AF84CB7001B68BA /* SensorTag.swift */,
+				9B09EEB41AF86C9A001B68BA /* CustomTabBarController.swift */,
+				9B09EEB61AF88553001B68BA /* SensorTagTableViewCell.swift */,
 			);
 			path = "Mobile Medicine";
 			sourceTree = "<group>";
@@ -422,6 +431,7 @@
 				E1E99BA01AF5942100550C4B /* CVCalendarContentViewController.swift in Sources */,
 				A01228C51AF1FD060030D369 /* RecordData.swift in Sources */,
 				655885541ADF8BDE00B29F61 /* JBLineChartView.m in Sources */,
+				9B09EEB71AF88553001B68BA /* SensorTagTableViewCell.swift in Sources */,
 				655885571ADF8D2300B29F61 /* ChartHeaderView.swift in Sources */,
 				E1E99BA61AF594C000550C4B /* CVCalendarView.swift in Sources */,
 				E1E99BC81AF5980A00550C4B /* CVRange.swift in Sources */,
@@ -451,12 +461,14 @@
 				E1E99BB41AF5963A00550C4B /* CVCalendarTouchController.swift in Sources */,
 				E1E99BB01AF595E900550C4B /* CVAuxiliaryView.swift in Sources */,
 				A0192ED21AE47E2500A589C6 /* DataModel.xcdatamodeld in Sources */,
+				9B09EEB51AF86C9A001B68BA /* CustomTabBarController.swift in Sources */,
 				E1E99BA81AF594DF00550C4B /* CVCalendarMenuView.swift in Sources */,
 				6526FBB31ACF7345007AAB8B /* DataViewLandscape.swift in Sources */,
 				E1E99BAA1AF5958C00550C4B /* CVCalendarMonthView.swift in Sources */,
 				E1E99BBE1AF5972C00550C4B /* CVSet.swift in Sources */,
 				6526FBB51ACF736B007AAB8B /* CalendarViewLandscape.swift in Sources */,
 				6526FB911ACF6FC7007AAB8B /* AppDelegate.swift in Sources */,
+				9B09EEB31AF84CB7001B68BA /* SensorTag.swift in Sources */,
 				E1E99BC41AF597A700550C4B /* CVCalendarViewAnimatorDelegate.swift in Sources */,
 				E1E99BAC1AF595B200550C4B /* CVCalendarWeekView.swift in Sources */,
 				E1E99BD21AF5989400550C4B /* CVCalendarViewPresentationMode.swift in Sources */,
