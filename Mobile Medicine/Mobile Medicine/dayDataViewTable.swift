@@ -74,7 +74,7 @@ class dayDataViewTable: UITableViewController {
                         if !result.isEqual(nil)
                         {
                             tableElements.append(result)
-                            println("Appended value")
+                            //println("Appended value")
                         }
                         /*for data in dataArray
                         {
