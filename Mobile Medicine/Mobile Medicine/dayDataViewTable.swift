@@ -19,6 +19,8 @@ class dayDataViewTable: UITableViewController {
     var insertData:NSMutableOrderedSet = []
     var appDel:AppDelegate!
     var tableElements: [NSManagedObject]! = []
+    //var dataToPass: [Double]! = []
+    var selectedIndex: NSIndexPath!
     
     convenience init()
     {
@@ -66,18 +68,18 @@ class dayDataViewTable: UITableViewController {
                     let prev = cDay!.dateByAddingTimeInterval( (-24 * 60 * 60 - 8*60*60))
                     if rDay?.earlierDate(next) == rDay && rDay?.laterDate(prev) == rDay
                     {
-                        println(result.valueForKey("rName"))
-                        println(result.valueForKey("rDate"))
+                        //println(result.valueForKey("rName"))
+                        //println(result.valueForKey("rDate"))
                         let dataArray = (result.valueForKey("dataRelation")) as! NSOrderedSet
                         if !result.isEqual(nil)
                         {
                             tableElements.append(result)
                             println("Appended value")
                         }
-                        for data in dataArray
+                        /*for data in dataArray
                         {
                             print(data.valueForKey("rData"), " ")
-                        }
+                        }*/
                     }
                     println()
                 }
@@ -87,6 +89,8 @@ class dayDataViewTable: UITableViewController {
         tableView.reloadData()
         // Do view setup here.
     }
+    
+    
     
     override func tableView(tableView: UITableView,
         numberOfRowsInSection section: Int) -> Int {
@@ -113,5 +117,29 @@ class dayDataViewTable: UITableViewController {
             
             return cell
     }
+
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        selectedIndex = indexPath
+        self.performSegueWithIdentifier("dayDataViewToGraph", sender: self)
+    }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "dayDataViewToGraph") {
+            var graphView:DataViewLandscape = segue.destinationViewController as! DataViewLandscape
+            graphView.dataName = tableElements[selectedIndex.row].valueForKey("rName") as! String
+            let data = (tableElements[selectedIndex.row].valueForKey("dataRelation")) as! NSOrderedSet
+            graphView.graphData = arrayHelper(data)
+
+        }
+    }
+    func arrayHelper(orderedSet: NSOrderedSet) -> [Double]
+    {
+        var output: [Double] = []
+        for data in orderedSet
+        {
+            output.append(Double(data.valueForKey("rData") as! NSNumber ))
+            println(data.valueForKey("rData"))
+        }
+        return(output)
+    }
 }

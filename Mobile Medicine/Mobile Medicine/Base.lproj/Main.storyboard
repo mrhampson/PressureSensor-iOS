@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
@@ -59,7 +58,7 @@
                         <viewControllerLayoutGuide type="bottom" id="FYR-a6-Ro8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="NIl-ai-9k0">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Data Collection Portrait" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e9F-W3-mgH">
@@ -105,13 +104,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Data Collection Landscape" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9R-Tq-3Ne">
-                                <rect key="frame" x="230" y="177" width="207" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a1Y-IZ-inE">
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1Y-IZ-inE">
                                 <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
                                 <items>
                                     <navigationItem title="Graph" id="hqf-WP-obV">
@@ -123,8 +116,21 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data Collection Landscape" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9R-Tq-3Ne">
+                                <rect key="frame" x="230" y="177" width="207" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="a1Y-IZ-inE" firstAttribute="leading" secondItem="Wjd-im-XNz" secondAttribute="leadingMargin" constant="-16" id="CiC-IU-3Z5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="a1Y-IZ-inE" secondAttribute="trailing" constant="-16" id="I5z-he-xzx"/>
+                            <constraint firstAttribute="centerX" secondItem="C9R-Tq-3Ne" secondAttribute="centerX" id="Qsm-pB-MiV"/>
+                            <constraint firstItem="a1Y-IZ-inE" firstAttribute="top" secondItem="Wjd-im-XNz" secondAttribute="topMargin" id="fNq-Vz-EFZ"/>
+                            <constraint firstAttribute="centerY" secondItem="C9R-Tq-3Ne" secondAttribute="centerY" id="sAt-Bc-j8B"/>
+                        </constraints>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -319,38 +325,47 @@
                             <outlet property="delegate" destination="sL0-fH-b69" id="P76-pQ-sRq"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="gs6-Ko-TMW" kind="modal" identifier="dayDataViewToGraph" id="XbD-vJ-O42"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ud5-Dd-xpf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="765" y="1108"/>
         </scene>
         <!--Data View Landscape-->
-        <scene sceneID="hfX-rn-Nui">
+        <scene sceneID="jSU-aU-6tP">
             <objects>
-                <viewController storyboardIdentifier="dayDataViewGraph" id="cFy-YF-6fY" customClass="DataViewLandscape" customModule="Mobile_Medicine" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="gs6-Ko-TMW" customClass="DataViewLandscape" customModule="Mobile_Medicine" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ZzU-nF-g1B"/>
-                        <viewControllerLayoutGuide type="bottom" id="Jgu-i3-hrr"/>
+                        <viewControllerLayoutGuide type="top" id="Pjj-VO-0hR"/>
+                        <viewControllerLayoutGuide type="bottom" id="RvT-zX-QbU"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="CcS-Q0-zHR">
+                    <view key="view" contentMode="scaleToFill" id="xNa-Un-KYx">
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Day Data View Graph" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="byF-B2-H0j">
-                                <rect key="frame" x="230" y="177" width="164" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Data Collection Landscape" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yLw-UR-SLb">
+                                <rect key="frame" x="230" y="177" width="207" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tKd-hr-v8Z">
+                                <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
+                                <items>
+                                    <navigationItem title="Graph" id="oRX-zg-oSD"/>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="s2O-xa-BUm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q49-bW-3us" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1415.5" y="1057.5"/>
+            <point key="canvasLocation" x="1408.5" y="1011.5"/>
         </scene>
     </scenes>
     <resources>
@@ -362,8 +377,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="L6A-UZ-wcd"/>
         <segue reference="e3t-eC-EVf"/>
         <segue reference="e3d-xx-GRF"/>
+        <segue reference="xFT-zJ-vg4"/>
     </inferredMetricsTieBreakers>
 </document>
