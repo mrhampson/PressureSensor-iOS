@@ -8,8 +8,9 @@
 
 import UIKit
 import CoreData
+import CoreBluetooth
 
-class DataViewPortrait: UIViewController {
+class DataViewPortrait: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, UITableViewDelegate{
     
     //UI info
     var titleLabel : UILabel!
@@ -33,6 +34,23 @@ class DataViewPortrait: UIViewController {
     var recording: Bool = false
     //temp for testing
     var count:Int = 0
+    
+    
+    //BLUETOOTH STUFF
+    // BLE
+    var centralManager : CBCentralManager!
+    var sensorTagPeripheral : CBPeripheral!
+    
+    // Table View
+    var sensorTagTableView : UITableView!
+    
+    // Sensor Values
+    var allSensorLabels : [String] = []
+    var allSensorValues : [Double] = []
+    var ambientTemperature : Double = 0.0
+    
+    //var runCheck : Bool = false
+    
     
     convenience init(){
         self.init()
@@ -73,6 +91,8 @@ class DataViewPortrait: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        centralManager = CBCentralManager(delegate: self, queue: nil)
+        
         // Set up title label
         titleLabel = UILabel()
         titleLabel.text = "Mobile Medicine"
@@ -110,6 +130,14 @@ class DataViewPortrait: UIViewController {
         
         //start timer at 20Hz
         timer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("recordData"), userInfo: nil, repeats: true)
+        
+        //BLUETOOTH STUFF
+        
+        // Initialize all sensor values and labels
+        allSensorLabels = SensorTag.getSensorLabels()
+        for (var i=0; i<allSensorLabels.count; i++) {
+            allSensorValues.append(0)
+        }
     }
     
     func buttonAction(sender:UIButton!)
@@ -205,10 +233,13 @@ class DataViewPortrait: UIViewController {
             // a segue to DataLandscape
             let notificationCenter = NSNotificationCenter.defaultCenter()
             notificationCenter.removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
-        } else if(segue.identifier == "DataToLandscape") {
+        } else if(segue.identifier == "DataToLandscape" && self.dataArray.count != 0 ) {
             var destinationView:DataViewLandscape = segue.destinationViewController as! DataViewLandscape;
             destinationView.startDate = self.startDate;
             destinationView.dataName = self.dataName;
+            for stuff in dataArray{
+                print(stuff)
+            }
             destinationView.graphData = self.dataArray;
             destinationView.recording = self.recording;
         }
@@ -254,14 +285,149 @@ class DataViewPortrait: UIViewController {
             animated: true,
             completion: nil)
     }
-
+    
     
     func recordData() {
         if(recording){
             // Call bluetooth here
-            count++
-            dataArray.append(Double(count))
+            
+            
+            
+            //count++
+            //dataArray.append(Double(count))
         }
+    }
+    
+    
+    /******* CBCentralManagerDelegate *******/
+    
+    // Check status of BLE hardware
+    func centralManagerDidUpdateState(central: CBCentralManager!) {
+        if central.state == CBCentralManagerState.PoweredOn {
+            println("CM did update state")
+            // Scan for peripherals if BLE is turned on
+            central.scanForPeripheralsWithServices(nil, options: nil)
+            self.statusLabel.text = "Searching for BLE Devices"
+        }
+        else {
+            // Can have different conditions for all states if needed - show generic alert for now
+            showAlertWithText(header: "Error", message: "Bluetooth switched off or not initialized")
+        }
+    }
+    
+    
+    // Check out the discovered peripherals to find Sensor Tag
+    func centralManager(central: CBCentralManager!, didDiscoverPeripheral peripheral: CBPeripheral!, advertisementData: [NSObject : AnyObject]!, RSSI: NSNumber!) {
+        println("CM 1")
+        
+        if SensorTag.sensorTagFound(advertisementData) == true {
+            
+            // Update Status Label
+            self.statusLabel.text = "Sensor Tag Found"
+            
+            // Stop scanning, set as the peripheral to use and establish connection
+            self.centralManager.stopScan()
+            self.sensorTagPeripheral = peripheral
+            self.sensorTagPeripheral?.delegate = self
+            self.centralManager.connectPeripheral(peripheral, options: nil)
+        }
+        else {
+            self.statusLabel.text = "Sensor Tag NOT Found"
+            //showAlertWithText(header: "Warning", message: "SensorTag Not Found")
+        }
+    }
+    
+    // Discover services of the peripheral
+    func centralManager(central: CBCentralManager!, didConnectPeripheral peripheral: CBPeripheral!) {
+        println("CM 2")
+        
+        self.statusLabel.text = "Discovering peripheral services"
+        peripheral.discoverServices(nil)
+    }
+    
+    
+    // If disconnected, start searching again
+    func centralManager(central: CBCentralManager!, didDisconnectPeripheral peripheral: CBPeripheral!, error: NSError!) {
+        println("CM 3")
+        
+        self.statusLabel.text = "Disconnected"
+        central.scanForPeripheralsWithServices(nil, options: nil)
+        print("looking for shit")
+    }
+    
+    /******* CBCentralPeripheralDelegate *******/
+    
+    // Check if the service discovered is valid i.e. one of the following:
+    // IR Temperature Service
+    // Accelerometer Service
+    // Humidity Service
+    // Magnetometer Service
+    // Barometer Service
+    // Gyroscope Service
+    // (Others are not implemented)
+    func peripheral(peripheral: CBPeripheral!, didDiscoverServices error: NSError!) {
+        self.statusLabel.text = "Looking at peripheral services"
+        for service in peripheral.services {
+            let thisService = service as! CBService
+            if SensorTag.validService(thisService) {
+                // Discover characteristics of all valid services
+                peripheral.discoverCharacteristics(nil, forService: thisService)
+            }
+        }
+    }
+    
+    
+    // Enable notification and sensor for each characteristic of valid service
+    func peripheral(peripheral: CBPeripheral!, didDiscoverCharacteristicsForService service: CBService!, error: NSError!) {
+        println("Peripheral 1")
+        
+        self.statusLabel.text = "Enabling sensors"
+        
+        var enableValue = 1
+        let enablyBytes = NSData(bytes: &enableValue, length: sizeof(UInt8))
+        
+        for charateristic in service.characteristics {
+            let thisCharacteristic = charateristic as! CBCharacteristic
+            if SensorTag.validDataCharacteristic(thisCharacteristic) {
+                // Enable Sensor Notification
+                self.sensorTagPeripheral?.setNotifyValue(true, forCharacteristic: thisCharacteristic)
+            }
+            if SensorTag.validConfigCharacteristic(thisCharacteristic) {
+                // Enable Sensor
+                self.sensorTagPeripheral?.writeValue(enablyBytes, forCharacteristic: thisCharacteristic, type: CBCharacteristicWriteType.WithResponse)
+            }
+        }
+        
+    }
+    
+    
+    // Get data values when they are updated
+    func peripheral(peripheral: CBPeripheral!, didUpdateValueForCharacteristic characteristic: CBCharacteristic!, error: NSError!) {
+        println("Peripheral 2")
+        
+        self.statusLabel.text = "Connected"
+        
+        if characteristic.UUID == IRTemperatureDataUUID {
+            self.ambientTemperature = SensorTag.getAmbientTemperature(characteristic.value)
+            self.allSensorValues[0] = self.ambientTemperature
+            //let model = (self.tabBarController as! CustomTabBarController).model
+            //model.dataArray.append(self.ambientTemperature)
+            if(recording)
+            {
+                dataArray.append(self.ambientTemperature)
+                tempLabel.text = String(format:"%.2f", self.ambientTemperature)
+            }
+//            dataArray.append(self.ambientTemperature)
+//            tempLabel.text = String(format:"%.2f", self.ambientTemperature)
+        }
+    }
+    
+    // Show alert
+    func showAlertWithText (header : String = "Warning", message : String) {
+        var alert = UIAlertController(title: header, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+        alert.view.tintColor = UIColor.redColor()
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     /* Apple example code (in Obj C)
