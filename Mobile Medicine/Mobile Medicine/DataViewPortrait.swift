@@ -228,12 +228,7 @@ class DataViewPortrait: UIViewController, CBCentralManagerDelegate, CBPeripheral
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if(segue.identifier == "DataToCal"){
-            // Notification center will detect when you rotate to landscape view and will call
-            // a segue to DataLandscape
-            let notificationCenter = NSNotificationCenter.defaultCenter()
-            notificationCenter.removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
-        } else if(segue.identifier == "DataToLandscape" && self.dataArray.count != 0 ) {
+        if(segue.identifier == "DataToLandscape" && self.dataArray.count != 0 ) {
             var destinationView:DataViewLandscape = segue.destinationViewController as! DataViewLandscape;
             destinationView.startDate = self.startDate;
             destinationView.dataName = self.dataName;
@@ -242,6 +237,11 @@ class DataViewPortrait: UIViewController, CBCentralManagerDelegate, CBPeripheral
             }
             destinationView.graphData = self.dataArray;
             destinationView.recording = self.recording;
+        }
+        else if segue.identifier != "DataToLandscape"{
+            // No longer want to call segue to DataLandscape
+            let notificationCenter = NSNotificationCenter.defaultCenter()
+            notificationCenter.removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
         }
     }
     
