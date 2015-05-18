@@ -228,15 +228,24 @@ class DataViewPortrait: UIViewController, CBCentralManagerDelegate, CBPeripheral
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if(segue.identifier == "DataToLandscape" && self.dataArray.count != 0 ) {
+        if(segue.identifier == "DataToLandscape" ) {
             var destinationView:DataViewLandscape = segue.destinationViewController as! DataViewLandscape;
-            destinationView.startDate = self.startDate;
-            destinationView.dataName = self.dataName;
-            for stuff in dataArray{
-                print(stuff)
+            destinationView.centralManager = self.centralManager
+            destinationView.sensorTagPeripheral = self.sensorTagPeripheral
+            destinationView.sensorTagTableView = self.sensorTagTableView
+            destinationView.allSensorLabels = self.allSensorLabels
+            destinationView.allSensorValues = self.allSensorValues
+            destinationView.ambientTemperature = self.ambientTemperature
+            
+            if(self.dataArray.count != 0 ){
+                destinationView.startDate = self.startDate;
+                destinationView.dataName = self.dataName;
+                for stuff in dataArray{
+                    print(stuff)
+                }
+                destinationView.graphData = self.dataArray;
+                destinationView.recording = self.recording;
             }
-            destinationView.graphData = self.dataArray;
-            destinationView.recording = self.recording;
         }
         else if segue.identifier != "DataToLandscape"{
             // No longer want to call segue to DataLandscape

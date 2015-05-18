@@ -33,16 +33,16 @@ class DataViewLandscape: UIViewController,CBCentralManagerDelegate, CBPeripheral
     //BLUETOOTH STUFF
     // BLE
     //var cMDelegate : CBCentralManagerDelegate!
-    var centralManager : CBCentralManager!
-    var sensorTagPeripheral : CBPeripheral!
+    internal var centralManager : CBCentralManager!
+    internal var sensorTagPeripheral : CBPeripheral!
     
     // Table View
-    var sensorTagTableView : UITableView!
+    internal var sensorTagTableView : UITableView!
     
     // Sensor Values
-    var allSensorLabels : [String] = []
-    var allSensorValues : [Double] = []
-    var ambientTemperature : Double = 0.0
+    internal var allSensorLabels : [String] = []
+    internal var allSensorValues : [Double] = []
+    internal var ambientTemperature : Double = 0.0
     
     //var runCheck : Bool = false
     
