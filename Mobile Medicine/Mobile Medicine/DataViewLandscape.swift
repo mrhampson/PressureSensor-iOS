@@ -114,10 +114,10 @@ class DataViewLandscape: UIViewController,CBCentralManagerDelegate, CBPeripheral
             //btn.backgroundColor = UIColor.redColor()
             var error: NSError?
             
-            let fetchRequest = NSFetchRequest(entityName:"RecordInfo")
-            let fetchedResults = context.executeFetchRequest(fetchRequest,
-                error: &error) as? [NSManagedObject]
-            if let results = fetchedResults {
+            //let fetchRequest = NSFetchRequest(entityName:"RecordInfo")
+            //let fetchedResults = context.executeFetchRequest(fetchRequest,
+                //error: &error) as? [NSManagedObject]
+           /* if let results = fetchedResults {
                 for result in results{
                     println(result.valueForKey("rName"))
                     println(result.valueForKey("rDate"))
@@ -127,7 +127,7 @@ class DataViewLandscape: UIViewController,CBCentralManagerDelegate, CBPeripheral
                     }
                     println()
                 }
-            }
+            }*/
         }
         else
         {
