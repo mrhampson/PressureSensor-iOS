@@ -81,6 +81,9 @@ class DataViewLandscape: UIViewController,CBCentralManagerDelegate, CBPeripheral
         super.init(coder: aDecoder)
         
     }
+    
+    
+
 
     
     
@@ -206,6 +209,15 @@ class DataViewLandscape: UIViewController,CBCentralManagerDelegate, CBPeripheral
     
     override func viewDidLoad() {
         super.viewDidLoad();
+        
+        centralManager = CBCentralManager(delegate: self, queue: nil)
+        //BLUETOOTH STUFF
+        
+        // Initialize all sensor values and labels
+        allSensorLabels = SensorTag.getSensorLabels()
+        for (var i=0; i<allSensorLabels.count; i++) {
+            allSensorValues.append(0)
+        }
         
         lineChartView = JBLineChartView();
         lineChartView.dataSource = self;
