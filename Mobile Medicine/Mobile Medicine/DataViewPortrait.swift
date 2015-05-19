@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import CoreBluetooth
 
-class DataViewPortrait: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, UITableViewDelegate{
+class DataViewPortrait: UIViewController, UITableViewDelegate{
     
     //UI info
     var titleLabel : UILabel!
@@ -33,9 +33,10 @@ class DataViewPortrait: UIViewController, CBCentralManagerDelegate, CBPeripheral
     var dataArray: [Double] = []
     var recording: Bool = false
     //temp for testing
-    var count:Int = 0
+    var lastTemp : Double = Double.NaN
+    var lastStatus : Int = 0
     
-    
+    /*
     //BLUETOOTH STUFF
     // BLE
     var centralManager : CBCentralManager!
@@ -50,7 +51,7 @@ class DataViewPortrait: UIViewController, CBCentralManagerDelegate, CBPeripheral
     var ambientTemperature : Double = 0.0
     
     //var runCheck : Bool = false
-    
+    */
     
     convenience init(){
         self.init()
@@ -91,7 +92,7 @@ class DataViewPortrait: UIViewController, CBCentralManagerDelegate, CBPeripheral
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        centralManager = CBCentralManager(delegate: self, queue: nil)
+        //centralManager = CBCentralManager(delegate: self, queue: nil)
         
         // Set up title label
         titleLabel = UILabel()
@@ -128,16 +129,16 @@ class DataViewPortrait: UIViewController, CBCentralManagerDelegate, CBPeripheral
         
         self.view.addSubview(button)
         
-        //start timer at 20Hz
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("recordData"), userInfo: nil, repeats: true)
+        //start timer at 20Hz Changed to be 10 HZ since sensor tag operates at 4
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("recordData"), userInfo: nil, repeats: true)
         
         //BLUETOOTH STUFF
         
         // Initialize all sensor values and labels
-        allSensorLabels = SensorTag.getSensorLabels()
+        /*allSensorLabels = SensorTag.getSensorLabels()
         for (var i=0; i<allSensorLabels.count; i++) {
             allSensorValues.append(0)
-        }
+        }*/
     }
     
     func buttonAction(sender:UIButton!)
@@ -149,7 +150,6 @@ class DataViewPortrait: UIViewController, CBCentralManagerDelegate, CBPeripheral
             //Start
             startDate = NSDate()
             recording = true
-            count = 0
             dataArray = []
             dataName = String()
             //creating new objects
@@ -288,19 +288,54 @@ class DataViewPortrait: UIViewController, CBCentralManagerDelegate, CBPeripheral
     
     
     func recordData() {
+        if(appDel.sensorTag.getStatus() != lastStatus){
+            lastStatus = appDel.sensorTag.getStatus()
+            switch(appDel.sensorTag.getStatus()){
+                /*
+                Status Code for the device, used to print the status text on portrait mode
+                0 = loading / haven't scanned
+                1 = searching for device
+                2 = Sesor Tag found
+                -2 = sensor tag not found
+                3 = discovering services
+                4 = looking at peripheral services
+                5 = enabling sensors
+                */
+            case 0:
+                statusLabel.text = "Loading..."
+            case 1:
+                statusLabel.text = "Searching for Device"
+            case 2:
+                statusLabel.text = "SensorTag found"
+            case 3:
+                statusLabel.text = "Discovering Services"
+            case 4:
+                statusLabel.text = "Looking at Peripheral Services"
+            case 5:
+                statusLabel.text = "Enabling Sensors"
+            case 6:
+                statusLabel.text = "Connected"
+            case -1:
+                showAlertWithText(header: "Error", message: "Bluetooth switched off or not initialized")
+            case -2:
+                showAlertWithText(header: "Warning", message: "SensorTag Not Found")
+            default:
+                statusLabel.text = "Unknown"
+            }
+        }
         if(recording){
             // Call bluetooth here
-            
-            
-            
-            //count++
-            //dataArray.append(Double(count))
+            let tmp = Int.min
+            if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN){
+                lastTemp = appDel.sensorTag.getTemp()
+                dataArray.append(lastTemp)
+            }
         }
     }
     
     
-    /******* CBCentralManagerDelegate *******/
-    
+   /******* CBCentralManagerDelegate *******/
+    /*
     // Check status of BLE hardware
     func centralManagerDidUpdateState(central: CBCentralManager!) {
         if central.state == CBCentralManagerState.PoweredOn {
@@ -421,7 +456,7 @@ class DataViewPortrait: UIViewController, CBCentralManagerDelegate, CBPeripheral
 //            tempLabel.text = String(format:"%.2f", self.ambientTemperature)
         }
     }
-    
+    */
     // Show alert
     func showAlertWithText (header : String = "Warning", message : String) {
         var alert = UIAlertController(title: header, message: message, preferredStyle: UIAlertControllerStyle.Alert)
@@ -456,5 +491,6 @@ class DataViewPortrait: UIViewController, CBCentralManagerDelegate, CBPeripheral
         // Pass the selected object to the new view controller.
     }
     */
+
 
 }

@@ -48,6 +48,9 @@ class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         }
         else {
             // Can have different conditions for all states if needed - print generic message for now
+            sensorStatus = -1
+            
+            
             println("Bluetooth switched off or not initialized")
         }
     }
@@ -148,6 +151,16 @@ class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             // Display on the temp label
             //self.tempLabel.text = NSString(format: "%.2f", ambientTemperature)
         }
+    }
+    
+    func getTemp() -> Double{
+        println("Bluetooth: Temp = ", bTemp.description)
+        return bTemp
+    }
+    
+    func getStatus() -> Int{
+        println("BlueTooth: Status = ", sensorStatus.description)
+        return sensorStatus
     }
 
     
