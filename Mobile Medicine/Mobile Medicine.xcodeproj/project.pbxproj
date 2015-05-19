@@ -32,6 +32,8 @@
 		A0192ED61AE4871200A589C6 /* Bluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0192ED51AE4871200A589C6 /* Bluetooth.swift */; };
 		E15791431AF721000072B86A /* dayDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15791421AF721000072B86A /* dayDataView.swift */; };
 		E15791451AF734BE0072B86A /* dayDataViewTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15791441AF734BE0072B86A /* dayDataViewTable.swift */; };
+		E1DCF04D1B0AA0FB00034476 /* ListDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DCF04C1B0AA0FB00034476 /* ListDataView.swift */; };
+		E1DCF04F1B0AEA3C00034476 /* ListDataHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DCF04E1B0AEA3C00034476 /* ListDataHeader.swift */; };
 		E1E99BA01AF5942100550C4B /* CVCalendarContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E99B9F1AF5942100550C4B /* CVCalendarContentViewController.swift */; };
 		E1E99BA21AF5945C00550C4B /* CVCalendarMonthContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E99BA11AF5945C00550C4B /* CVCalendarMonthContentViewController.swift */; };
 		E1E99BA41AF5948A00550C4B /* CVCalendarWeekContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E99BA31AF5948A00550C4B /* CVCalendarWeekContentViewController.swift */; };
@@ -103,6 +105,8 @@
 		A0192ED51AE4871200A589C6 /* Bluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bluetooth.swift; sourceTree = "<group>"; };
 		E15791421AF721000072B86A /* dayDataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dayDataView.swift; sourceTree = "<group>"; };
 		E15791441AF734BE0072B86A /* dayDataViewTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dayDataViewTable.swift; sourceTree = "<group>"; };
+		E1DCF04C1B0AA0FB00034476 /* ListDataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListDataView.swift; sourceTree = "<group>"; };
+		E1DCF04E1B0AEA3C00034476 /* ListDataHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListDataHeader.swift; sourceTree = "<group>"; };
 		E1E99B9F1AF5942100550C4B /* CVCalendarContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVCalendarContentViewController.swift; sourceTree = "<group>"; };
 		E1E99BA11AF5945C00550C4B /* CVCalendarMonthContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVCalendarMonthContentViewController.swift; sourceTree = "<group>"; };
 		E1E99BA31AF5948A00550C4B /* CVCalendarWeekContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVCalendarWeekContentViewController.swift; sourceTree = "<group>"; };
@@ -194,6 +198,8 @@
 				9B09EEB21AF84CB7001B68BA /* SensorTag.swift */,
 				9B09EEB41AF86C9A001B68BA /* CustomTabBarController.swift */,
 				9B09EEB61AF88553001B68BA /* SensorTagTableViewCell.swift */,
+				E1DCF04C1B0AA0FB00034476 /* ListDataView.swift */,
+				E1DCF04E1B0AEA3C00034476 /* ListDataHeader.swift */,
 			);
 			path = "Mobile Medicine";
 			sourceTree = "<group>";
@@ -454,8 +460,10 @@
 				E15791431AF721000072B86A /* dayDataView.swift in Sources */,
 				6526FBB71ACF7390007AAB8B /* CalendarViewPortrait.swift in Sources */,
 				E1E99BC61AF597C200550C4B /* CVCalendarViewAppearanceDelegate.swift in Sources */,
+				E1DCF04F1B0AEA3C00034476 /* ListDataHeader.swift in Sources */,
 				E1E99BC21AF5978300550C4B /* CVCalendarMenuViewDelegate.swift in Sources */,
 				6526FB931ACF6FC7007AAB8B /* IntroViewController.swift in Sources */,
+				E1DCF04D1B0AA0FB00034476 /* ListDataView.swift in Sources */,
 				E1E99BD01AF5987E00550C4B /* CVCalendarWeekday.swift in Sources */,
 				E1E99BB61AF5967700550C4B /* CVCalendarDayViewControlCoordinator.swift in Sources */,
 				E1E99BB41AF5963A00550C4B /* CVCalendarTouchController.swift in Sources */,

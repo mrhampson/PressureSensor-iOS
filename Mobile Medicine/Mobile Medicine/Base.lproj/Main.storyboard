@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -17,30 +17,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0UT-PR-ELO">
-                                <rect key="frame" x="36" y="395" width="248" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="0.15686274510000001" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="tintColor" red="0.78823529410000004" green="0.59215686270000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Collect">
-                                    <color key="titleColor" red="0.78823529411764703" green="0.59215686274509804" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="MNO-fU-UIO" kind="modal" identifier="IntroToData" id="L6A-UZ-wcd"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Mobile Medicine" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PET-rd-WcH">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mobile Medicine" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PET-rd-WcH">
                                 <rect key="frame" x="36" y="120" width="248" height="43"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="MiNi-Logo" translatesAutoresizingMaskIntoConstraints="NO" id="fsZ-ez-4jz">
-                                <rect key="frame" x="77" y="209" width="166" height="150"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ped-dr-P1x">
-                                <rect key="frame" x="36" y="357" width="248" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ped-dr-P1x">
+                                <rect key="frame" x="96" y="331" width="128" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.15686274509803921" blue="0.32941176470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="tintColor" red="0.78823529410000004" green="0.59215686270000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -48,27 +32,105 @@
                                     <color key="titleColor" red="0.78823529410000004" green="0.59215686270000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="SCf-yV-Wtv" kind="modal" id="zYb-pw-p1d"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xbb-WD-6Kr">
+                                <rect key="frame" x="96" y="369" width="128" height="36"/>
+                                <color key="backgroundColor" red="0.0" green="0.15686274510000001" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="tintColor" red="0.78823529410000004" green="0.59215686270000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="List">
+                                    <color key="titleColor" red="0.78823529410000004" green="0.59215686270000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="lsc-Up-A8K" kind="modal" id="wPh-Fu-QPK"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MiNi-Logo" translatesAutoresizingMaskIntoConstraints="NO" id="fsZ-ez-4jz">
+                                <rect key="frame" x="36" y="171" width="248" height="152"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0UT-PR-ELO">
+                                <rect key="frame" x="96" y="413" width="128" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.15686274510000001" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="tintColor" red="0.78823529410000004" green="0.59215686270000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Collect">
+                                    <color key="titleColor" red="0.78823529411764703" green="0.59215686274509804" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="MNO-fU-UIO" kind="modal" identifier="IntroToData" id="L6A-UZ-wcd"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.89411764705882357" green="0.94509803921568625" blue="0.99607843137254903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="centerX" secondItem="PET-rd-WcH" secondAttribute="centerX" id="ShZ-uo-PY9"/>
-                            <constraint firstAttribute="centerX" secondItem="ped-dr-P1x" secondAttribute="centerX" id="U3K-fw-dxS"/>
-                            <constraint firstAttribute="centerX" secondItem="0UT-PR-ELO" secondAttribute="centerX" id="b3j-qD-SNs"/>
-                            <constraint firstAttribute="centerX" secondItem="fsZ-ez-4jz" secondAttribute="centerX" id="caA-9w-Hh5"/>
-                            <constraint firstItem="fsZ-ez-4jz" firstAttribute="top" secondItem="PET-rd-WcH" secondAttribute="bottom" constant="46" id="eZQ-Gl-81r"/>
-                            <constraint firstAttribute="centerY" secondItem="fsZ-ez-4jz" secondAttribute="centerY" id="nqV-Zf-XLw"/>
-                            <constraint firstItem="ped-dr-P1x" firstAttribute="top" secondItem="PET-rd-WcH" secondAttribute="bottom" constant="194" id="xNT-Tk-mKf"/>
-                            <constraint firstItem="0UT-PR-ELO" firstAttribute="top" secondItem="ped-dr-P1x" secondAttribute="bottom" constant="8" id="y6A-Ql-iBQ"/>
-                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="169" y="410"/>
+        </scene>
+        <!--List Data View-->
+        <scene sceneID="40I-hV-J1h">
+            <objects>
+                <tableViewController id="bp9-m8-rC6" customClass="ListDataView" customModule="Mobile_Medicine" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="3qU-LZ-wT7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderCell" id="u0F-Jf-4Kd" customClass="ListDataHeader" customModule="Mobile_Medicine" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u0F-Jf-4Kd" id="LQZ-6Z-VNS">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9X4-sc-S1S">
+                                            <rect key="frame" x="8" y="0.0" width="304" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="HeaderLabel" destination="9X4-sc-S1S" id="XcW-vh-vtl"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="3k9-GT-pXd">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3k9-GT-pXd" id="tNN-yv-yKO">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="bp9-m8-rC6" id="fmo-AC-Cbj"/>
+                            <outlet property="delegate" destination="bp9-m8-rC6" id="gF8-py-tcA"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="J4I-2w-hwq"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Y1-eB-gI5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1158" y="415"/>
         </scene>
         <!--Data View Portrait-->
         <scene sceneID="DaL-bM-svG">
@@ -401,6 +463,24 @@
             </objects>
             <point key="canvasLocation" x="1408.5" y="1011.5"/>
         </scene>
+        <!--Working-->
+        <scene sceneID="gS8-u8-9N2">
+            <objects>
+                <navigationController title="Working" automaticallyAdjustsScrollViewInsets="NO" id="lsc-Up-A8K" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="euF-0o-EpJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="bp9-m8-rC6" kind="relationship" relationship="rootViewController" id="caH-BF-E3e"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U6h-F3-OLi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="626" y="415"/>
+        </scene>
     </scenes>
     <resources>
         <image name="MiNi-Logo" width="900" height="500"/>
@@ -412,8 +492,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="zYb-pw-p1d"/>
-        <segue reference="e3t-eC-EVf"/>
         <segue reference="L6A-UZ-wcd"/>
+        <segue reference="e3t-eC-EVf"/>
+        <segue reference="zYb-pw-p1d"/>
     </inferredMetricsTieBreakers>
 </document>
