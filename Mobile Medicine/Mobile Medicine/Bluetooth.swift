@@ -18,6 +18,7 @@ class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         /*
             Status Code for the device, used to print the status text on portrait mode
             0 = loading / haven't scanned
+            -1 = Bluetooth turned off
             1 = searching for device
             2 = Sesor Tag found
             -2 = sensor tag not found

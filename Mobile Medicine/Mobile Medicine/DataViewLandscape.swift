@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChartViewDelegate {
     let _headerHeight:CGFloat = 80
@@ -16,6 +17,7 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
     let chartHeaderView = ChartHeaderView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     let _tooltipView = ChartTooltipView();
     let _tooltipTipView = ChartTooltipTipView();
+    var lineChartView : JBLineChartView!
     
     // Variables to be set from the segue DataToLandscape
     // internal is an access specifier that is somewhere in between public and private
@@ -24,6 +26,43 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
     internal var dataName : String = ""
     internal var graphData: [Double] = []
     internal var recording: Bool = false
+    var timer : NSTimer!
+    //temp for testing
+    var lastTemp : Double = Double.NaN
+    var lastStatus : Int = 0
+    
+    //core data stuff
+    var context:NSManagedObjectContext!
+    var infoEntity:NSEntityDescription
+    var dataEntity:NSEntityDescription
+    var insertDataInfo:NSManagedObject
+    var insertData:NSMutableOrderedSet = []
+    var appDel:AppDelegate!
+
+    convenience init(){
+        self.init()
+        //Core data context
+        appDel = (UIApplication.sharedApplication().delegate as! AppDelegate)
+        context = appDel.managedObjectContext
+        infoEntity = NSEntityDescription.entityForName("RecordInfo", inManagedObjectContext: context)!
+        dataEntity = NSEntityDescription.entityForName("RecordData", inManagedObjectContext: context)!
+        //insertDataInfo = NSManagedObject(entity: infoEntity, insertIntoManagedObjectContext: context)
+        insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: context) as! RecordInfo
+        
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        
+        //Core data context
+        appDel = (UIApplication.sharedApplication().delegate as! AppDelegate)
+        context = appDel.managedObjectContext
+        infoEntity = NSEntityDescription.entityForName("RecordInfo", inManagedObjectContext: context)!
+        dataEntity = NSEntityDescription.entityForName("RecordData", inManagedObjectContext: context)!
+        //insertDataInfo = NSManagedObject(entity: infoEntity, insertIntoManagedObjectContext: context)
+        insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: context) as! RecordInfo
+        super.init(coder: aDecoder)
+        
+    }
     
     override func shouldAutorotate() -> Bool {
         return false
@@ -33,13 +72,11 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
         return Int(UIInterfaceOrientationMask.Landscape.rawValue)
     }
     
-    @IBAction func StartStopButtonAction(sender: AnyObject) {
-        println("Start/Stop button pressed");
-    }
+
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        let lineChartView = JBLineChartView();
+        lineChartView = JBLineChartView();
         lineChartView.dataSource = self;
         lineChartView.delegate = self;
         lineChartView.backgroundColor = UIColor.whiteColor();
@@ -58,7 +95,76 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
         lineChartView.addSubview(_tooltipView);
         _tooltipTipView.alpha = 0.0;
         lineChartView.addSubview(_tooltipTipView);
+        //start timer at 20Hz Changed to be 10 HZ since sensor tag operates at 4
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("recordData"), userInfo: nil, repeats: true)
     }
+    
+    
+    @IBAction func StartStopButtonAction(sender: AnyObject) {
+        println("Start/Stop button pressed");
+        let btn:UIBarButtonItem = sender as! UIBarButtonItem
+        let title = btn.title
+        if (!recording)
+        {
+            println("starting")
+            //Start
+            startDate = NSDate()
+            recording = true
+           
+            graphData = []
+            dataName = String()
+            //creating new objects
+            insertData = []
+            //Start bluetooth recording (or have that automatic based on flag
+            //btn.setTitle("Stop", forState: UIControlState.Normal)
+            //btn.backgroundColor = UIColor.redColor()
+            var error: NSError?
+            
+            let fetchRequest = NSFetchRequest(entityName:"RecordInfo")
+            let fetchedResults = context.executeFetchRequest(fetchRequest,
+                error: &error) as? [NSManagedObject]
+            if let results = fetchedResults {
+                for result in results{
+                    println(result.valueForKey("rName"))
+                    println(result.valueForKey("rDate"))
+                    let dataArray = (result.valueForKey("dataRelation")) as! NSOrderedSet
+                    for data in dataArray{
+                        print(data.valueForKey("rData"), " ")
+                    }
+                    println()
+                }
+            }
+        }
+        else
+        {
+            //Stop
+            println("Landscape Stopping")
+            recording = false
+            //Save data to NSData here
+            println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
+            println("inserting Date")
+            insertDataInfo.setValue(startDate, forKey: "rDate")
+            println(graphData)
+            for data in graphData {
+                var newData = NSEntityDescription.insertNewObjectForEntityForName ("RecordData",
+                    inManagedObjectContext: context) as! NSManagedObject
+                newData.setValue(data, forKey: "rData")
+                
+                insertData.addObject(newData)
+            }
+            insertDataInfo.setValue(insertData, forKey: "dataRelation")
+            println(insertDataInfo.valueForKey("rDate"))
+            addName(self) //sets and saves rName
+            //println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
+            //println(graphData)
+            
+            println()
+            //btn.setTitle("Start", forState: UIControlState.Normal)
+            //btn.backgroundColor = UIColor.greenColor()
+        }
+        
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -174,4 +280,102 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
         
         return UIColor(red:red, green:green, blue:blue, alpha:1.0)
     }
+    func recordData() {
+        if(appDel.sensorTag.getStatus() != lastStatus){
+            lastStatus = appDel.sensorTag.getStatus()
+            switch(appDel.sensorTag.getStatus()){
+                /*
+                Status Code for the device, used to print the status text on portrait mode
+                0 = loading / haven't scanned
+                1 = searching for device
+                2 = Sesor Tag found
+                -2 = sensor tag not found
+                3 = discovering services
+                4 = looking at peripheral services
+                5 = enabling sensors
+                */
+            case 0:
+                println( "Loading...")
+            case 1:
+                println( "Searching for Device" )
+            case 2:
+                println( "SensorTag found")
+            case 3:
+                println( "Discovering Services" )
+            case 4:
+                println( "Looking at Peripheral Services" )
+            case 5:
+                println( "Enabling Sensors" )
+            case 6:
+                println( "Connected" )
+            case -1:
+                showAlertWithText(header: "Error", message: "Bluetooth switched off or not initialized")
+            case -2:
+                showAlertWithText(header: "Warning", message: "SensorTag Not Found")
+            default:
+                println( "Unknown" )
+            }
+        }
+        if(recording){
+            // Call bluetooth here
+            let tmp = Int.min
+            if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN){
+                lastTemp = appDel.sensorTag.getTemp()
+                graphData.append(lastTemp)
+                
+            }
+        }
+    }
+    
+    
+    // Show alert
+    func showAlertWithText (header : String = "Warning", message : String) {
+        var alert = UIAlertController(title: header, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+        alert.view.tintColor = UIColor.redColor()
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    //give our data a name
+    @IBAction func addName(sender: AnyObject) {
+        
+        var alert = UIAlertController(title: "New name",
+            message: "Add a new name",
+            preferredStyle: .Alert)
+        
+        let saveAction = UIAlertAction(title: "Save",
+            style: .Default) { (action: UIAlertAction!) -> Void in
+                
+                let textField = alert.textFields![0] as! UITextField
+                self.dataName = textField.text
+                self.insertDataInfo.setValue(self.dataName, forKey: "rName")
+                println(self.dataName) //There is some sort of threading going on, tis isn't waiting for addName
+                println()
+                var error: NSError?
+                if !self.context.save(&error) {
+                    println("Could not save \(error), \(error?.userInfo)")
+                }
+                self.insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: self.context) as! RecordInfo
+                
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel",
+            style: .Default) { (action: UIAlertAction!) -> Void in
+                self.insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: self.context) as! RecordInfo
+                
+        }
+        
+        alert.addTextFieldWithConfigurationHandler {
+            (textField: UITextField!) -> Void in
+        }
+        
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        
+        presentViewController(alert,
+            animated: true,
+            completion: nil)
+    }
+    
+    
 }
