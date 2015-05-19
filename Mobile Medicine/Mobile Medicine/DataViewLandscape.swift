@@ -318,10 +318,13 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
         }
         if(recording){
             // Call bluetooth here
-            let tmp = Int.min
+            println("Landscape: Recording")
+            //let tmp = Int.min
             if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN){
+                println("Landscape: recorded")
                 lastTemp = appDel.sensorTag.getTemp()
                 graphData.append(lastTemp)
+                lineChartView.reloadData()
                 
             }
         }

@@ -30,11 +30,10 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
     //The variables we will record data to
     var startDate: NSDate!
     var dataName : String = ""
-    var dataArray: [Double] = []
-    var recording: Bool = false
-    //temp for testing
+    var dataArray: [Double] = []      //temp for testing
     var lastTemp : Double = Double.NaN
     var lastStatus : Int = 0
+    var recording : Bool = false
     
     /*
     //BLUETOOTH STUFF
@@ -325,10 +324,11 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         }
         if(recording){
             // Call bluetooth here
-            let tmp = Int.min
+            //let tmp = Int.min
             if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN){
                 lastTemp = appDel.sensorTag.getTemp()
                 dataArray.append(lastTemp)
+                tempLabel.text = String(format:"%.2f", self.lastTemp)
             }
         }
     }

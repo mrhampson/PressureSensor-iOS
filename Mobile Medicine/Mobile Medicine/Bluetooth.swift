@@ -134,23 +134,37 @@ class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     // Get data values when they are updated
+//    func peripheral(peripheral: CBPeripheral!, didUpdateValueForCharacteristic characteristic: CBCharacteristic!, error: NSError!) {
+//        
+//        //self.statusLabel.text = "Connected"
+//        sensorStatus = 6
+//        
+//        if characteristic.UUID == IRTemperatureDataUUID {
+//            // Convert NSData to array of signed 16 bit values
+//            let dataBytes = characteristic.value
+//            let dataLength = dataBytes.length
+//            var dataArray = [Int16](count: dataLength, repeatedValue: 0)
+//            dataBytes.getBytes(&dataArray, length: dataLength * sizeof(Int16))
+//            
+//            // Element 1 of the array will be ambient temperature raw value
+//            let bTemp = Double(dataArray[1])/128
+//            
+//            // Display on the temp label
+//            //self.tempLabel.text = NSString(format: "%.2f", ambientTemperature)
+//        }
+//    }
+    
     func peripheral(peripheral: CBPeripheral!, didUpdateValueForCharacteristic characteristic: CBCharacteristic!, error: NSError!) {
+        println("Peripheral 2")
         
-        //self.statusLabel.text = "Connected"
         sensorStatus = 6
         
         if characteristic.UUID == IRTemperatureDataUUID {
-            // Convert NSData to array of signed 16 bit values
-            let dataBytes = characteristic.value
-            let dataLength = dataBytes.length
-            var dataArray = [Int16](count: dataLength, repeatedValue: 0)
-            dataBytes.getBytes(&dataArray, length: dataLength * sizeof(Int16))
-            
-            // Element 1 of the array will be ambient temperature raw value
-            let bTemp = Double(dataArray[1])/128
-            
-            // Display on the temp label
-            //self.tempLabel.text = NSString(format: "%.2f", ambientTemperature)
+            self.bTemp = SensorTag.getAmbientTemperature(characteristic.value)
+            //self.allSensorValues[0] = self.ambientTemperature
+            //let model = (self.tabBarController as! CustomTabBarController).model
+            //model.dataArray.append(self.ambientTemperature)
+            println("BTemp = ", bTemp.description)
         }
     }
     
