@@ -70,27 +70,6 @@ class ListDataView: UITableViewController {
                 {
                     let rDay = result.valueForKey("rDate") as? NSDate
                     let dateString = formatter.stringFromDate(rDay!)
-                    //println(dateString)
-
-                    if daysWithData.count == 0
-                    {
-                            daysWithData.append(dateString)
-                    } // if daysWithData is empty, put in the first element
-                    else if (daysWithData.count > 0)
-                    {
-                        inArray = false
-                        for element in daysWithData
-                        {
-                            if element == dateString
-                            {
-                                inArray = true
-                            }
-                        }
-                        if inArray == false
-                        {
-                            daysWithData.append(dateString)
-                        }
-                    } //if it's not empty, check to see if the day is in there, if not, add it
                     let dataArray = (result.valueForKey("dataRelation")) as! NSOrderedSet
                     if !result.isEqual(nil)
                     {
@@ -102,10 +81,6 @@ class ListDataView: UITableViewController {
         println(daysWithData)
         tableView.reloadData()
         // Do view setup here.
-    }
-    
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return daysWithData.count
     }
     
     override func tableView(tableView: UITableView,
@@ -131,18 +106,18 @@ class ListDataView: UITableViewController {
             let row = tableElements[indexPath.row]
             let dataName = row.valueForKey("rName") as? String
             let dataDateStr = formatter.stringFromDate((row.valueForKey("rDate") as? NSDate)!)
-            cell.textLabel!.text = dataName! + ", " + dataDateStr
+            cell.textLabel!.text = dataName! + " - " + dataDateStr
             return cell
 
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         selectedIndex = indexPath
-        self.performSegueWithIdentifier("dayDataViewToGraph", sender: self)
+        self.performSegueWithIdentifier("listDataViewToGraph", sender: self)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "dayDataViewToGraph") {
+        if (segue.identifier == "listDataViewToGraph") {
             var graphView:DataViewLandscape = segue.destinationViewController as! DataViewLandscape
             graphView.dataName = tableElements[selectedIndex.row].valueForKey("rName") as! String
             let data = (tableElements[selectedIndex.row].valueForKey("dataRelation")) as! NSOrderedSet
@@ -161,15 +136,5 @@ class ListDataView: UITableViewController {
         return(output)
     }
     
-    /*func getNumDaysWithData(tableElements: [NSManagedObject]) -> Int
-    {
-    
-        for element in tableElements
-        {
-            if(element.)
-        }
-        println(numDays)
-        return numDays
-    }*/
 }
 
