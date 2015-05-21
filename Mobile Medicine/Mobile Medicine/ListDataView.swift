@@ -10,65 +10,7 @@ import UIKit
 import CoreData
 
 class ListDataView: UITableViewController {
-/*
-    
-    var countriesinEurope = ["France","Spain","Germany"]
-    var countriesinAsia = ["Japan","China","India"]
-    var countriesInSouthAmerica = ["Argentia","Brasil","Chile"]
-    
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // 1
-        // Return the number of sections.
-        return 3
-    }
-    
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // 2
-        return 3
-    }
-    
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
-        
-        // 3
-        // Configure the cell...
-        switch (indexPath.section) {
-        case 0:
-            cell.textLabel?.text = countriesinEurope[indexPath.row]
-        case 1:
-            cell.textLabel?.text = countriesinAsia[indexPath.row]
-        case 2:
-            cell.textLabel?.text = countriesInSouthAmerica[indexPath.row]
-            //return sectionHeaderView
-        default:
-            cell.textLabel?.text = "Other"
-        }
-        
-        return cell
-    }
 
-    
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let  headerCell = tableView.dequeueReusableCellWithIdentifier("HeaderCell") as! ListDataHeader
-        headerCell.backgroundColor = UIColor.lightGrayColor()
-        
-        switch (section) {
-        case 0:
-            headerCell.HeaderLabel.text = "Europe";
-            //return sectionHeaderView
-        case 1:
-            headerCell.HeaderLabel.text = "Asia";
-            //return sectionHeaderView
-        case 2:
-            headerCell.HeaderLabel.text = "South America";
-            //return sectionHeaderView
-        default:
-            headerCell.HeaderLabel.text = "Other";
-        }
-        
-        return headerCell
-    }*/
     internal var date:CVDate!
     var context:NSManagedObjectContext!
     var infoEntity:NSEntityDescription?
@@ -181,15 +123,17 @@ class ListDataView: UITableViewController {
     override func tableView(tableView: UITableView,
         cellForRowAtIndexPath
         indexPath: NSIndexPath) -> UITableViewCell {
-            
+            let formatter = NSDateFormatter()
+            formatter.dateFormat = "MMM d, y"
             let cell =
             tableView.dequeueReusableCellWithIdentifier("Cell")
                 as! UITableViewCell
-            
             let row = tableElements[indexPath.row]
-            cell.textLabel!.text = row.valueForKey("rName") as? String
-            
+            let dataName = row.valueForKey("rName") as? String
+            let dataDateStr = formatter.stringFromDate((row.valueForKey("rDate") as? NSDate)!)
+            cell.textLabel!.text = dataName! + ", " + dataDateStr
             return cell
+
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
