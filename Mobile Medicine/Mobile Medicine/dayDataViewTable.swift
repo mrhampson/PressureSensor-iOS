@@ -64,7 +64,11 @@ class dayDataViewTable: UITableViewController {
                 {
                     let rDay = result.valueForKey("rDate") as? NSDate
                     let cDay = date.convertedDate()
-                    let next = cDay!.dateByAddingTimeInterval((24 * 60 * 60 - 8*60*60))
+                    println("Cday is", cDay)
+                    println("rday is", rDay)
+                    
+                    let next = cDay!.dateByAddingTimeInterval((24 * 60 * 60))
+                    println("next", next)
                     //let prev = cDay!.dateByAddingTimeInterval( (-24 * 60 * 60 - 8*60*60))
                     if rDay?.earlierDate(next) == rDay && rDay?.laterDate(cDay!) == rDay
                     {
