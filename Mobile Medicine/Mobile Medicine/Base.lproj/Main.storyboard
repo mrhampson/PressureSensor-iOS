@@ -93,7 +93,7 @@
             <objects>
                 <tableViewController id="bp9-m8-rC6" customClass="ListDataView" customModule="Mobile_Medicine" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="3qU-LZ-wT7">
-                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -116,7 +116,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Y1-eB-gI5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1158" y="415"/>
+            <point key="canvasLocation" x="1180.5" y="393.5"/>
         </scene>
         <!--Data View Portrait-->
         <scene sceneID="DaL-bM-svG">
@@ -223,8 +223,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="January, 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gmw-da-73o">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="January, 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gmw-da-73o">
                                 <rect key="frame" x="108" y="28" width="105" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="105" id="dG9-Hl-vg3"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -244,19 +247,13 @@
                                     <action selector="todayMonthView" destination="SCf-yV-Wtv" eventType="touchUpInside" id="aOL-Pd-x6I"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable showing days out" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2On-hm-ZWc">
-                                <rect key="frame" x="16" y="524" width="221" height="24"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aRF-KO-Y6a">
                                 <rect key="frame" x="255" y="517" width="51" height="31"/>
                                 <connections>
                                     <action selector="switchChanged:" destination="SCf-yV-Wtv" eventType="valueChanged" id="ja4-gV-4BC"/>
                                 </connections>
                             </switch>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9FU-gr-XUl" customClass="CVCalendarView" customModule="Mobile_Medicine" customModuleProvider="target">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9FU-gr-XUl" customClass="CVCalendarView" customModule="Mobile_Medicine" customModuleProvider="target">
                                 <rect key="frame" x="16" y="103" width="288" height="300"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="250" id="Es5-rI-ReF">
@@ -268,7 +265,7 @@
                                     <outlet property="calendarDelegate" destination="SCf-yV-Wtv" id="ula-dF-weA"/>
                                 </connections>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Autolayout" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pIv-zU-G5B">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Autolayout" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pIv-zU-G5B">
                                 <rect key="frame" x="119" y="411" width="83" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -276,6 +273,9 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hY5-x8-J4m">
                                 <rect key="frame" x="54" y="26" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="Kbv-6A-Oiw"/>
+                                </constraints>
                                 <state key="normal" title="Month">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -283,7 +283,7 @@
                                     <action selector="toMonthView:" destination="SCf-yV-Wtv" eventType="touchUpInside" id="0Tk-Qd-VoA"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="chW-mS-rNy">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="chW-mS-rNy">
                                 <rect key="frame" x="172" y="440" width="30" height="30"/>
                                 <state key="normal" title="&gt;">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -292,7 +292,7 @@
                                     <action selector="loadNext:" destination="SCf-yV-Wtv" eventType="touchUpInside" id="B00-vb-rN2"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dFn-lg-jw9">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dFn-lg-jw9">
                                 <rect key="frame" x="119" y="440" width="30" height="30"/>
                                 <state key="normal" title="&lt;">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -301,8 +301,8 @@
                                     <action selector="loadPrevious:" destination="SCf-yV-Wtv" eventType="touchUpInside" id="vYQ-U4-9tM"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Hx-zV-did">
-                                <rect key="frame" x="231" y="25" width="41" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Hx-zV-did">
+                                <rect key="frame" x="222" y="26" width="41" height="30"/>
                                 <state key="normal" title="Home">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -319,6 +319,15 @@
                                     <action selector="toWeekView:" destination="SCf-yV-Wtv" eventType="touchUpInside" id="Mh5-Yy-e45"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Show non-selected month days" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2On-hm-ZWc">
+                                <rect key="frame" x="16" y="521" width="231" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="e2C-Cf-pdh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -326,10 +335,13 @@
                             <constraint firstAttribute="bottom" secondItem="2On-hm-ZWc" secondAttribute="bottom" constant="20" symbolic="YES" id="0T8-YR-pv9"/>
                             <constraint firstItem="hY5-x8-J4m" firstAttribute="leading" secondItem="sul-eX-0uK" secondAttribute="trailing" constant="8" id="2oF-yD-xST"/>
                             <constraint firstItem="2On-hm-ZWc" firstAttribute="leading" secondItem="9FU-gr-XUl" secondAttribute="leading" id="36Z-Gh-B6L"/>
+                            <constraint firstItem="hY5-x8-J4m" firstAttribute="baseline" secondItem="1Hx-zV-did" secondAttribute="baseline" id="7PH-p6-ei4"/>
+                            <constraint firstItem="EWT-34-Foi" firstAttribute="leading" secondItem="1Hx-zV-did" secondAttribute="trailing" constant="8" symbolic="YES" id="9CJ-b2-ZU6"/>
                             <constraint firstItem="EWT-34-Foi" firstAttribute="trailing" secondItem="yC2-rr-OQm" secondAttribute="trailing" id="C4N-Z9-q3v"/>
                             <constraint firstItem="Gmw-da-73o" firstAttribute="top" secondItem="aOm-6M-vZY" secondAttribute="bottom" constant="8" symbolic="YES" id="ELs-9h-x6E"/>
                             <constraint firstItem="aRF-KO-Y6a" firstAttribute="bottom" secondItem="2On-hm-ZWc" secondAttribute="bottom" id="GHU-X6-UXt"/>
                             <constraint firstItem="Gmw-da-73o" firstAttribute="centerX" secondItem="yC2-rr-OQm" secondAttribute="centerX" id="LBn-8G-bbe"/>
+                            <constraint firstItem="yC2-rr-OQm" firstAttribute="top" secondItem="Gmw-da-73o" secondAttribute="bottom" constant="19" id="Okf-4t-FLN"/>
                             <constraint firstAttribute="centerX" secondItem="pIv-zU-G5B" secondAttribute="centerX" constant="-0.5" id="WDs-CQ-wU2"/>
                             <constraint firstItem="chW-mS-rNy" firstAttribute="top" relation="lessThanOrEqual" secondItem="9FU-gr-XUl" secondAttribute="bottom" constant="37" id="X1q-P3-rod"/>
                             <constraint firstItem="9FU-gr-XUl" firstAttribute="trailing" secondItem="yC2-rr-OQm" secondAttribute="trailing" id="Xno-7U-s6M"/>
@@ -344,6 +356,7 @@
                             <constraint firstItem="yC2-rr-OQm" firstAttribute="top" secondItem="EWT-34-Foi" secondAttribute="bottom" constant="15" id="ox6-du-QiI"/>
                             <constraint firstItem="chW-mS-rNy" firstAttribute="trailing" secondItem="pIv-zU-G5B" secondAttribute="trailing" id="p1o-jr-Yv2"/>
                             <constraint firstItem="aRF-KO-Y6a" firstAttribute="trailing" secondItem="9FU-gr-XUl" secondAttribute="trailing" id="qDn-hY-BLE"/>
+                            <constraint firstItem="2On-hm-ZWc" firstAttribute="top" secondItem="dFn-lg-jw9" secondAttribute="bottom" constant="51" id="qyM-6e-eOo"/>
                             <constraint firstItem="9FU-gr-XUl" firstAttribute="top" secondItem="yC2-rr-OQm" secondAttribute="bottom" constant="8" symbolic="YES" id="r1F-iT-a4i"/>
                             <constraint firstItem="sul-eX-0uK" firstAttribute="top" secondItem="aOm-6M-vZY" secondAttribute="bottom" constant="5" id="r9M-In-K5n"/>
                             <constraint firstItem="dFn-lg-jw9" firstAttribute="top" relation="lessThanOrEqual" secondItem="9FU-gr-XUl" secondAttribute="bottom" constant="37" id="w9F-Bg-tae"/>
@@ -528,6 +541,6 @@
         <segue reference="e3t-eC-EVf"/>
         <segue reference="zYb-pw-p1d"/>
         <segue reference="L6A-UZ-wcd"/>
-        <segue reference="QE1-7L-ehj"/>
+        <segue reference="caH-BF-E3e"/>
     </inferredMetricsTieBreakers>
 </document>
