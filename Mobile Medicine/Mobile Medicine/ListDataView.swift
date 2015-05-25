@@ -59,6 +59,8 @@ class ListDataView: UITableViewController {
         //var dateHeader: NSDateComponents?
         var inArray: Bool =  false
         let fetchRequest = NSFetchRequest(entityName:"RecordInfo")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "rDate", ascending: false)]
+
         if let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error)
         {
             let formatter = NSDateFormatter()
@@ -102,6 +104,7 @@ class ListDataView: UITableViewController {
     override func tableView(tableView: UITableView,
         cellForRowAtIndexPath
         indexPath: NSIndexPath) -> UITableViewCell {
+            
             let formatter = NSDateFormatter()
             formatter.dateFormat = "MMM d, y"
             let cell =
@@ -110,6 +113,8 @@ class ListDataView: UITableViewController {
             let row = tableElements[indexPath.row]
             let dataName = row.valueForKey("rName") as? String
             let dataDateStr = formatter.stringFromDate((row.valueForKey("rDate") as? NSDate)!)
+            let sortDescriptor = NSSortDescriptor(key: "rDate", ascending: true)
+
             cell.textLabel!.text = dataName! + " - " + dataDateStr
             return cell
 
