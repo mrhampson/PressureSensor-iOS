@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var menuView: CVCalendarMenuView!
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var daysOutSwitch: UISwitch!
-    
+    var fromNextArrow = false
     var shouldShowDaysOut = true
     var animationFinished = true
     
@@ -53,10 +53,13 @@ extension ViewController: CVCalendarViewDelegate {
     }
     
     func didSelectDayView(dayView: CVCalendarDayView) {
-        date = dayView.date
-        println("\(calendarView.presentedDate.commonDescription) is selected!")
-        
-        self.performSegueWithIdentifier("calendarToData", sender: nil)
+        if(!fromNextArrow)
+        {
+            date = dayView.date
+            //For some reason, when a new month is chosen, it selects the first day of that month. lame
+            println("\(calendarView.presentedDate.commonDescription) is selected!")
+            self.performSegueWithIdentifier("calendarToData", sender: nil)
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
@@ -187,6 +190,7 @@ extension ViewController {
     
     
     @IBAction func loadNext(sender: AnyObject) {
+        fromNextArrow = true
         calendarView.loadNextView()
     }
 }
