@@ -59,7 +59,8 @@ extension ViewController: CVCalendarViewDelegate {
             //For some reason, when a new month is chosen, it selects the first day of that month. lame
             println("\(calendarView.presentedDate.commonDescription) is selected!")
             self.performSegueWithIdentifier("calendarToData", sender: nil)
-        }
+        } // potential problem with not resetting fromNextArrow or whatever it's called
+          // if there are problems, look here
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
@@ -113,11 +114,11 @@ extension ViewController: CVCalendarViewDelegate {
     }
     
     func dotMarker(shouldShowOnDayView dayView: CVCalendarDayView) -> Bool {
-        let day = dayView.date.day
+        /*let day = dayView.date.day
         let randomDay = Int(arc4random_uniform(31))
         if day == randomDay {
             return true
-        }
+        }*/
         
         return false
     }

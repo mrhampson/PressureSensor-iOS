@@ -265,12 +265,6 @@
                                     <outlet property="calendarDelegate" destination="SCf-yV-Wtv" id="ula-dF-weA"/>
                                 </connections>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Previous / Next Month" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pIv-zU-G5B">
-                                <rect key="frame" x="75" y="411" width="172" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hY5-x8-J4m">
                                 <rect key="frame" x="54" y="26" width="46" height="30"/>
                                 <constraints>
@@ -340,26 +334,22 @@
                             <constraint firstItem="EWT-34-Foi" firstAttribute="trailing" secondItem="yC2-rr-OQm" secondAttribute="trailing" id="C4N-Z9-q3v"/>
                             <constraint firstItem="Gmw-da-73o" firstAttribute="top" secondItem="aOm-6M-vZY" secondAttribute="bottom" constant="8" symbolic="YES" id="ELs-9h-x6E"/>
                             <constraint firstItem="aRF-KO-Y6a" firstAttribute="bottom" secondItem="2On-hm-ZWc" secondAttribute="bottom" id="GHU-X6-UXt"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="chW-mS-rNy" secondAttribute="trailing" constant="57" id="Hki-J5-XnL"/>
                             <constraint firstItem="Gmw-da-73o" firstAttribute="centerX" secondItem="yC2-rr-OQm" secondAttribute="centerX" id="LBn-8G-bbe"/>
                             <constraint firstItem="yC2-rr-OQm" firstAttribute="top" secondItem="Gmw-da-73o" secondAttribute="bottom" constant="19" id="Okf-4t-FLN"/>
-                            <constraint firstAttribute="centerX" secondItem="pIv-zU-G5B" secondAttribute="centerX" constant="-0.5" id="WDs-CQ-wU2"/>
-                            <constraint firstItem="chW-mS-rNy" firstAttribute="top" relation="lessThanOrEqual" secondItem="9FU-gr-XUl" secondAttribute="bottom" constant="37" id="X1q-P3-rod"/>
+                            <constraint firstItem="dFn-lg-jw9" firstAttribute="leading" secondItem="arg-Z0-dNP" secondAttribute="leadingMargin" constant="59" id="SbN-rQ-4Q5"/>
+                            <constraint firstItem="chW-mS-rNy" firstAttribute="top" relation="lessThanOrEqual" secondItem="9FU-gr-XUl" secondAttribute="bottom" id="X1q-P3-rod"/>
                             <constraint firstItem="9FU-gr-XUl" firstAttribute="trailing" secondItem="yC2-rr-OQm" secondAttribute="trailing" id="Xno-7U-s6M"/>
-                            <constraint firstItem="pIv-zU-G5B" firstAttribute="top" secondItem="9FU-gr-XUl" secondAttribute="bottom" constant="8" id="dEo-vb-ciY"/>
                             <constraint firstItem="yC2-rr-OQm" firstAttribute="trailing" secondItem="arg-Z0-dNP" secondAttribute="trailingMargin" id="fZo-Kc-MVF"/>
-                            <constraint firstItem="chW-mS-rNy" firstAttribute="top" secondItem="pIv-zU-G5B" secondAttribute="bottom" constant="8" id="gIv-my-j7V"/>
                             <constraint firstItem="9FU-gr-XUl" firstAttribute="leading" secondItem="arg-Z0-dNP" secondAttribute="leadingMargin" id="hbY-L5-Wcg"/>
                             <constraint firstItem="hY5-x8-J4m" firstAttribute="top" secondItem="aOm-6M-vZY" secondAttribute="bottom" constant="5" id="jDN-SV-Oki"/>
                             <constraint firstItem="9FU-gr-XUl" firstAttribute="leading" secondItem="yC2-rr-OQm" secondAttribute="leading" id="lna-EO-aPt"/>
                             <constraint firstItem="9FU-gr-XUl" firstAttribute="top" secondItem="arg-Z0-dNP" secondAttribute="top" constant="103" id="nwj-fl-EfM"/>
-                            <constraint firstItem="dFn-lg-jw9" firstAttribute="top" secondItem="pIv-zU-G5B" secondAttribute="bottom" constant="8" id="o4n-yn-ygx"/>
                             <constraint firstItem="yC2-rr-OQm" firstAttribute="top" secondItem="EWT-34-Foi" secondAttribute="bottom" constant="15" id="ox6-du-QiI"/>
-                            <constraint firstItem="chW-mS-rNy" firstAttribute="trailing" secondItem="pIv-zU-G5B" secondAttribute="trailing" id="p1o-jr-Yv2"/>
                             <constraint firstItem="aRF-KO-Y6a" firstAttribute="trailing" secondItem="9FU-gr-XUl" secondAttribute="trailing" id="qDn-hY-BLE"/>
                             <constraint firstItem="9FU-gr-XUl" firstAttribute="top" secondItem="yC2-rr-OQm" secondAttribute="bottom" constant="8" symbolic="YES" id="r1F-iT-a4i"/>
                             <constraint firstItem="sul-eX-0uK" firstAttribute="top" secondItem="aOm-6M-vZY" secondAttribute="bottom" constant="5" id="r9M-In-K5n"/>
-                            <constraint firstItem="dFn-lg-jw9" firstAttribute="top" relation="lessThanOrEqual" secondItem="9FU-gr-XUl" secondAttribute="bottom" constant="37" id="w9F-Bg-tae"/>
-                            <constraint firstItem="dFn-lg-jw9" firstAttribute="leading" secondItem="pIv-zU-G5B" secondAttribute="leading" id="xtW-Hs-Jcr"/>
+                            <constraint firstItem="dFn-lg-jw9" firstAttribute="top" relation="lessThanOrEqual" secondItem="9FU-gr-XUl" secondAttribute="bottom" id="w9F-Bg-tae"/>
                             <constraint firstItem="sul-eX-0uK" firstAttribute="leading" secondItem="arg-Z0-dNP" secondAttribute="leadingMargin" id="y37-Rh-axU"/>
                         </constraints>
                     </view>
