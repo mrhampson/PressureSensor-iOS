@@ -38,7 +38,9 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
     var insertDataInfo:NSManagedObject
     var insertData:NSMutableOrderedSet = []
     var appDel:AppDelegate!
+    var connected : Bool = false
 
+    
     convenience init(){
         self.init()
         //Core data context
@@ -102,65 +104,72 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
     
     @IBAction func StartStopButtonAction(sender: AnyObject) {
         println("Start/Stop button pressed");
-        let btn:UIBarButtonItem = sender as! UIBarButtonItem
-        let title = btn.title
-        if (!recording)
+        if !connected
         {
-            println("starting")
-            //Start
-            startDate = NSDate()
-            recording = true
-           
-            graphData = []
-            dataName = String()
-            //creating new objects
-            insertData = []
-            //Start bluetooth recording (or have that automatic based on flag
-            //btn.setTitle("Stop", forState: UIControlState.Normal)
-            //btn.backgroundColor = UIColor.redColor()
-            var error: NSError?
-            
-            let fetchRequest = NSFetchRequest(entityName:"RecordInfo")
-            let fetchedResults = context.executeFetchRequest(fetchRequest,
-                error: &error) as? [NSManagedObject]
-            if let results = fetchedResults {
-                for result in results{
-                    println(result.valueForKey("rName"))
-                    println(result.valueForKey("rDate"))
-                    let dataArray = (result.valueForKey("dataRelation")) as! NSOrderedSet
-                    for data in dataArray{
-                        print(data.valueForKey("rData"), " ")
-                    }
-                    println()
-                }
-            }
+            showAlertWithText(header: "Error", message: "Device is not connected")
         }
         else
         {
-            //Stop
-            println("Landscape Stopping")
-            recording = false
-            //Save data to NSData here
-            println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
-            println("inserting Date")
-            insertDataInfo.setValue(startDate, forKey: "rDate")
-            println(graphData)
-            for data in graphData {
-                var newData = NSEntityDescription.insertNewObjectForEntityForName ("RecordData",
-                    inManagedObjectContext: context) as! NSManagedObject
-                newData.setValue(data, forKey: "rData")
+            let btn:UIBarButtonItem = sender as! UIBarButtonItem
+            let title = btn.title
+            if (!recording)
+            {
+                println("starting")
+                //Start
+                startDate = NSDate()
+                recording = true
+               
+                graphData = []
+                dataName = String()
+                //creating new objects
+                insertData = []
+                //Start bluetooth recording (or have that automatic based on flag
+                //btn.setTitle("Stop", forState: UIControlState.Normal)
+                //btn.backgroundColor = UIColor.redColor()
+                var error: NSError?
                 
-                insertData.addObject(newData)
+                let fetchRequest = NSFetchRequest(entityName:"RecordInfo")
+                let fetchedResults = context.executeFetchRequest(fetchRequest,
+                    error: &error) as? [NSManagedObject]
+                if let results = fetchedResults {
+                    for result in results{
+                        println(result.valueForKey("rName"))
+                        println(result.valueForKey("rDate"))
+                        let dataArray = (result.valueForKey("dataRelation")) as! NSOrderedSet
+                        for data in dataArray{
+                            print(data.valueForKey("rData"), " ")
+                        }
+                        println()
+                    }
+                }
             }
-            insertDataInfo.setValue(insertData, forKey: "dataRelation")
-            println(insertDataInfo.valueForKey("rDate"))
-            addName(self) //sets and saves rName
-            //println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
-            //println(graphData)
-            
-            println()
-            //btn.setTitle("Start", forState: UIControlState.Normal)
-            //btn.backgroundColor = UIColor.greenColor()
+            else
+            {
+                //Stop
+                println("Landscape Stopping")
+                recording = false
+                //Save data to NSData here
+                println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
+                println("inserting Date")
+                insertDataInfo.setValue(startDate, forKey: "rDate")
+                println(graphData)
+                for data in graphData {
+                    var newData = NSEntityDescription.insertNewObjectForEntityForName ("RecordData",
+                        inManagedObjectContext: context) as! NSManagedObject
+                    newData.setValue(data, forKey: "rData")
+                    
+                    insertData.addObject(newData)
+                }
+                insertDataInfo.setValue(insertData, forKey: "dataRelation")
+                println(insertDataInfo.valueForKey("rDate"))
+                addName(self) //sets and saves rName
+                //println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
+                //println(graphData)
+                
+                println()
+                //btn.setTitle("Start", forState: UIControlState.Normal)
+                //btn.backgroundColor = UIColor.greenColor()
+            }
         }
         
     }
@@ -308,6 +317,7 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
                 println( "Enabling Sensors" )
             case 6:
                 println( "Connected" )
+                connected = true
             case -1:
                 showAlertWithText(header: "Error", message: "Bluetooth switched off or not initialized")
             case -2:

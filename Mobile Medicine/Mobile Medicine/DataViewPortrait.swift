@@ -34,6 +34,7 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
     var lastTemp : Double = Double.NaN
     var lastStatus : Int = 0
     var recording : Bool = false
+    var connected : Bool = false
     
     /*
     //BLUETOOTH STUFF
@@ -121,13 +122,13 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         // Do any additional setup after loading the view.
         button   = UIButton.buttonWithType(UIButtonType.System) as! UIButton
         button.frame = CGRectMake(100, 100, 100, 50)
-        button.backgroundColor = UIColor.greenColor()
+        button.layer.cornerRadius = 15
+        button.backgroundColor = UIColor(red: 0.0, green:0.777, blue:0.222, alpha:1.0)
         button.setTitle("Start", forState: UIControlState.Normal)
         button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
         button.center = CGPoint(x: self.view.frame.midX, y: self.view.bounds.maxY - 100 )
         
         self.view.addSubview(button)
-        
         //start timer at 20Hz Changed to be 10 HZ since sensor tag operates at 4
         timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("recordData"), userInfo: nil, repeats: true)
         
@@ -142,60 +143,67 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
     
     func buttonAction(sender:UIButton!)
     {
-        let btn:UIButton = sender
-        let title = btn.titleLabel?.text
-        if (title == "Start")
+        if connected
         {
-            //Start
-            startDate = NSDate()
-            recording = true
-            dataArray = []
-            dataName = String()
-            //creating new objects
-            insertData = []
-            //Start bluetooth recording (or have that automatic based on flag
-            btn.setTitle("Stop", forState: UIControlState.Normal)
-            btn.backgroundColor = UIColor.redColor()
-            var error: NSError?
-            
-            let fetchRequest = NSFetchRequest(entityName:"RecordInfo")
-            let fetchedResults = context.executeFetchRequest(fetchRequest,
-                error: &error) as? [NSManagedObject]
-            if let results = fetchedResults {
-                for result in results{
-                    println(result.valueForKey("rName"))
-                    println(result.valueForKey("rDate"))
-                    let dataArray = (result.valueForKey("dataRelation")) as! NSOrderedSet
-                    for data in dataArray{
-                        print(data.valueForKey("rData"), " ")
+            let btn:UIButton = sender
+            let title = btn.titleLabel?.text
+            if (title == "Start")
+            {
+                //Start
+                startDate = NSDate()
+                recording = true
+                dataArray = []
+                dataName = String()
+                //creating new objects
+                insertData = []
+                //Start bluetooth recording (or have that automatic based on flag
+                btn.setTitle("Stop", forState: UIControlState.Normal)
+                btn.backgroundColor = UIColor.redColor()
+                var error: NSError?
+                
+                let fetchRequest = NSFetchRequest(entityName:"RecordInfo")
+                let fetchedResults = context.executeFetchRequest(fetchRequest,
+                    error: &error) as? [NSManagedObject]
+                if let results = fetchedResults {
+                    for result in results{
+                        println(result.valueForKey("rName"))
+                        println(result.valueForKey("rDate"))
+                        let dataArray = (result.valueForKey("dataRelation")) as! NSOrderedSet
+                        for data in dataArray{
+                            print(data.valueForKey("rData"), " ")
+                        }
+                        println()
                     }
-                    println()
                 }
+            }
+            else
+            {
+                //Stop
+                recording = false
+                //Save data to NSData here
+                println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
+                insertDataInfo.setValue(startDate, forKey: "rDate")
+                println(dataArray)
+                for data in dataArray {
+                    var newData = NSEntityDescription.insertNewObjectForEntityForName ("RecordData",
+                        inManagedObjectContext: context) as! NSManagedObject
+                    newData.setValue(data, forKey: "rData")
+                    
+                    insertData.addObject(newData)
+                }
+                insertDataInfo.setValue(insertData, forKey: "dataRelation")
+                addName(self) //sets and saves rName
+                println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
+                println(dataArray)
+
+                println()
+                btn.setTitle("Start", forState: UIControlState.Normal)
+                btn.backgroundColor = UIColor(red: 0.0, green:0.777, blue:0.222, alpha:1.0)
             }
         }
         else
         {
-            //Stop
-            recording = false
-            //Save data to NSData here
-            println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
-            insertDataInfo.setValue(startDate, forKey: "rDate")
-            println(dataArray)
-            for data in dataArray {
-                var newData = NSEntityDescription.insertNewObjectForEntityForName ("RecordData",
-                    inManagedObjectContext: context) as! NSManagedObject
-                newData.setValue(data, forKey: "rData")
-                
-                insertData.addObject(newData)
-            }
-            insertDataInfo.setValue(insertData, forKey: "dataRelation")
-            addName(self) //sets and saves rName
-            println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
-            println(dataArray)
-
-            println()
-            btn.setTitle("Start", forState: UIControlState.Normal)
-            btn.backgroundColor = UIColor.greenColor()
+            showAlertWithText(header: "Error", message: "Connect the device before recording data")
         }
     }
 
@@ -314,6 +322,7 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
                 statusLabel.text = "Enabling Sensors"
             case 6:
                 statusLabel.text = "Connected"
+                connected = true
             case -1:
                 showAlertWithText(header: "Error", message: "Bluetooth switched off or not initialized")
             case -2:
