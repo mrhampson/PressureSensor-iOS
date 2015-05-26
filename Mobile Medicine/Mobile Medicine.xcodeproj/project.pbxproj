@@ -23,6 +23,8 @@
 		655885571ADF8D2300B29F61 /* ChartHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655885561ADF8D2300B29F61 /* ChartHeaderView.swift */; };
 		655885591ADFA23F00B29F61 /* ChartTooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655885581ADFA23F00B29F61 /* ChartTooltipView.swift */; };
 		6558855B1ADFA25D00B29F61 /* ChartTooltipTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6558855A1ADFA25D00B29F61 /* ChartTooltipTipView.swift */; };
+		657E10251B1423150021B2D4 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 657E10241B1423150021B2D4 /* Accelerate.framework */; };
+		657E10271B14231D0021B2D4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 657E10261B14231D0021B2D4 /* QuartzCore.framework */; };
 		9B09EEB31AF84CB7001B68BA /* SensorTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09EEB21AF84CB7001B68BA /* SensorTag.swift */; };
 		9B09EEB51AF86C9A001B68BA /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09EEB41AF86C9A001B68BA /* CustomTabBarController.swift */; };
 		9B09EEB71AF88553001B68BA /* SensorTagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09EEB61AF88553001B68BA /* SensorTagTableViewCell.swift */; };
@@ -30,6 +32,7 @@
 		A01228C71AF1FD070030D369 /* RecordInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01228C61AF1FD070030D369 /* RecordInfo.swift */; };
 		A0192ED21AE47E2500A589C6 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A0192ED01AE47E2500A589C6 /* DataModel.xcdatamodeld */; };
 		A0192ED61AE4871200A589C6 /* Bluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0192ED51AE4871200A589C6 /* Bluetooth.swift */; };
+		A4E7EA46AA3F0F13A561E941 /* libPods-Mobile Medicine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FB74A9F196DBD5842283460 /* libPods-Mobile Medicine.a */; };
 		E15791431AF721000072B86A /* dayDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15791421AF721000072B86A /* dayDataView.swift */; };
 		E15791451AF734BE0072B86A /* dayDataViewTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15791441AF734BE0072B86A /* dayDataViewTable.swift */; };
 		E1DCF04D1B0AA0FB00034476 /* ListDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DCF04C1B0AA0FB00034476 /* ListDataView.swift */; };
@@ -70,9 +73,38 @@
 			remoteGlobalIDString = 6526FB8A1ACF6FC7007AAB8B;
 			remoteInfo = "Mobile Medicine";
 		};
+		657E101C1B14227D0021B2D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 657E10171B14227C0021B2D4 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8E64AFF95091C7035950DE34;
+			remoteInfo = "Pods-Mobile Medicine";
+		};
+		657E101E1B14227D0021B2D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 657E10171B14227C0021B2D4 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 418530BF46A6BB9A182661FB;
+			remoteInfo = "Pods-Mobile Medicine-CorePlot";
+		};
+		657E10201B1423030021B2D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 657E10171B14227C0021B2D4 /* Pods.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 846970DBF0235F2C7B06934C;
+			remoteInfo = "Pods-Mobile Medicine-CorePlot";
+		};
+		657E10221B14230E0021B2D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 657E10171B14227C0021B2D4 /* Pods.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A89204B861BED439083F05F2;
+			remoteInfo = "Pods-Mobile Medicine";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		13916BB197DDBCA8DCF769B1 /* Pods-Mobile Medicine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mobile Medicine.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mobile Medicine/Pods-Mobile Medicine.debug.xcconfig"; sourceTree = "<group>"; };
 		6526FB8B1ACF6FC7007AAB8B /* Mobile Medicine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Medicine.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6526FB8F1ACF6FC7007AAB8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6526FB901ACF6FC7007AAB8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +128,11 @@
 		655885561ADF8D2300B29F61 /* ChartHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartHeaderView.swift; sourceTree = "<group>"; };
 		655885581ADFA23F00B29F61 /* ChartTooltipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartTooltipView.swift; sourceTree = "<group>"; };
 		6558855A1ADFA25D00B29F61 /* ChartTooltipTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartTooltipTipView.swift; sourceTree = "<group>"; };
+		657E10171B14227C0021B2D4 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
+		657E10241B1423150021B2D4 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		657E10261B14231D0021B2D4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		657E10281B1423470021B2D4 /* JBChartViewBridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBChartViewBridgingHeader.h; sourceTree = "<group>"; };
+		7FB74A9F196DBD5842283460 /* libPods-Mobile Medicine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Mobile Medicine.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B09EEB21AF84CB7001B68BA /* SensorTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorTag.swift; sourceTree = "<group>"; };
 		9B09EEB41AF86C9A001B68BA /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		9B09EEB61AF88553001B68BA /* SensorTagTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorTagTableViewCell.swift; sourceTree = "<group>"; };
@@ -133,6 +170,7 @@
 		E1E99BCD1AF5985C00550C4B /* CVScrollDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVScrollDirection.swift; sourceTree = "<group>"; };
 		E1E99BCF1AF5987E00550C4B /* CVCalendarWeekday.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVCalendarWeekday.swift; sourceTree = "<group>"; };
 		E1E99BD11AF5989400550C4B /* CVCalendarViewPresentationMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVCalendarViewPresentationMode.swift; sourceTree = "<group>"; };
+		EC6F221FD333DE443A443425 /* Pods-Mobile Medicine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mobile Medicine.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mobile Medicine/Pods-Mobile Medicine.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +178,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				657E10271B14231D0021B2D4 /* QuartzCore.framework in Frameworks */,
+				657E10251B1423150021B2D4 /* Accelerate.framework in Frameworks */,
+				A4E7EA46AA3F0F13A561E941 /* libPods-Mobile Medicine.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +197,8 @@
 		6526FB821ACF6FC7007AAB8B = {
 			isa = PBXGroup;
 			children = (
+				657E10281B1423470021B2D4 /* JBChartViewBridgingHeader.h */,
+				657E10171B14227C0021B2D4 /* Pods.xcodeproj */,
 				E1E99B971AF592E500550C4B /* CVCalendar */,
 				A01228C61AF1FD070030D369 /* RecordInfo.swift */,
 				A01228C41AF1FD060030D369 /* RecordData.swift */,
@@ -163,6 +206,8 @@
 				6526FB8D1ACF6FC7007AAB8B /* Mobile Medicine */,
 				6526FBA31ACF6FC7007AAB8B /* Mobile MedicineTests */,
 				6526FB8C1ACF6FC7007AAB8B /* Products */,
+				D82B968C6F1A9A92A25C91BE /* Pods */,
+				A17FF4A38CE88E3CB6B855B3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -241,6 +286,34 @@
 			);
 			name = JBChartView;
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		657E10181B14227C0021B2D4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				657E101D1B14227D0021B2D4 /* libPods-Mobile Medicine.a */,
+				657E101F1B14227D0021B2D4 /* libPods-Mobile Medicine-CorePlot.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A17FF4A38CE88E3CB6B855B3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				657E10261B14231D0021B2D4 /* QuartzCore.framework */,
+				657E10241B1423150021B2D4 /* Accelerate.framework */,
+				7FB74A9F196DBD5842283460 /* libPods-Mobile Medicine.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D82B968C6F1A9A92A25C91BE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				13916BB197DDBCA8DCF769B1 /* Pods-Mobile Medicine.debug.xcconfig */,
+				EC6F221FD333DE443A443425 /* Pods-Mobile Medicine.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		E1E99B971AF592E500550C4B /* CVCalendar */ = {
@@ -339,13 +412,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6526FBAA1ACF6FC7007AAB8B /* Build configuration list for PBXNativeTarget "Mobile Medicine" */;
 			buildPhases = (
+				A49CB9557F38CC6817DFC29F /* Check Pods Manifest.lock */,
 				6526FB871ACF6FC7007AAB8B /* Sources */,
 				6526FB881ACF6FC7007AAB8B /* Frameworks */,
 				6526FB891ACF6FC7007AAB8B /* Resources */,
+				DE53C4009EEC51F0293BABDA /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				657E10231B14230E0021B2D4 /* PBXTargetDependency */,
+				657E10211B1423030021B2D4 /* PBXTargetDependency */,
 			);
 			name = "Mobile Medicine";
 			productName = "Mobile Medicine";
@@ -399,6 +476,12 @@
 			mainGroup = 6526FB821ACF6FC7007AAB8B;
 			productRefGroup = 6526FB8C1ACF6FC7007AAB8B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 657E10181B14227C0021B2D4 /* Products */;
+					ProjectRef = 657E10171B14227C0021B2D4 /* Pods.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				6526FB8A1ACF6FC7007AAB8B /* Mobile Medicine */,
@@ -406,6 +489,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		657E101D1B14227D0021B2D4 /* libPods-Mobile Medicine.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-Mobile Medicine.a";
+			remoteRef = 657E101C1B14227D0021B2D4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		657E101F1B14227D0021B2D4 /* libPods-Mobile Medicine-CorePlot.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-Mobile Medicine-CorePlot.a";
+			remoteRef = 657E101E1B14227D0021B2D4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6526FB891ACF6FC7007AAB8B /* Resources */ = {
@@ -426,6 +526,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A49CB9557F38CC6817DFC29F /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		DE53C4009EEC51F0293BABDA /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mobile Medicine/Pods-Mobile Medicine-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6526FB871ACF6FC7007AAB8B /* Sources */ = {
@@ -499,6 +632,16 @@
 			isa = PBXTargetDependency;
 			target = 6526FB8A1ACF6FC7007AAB8B /* Mobile Medicine */;
 			targetProxy = 6526FBA11ACF6FC7007AAB8B /* PBXContainerItemProxy */;
+		};
+		657E10211B1423030021B2D4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-Mobile Medicine-CorePlot";
+			targetProxy = 657E10201B1423030021B2D4 /* PBXContainerItemProxy */;
+		};
+		657E10231B14230E0021B2D4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-Mobile Medicine";
+			targetProxy = 657E10221B14230E0021B2D4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -601,6 +744,7 @@
 		};
 		6526FBAB1ACF6FC7007AAB8B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 13916BB197DDBCA8DCF769B1 /* Pods-Mobile Medicine.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Mobile Medicine/Info.plist";
@@ -612,6 +756,7 @@
 		};
 		6526FBAC1ACF6FC7007AAB8B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EC6F221FD333DE443A443425 /* Pods-Mobile Medicine.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Mobile Medicine/Info.plist";

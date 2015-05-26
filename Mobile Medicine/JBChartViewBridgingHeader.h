@@ -14,4 +14,6 @@
 #import "Classes/JBBarChartView.h"
 #import "Classes/JBLineChartView.h"
 
+#import "CorePlot-CocoaTouch.h"
+
 #endif
