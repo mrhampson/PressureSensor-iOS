@@ -31,6 +31,13 @@ class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     let IRTemperatureServiceUUID = CBUUID(string: "F000AA00-0451-4000-B000-000000000000")
     let IRTemperatureDataUUID   = CBUUID(string: "F000AA01-0451-4000-B000-000000000000")
     let IRTemperatureConfigUUID = CBUUID(string: "F000AA02-0451-4000-B000-000000000000")
+    let BatteryServiceUUID = CBUUID(string:"f000180f-0451-4000-b000-000000000000")
+    let BatteryDataUUID = CBUUID(string:"f0002a19-0451-4000-b000-000000000000")
+    let BatteryConfigUUID = CBUUID(string:"f0000030-0451-4000-b000-000000000000")
+    
+    var BattData : CBCharacteristic!
+    
+    
     
     
     override init() {
@@ -100,6 +107,10 @@ class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
                 // Discover characteristics of IR Temperature Service
                 peripheral.discoverCharacteristics(nil, forService: thisService)
             }
+            if service.UUID == BatteryServiceUUID {
+                // Discover characteristics of IR Temperature Service
+                peripheral.discoverCharacteristics(nil, forService: thisService)
+            }
             // Uncomment to print list of UUIDs
             //println(thisService.UUID)
         }
@@ -123,6 +134,12 @@ class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             if thisCharacteristic.UUID == IRTemperatureDataUUID {
                 // Enable Sensor Notification
                 self.sensorTagPeripheral.setNotifyValue(true, forCharacteristic: thisCharacteristic)
+            }
+            if thisCharacteristic.UUID == BatteryDataUUID {
+                // Enable Sensor Notification
+                //self.sensorTagPeripheral.setNotifyValue(true, forCharacteristic: thisCharacteristic)
+                BattData = thisCharacteristic
+                println("Found BattData")
             }
             // check for config characteristic
             if thisCharacteristic.UUID == IRTemperatureConfigUUID {
@@ -176,6 +193,21 @@ class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func getStatus() -> Int{
         println("BlueTooth: Status = ", sensorStatus.description)
         return sensorStatus
+    }
+    
+    func getBattLevel(){
+        if var tmpBatt = BattData{
+            if var tmpBattData = BattData.value {
+                println( tmpBattData )
+            }
+            else{
+                println("Battery data has no value")
+            }
+        }
+        else{
+            println("Battery data not found")
+        }
+        
     }
 
     

@@ -298,6 +298,7 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
     
     
     func recordData() {
+        appDel.sensorTag.getBattLevel()
         if(appDel.sensorTag.getStatus() != lastStatus){
             lastStatus = appDel.sensorTag.getStatus()
             switch(appDel.sensorTag.getStatus()){
