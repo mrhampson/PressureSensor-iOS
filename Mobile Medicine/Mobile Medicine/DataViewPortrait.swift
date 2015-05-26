@@ -125,6 +125,7 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         button.layer.cornerRadius = 15
         button.backgroundColor = UIColor(red: 0.0, green:0.777, blue:0.222, alpha:1.0)
         button.setTitle("Start", forState: UIControlState.Normal)
+        button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
         button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
         button.center = CGPoint(x: self.view.frame.midX, y: self.view.bounds.maxY - 100 )
         
@@ -158,6 +159,8 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
                 insertData = []
                 //Start bluetooth recording (or have that automatic based on flag
                 btn.setTitle("Stop", forState: UIControlState.Normal)
+                btn.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
+
                 btn.backgroundColor = UIColor.redColor()
                 var error: NSError?
                 
