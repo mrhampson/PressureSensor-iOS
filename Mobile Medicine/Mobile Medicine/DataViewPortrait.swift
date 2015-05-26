@@ -238,7 +238,7 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if(segue.identifier == "DataToCal"){
+        if(segue.identifier != "DataToLandscape"){
             // Notification center will detect when you rotate to landscape view and will call
             // a segue to DataLandscape
             let notificationCenter = NSNotificationCenter.defaultCenter()
