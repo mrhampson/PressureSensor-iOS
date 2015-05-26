@@ -16,6 +16,7 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
     var titleLabel : UILabel!
     var statusLabel : UILabel!
     var tempLabel : UILabel!
+    var warningLabel : UILabel!
     var button : UIButton!
     var isShowingLandscapeView = false
     var timer : NSTimer!
@@ -118,18 +119,34 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         tempLabel.sizeToFit()
         tempLabel.center = self.view.center
         self.view.addSubview(tempLabel)
-
-        // Do any additional setup after loading the view.
-        button   = UIButton.buttonWithType(UIButtonType.System) as! UIButton
-        button.frame = CGRectMake(100, 100, 100, 50)
-        button.layer.cornerRadius = 15
-        button.backgroundColor = UIColor(red: 0.0, green:0.777, blue:0.222, alpha:1.0)
-        button.setTitle("Start", forState: UIControlState.Normal)
-        button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
-        button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        button.center = CGPoint(x: self.view.frame.midX, y: self.view.bounds.maxY - 100 )
-        
-        self.view.addSubview(button)
+        if connected
+        {
+            // Do any additional setup after loading the view.
+            button   = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+            button.frame = CGRectMake(100, 100, 100, 50)
+            button.layer.cornerRadius = 15
+            button.backgroundColor = UIColor(red: 0.0, green:0.777, blue:0.222, alpha:1.0)
+            button.setTitle("Start", forState: UIControlState.Normal)
+            button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
+            button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+            button.center = CGPoint(x: self.view.frame.midX, y: self.view.bounds.maxY - 100 )
+            
+            self.view.addSubview(button)
+        }
+        else
+        {
+            var warningLabel = UILabel(frame:CGRectMake(0, 0, 200, 100))
+            warningLabel.backgroundColor = UIColor(red: 0.777, green:0.222, blue:0.222, alpha:1.0)
+            warningLabel.textAlignment = .Center
+            warningLabel.text = "Please connect the device before recording data"
+            warningLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
+            warningLabel.center = CGPoint(x: self.view.frame.midX, y:self.titleLabel.bounds.midY + 350)
+            warningLabel.lineBreakMode = .ByWordWrapping
+            warningLabel.numberOfLines = 0
+            warningLabel.layer.cornerRadius = 15
+            self.view.addSubview(warningLabel)
+            
+        }
         //start timer at 20Hz Changed to be 10 HZ since sensor tag operates at 4
         timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("recordData"), userInfo: nil, repeats: true)
         

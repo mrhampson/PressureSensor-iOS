@@ -169,12 +169,12 @@ class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     func getTemp() -> Double{
-        println("Bluetooth: Temp = ", bTemp.description)
+        //println("Bluetooth: Temp = ", bTemp.description)
         return bTemp
     }
     
     func getStatus() -> Int{
-        println("BlueTooth: Status = ", sensorStatus.description)
+        //println("BlueTooth: Status = ", sensorStatus.description)
         return sensorStatus
     }
 
