@@ -124,7 +124,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "209"
             endingLineNumber = "209"
-            landmarkName = "prepareForSegue(_:sender:)"
+            landmarkName = "awakeFromNib()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -140,8 +140,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "202"
             endingLineNumber = "202"
-            landmarkName = "prepareForSegue(_:sender:)"
-            landmarkType = "5">
+            landmarkName = "DataViewPortrait"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -156,7 +156,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "203"
             endingLineNumber = "203"
-            landmarkName = "prepareForSegue(_:sender:)"
+            landmarkName = "didReceiveMemoryWarning()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

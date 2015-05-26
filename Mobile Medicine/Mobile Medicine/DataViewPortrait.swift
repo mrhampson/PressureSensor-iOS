@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import CoreBluetooth
 
-class DataViewPortrait: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, UITableViewDelegate{
+class DataViewPortrait: UIViewController, UITableViewDelegate{
     
     //UI info
     var titleLabel : UILabel!
@@ -30,12 +30,13 @@ class DataViewPortrait: UIViewController, CBCentralManagerDelegate, CBPeripheral
     //The variables we will record data to
     var startDate: NSDate!
     var dataName : String = ""
-    var dataArray: [Double] = []
-    var recording: Bool = false
-    //temp for testing
-    var count:Int = 0
+    var dataArray: [Double] = []      //temp for testing
+    var lastTemp : Double = Double.NaN
+    var lastStatus : Int = 0
+    var recording : Bool = false
+    var connected : Bool = false
     
-    
+    /*
     //BLUETOOTH STUFF
     // BLE
     var centralManager : CBCentralManager!
@@ -50,7 +51,7 @@ class DataViewPortrait: UIViewController, CBCentralManagerDelegate, CBPeripheral
     var ambientTemperature : Double = 0.0
     
     //var runCheck : Bool = false
-    
+    */
     
     convenience init(){
         self.init()
@@ -91,7 +92,7 @@ class DataViewPortrait: UIViewController, CBCentralManagerDelegate, CBPeripheral
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        centralManager = CBCentralManager(delegate: self, queue: nil)
+        //centralManager = CBCentralManager(delegate: self, queue: nil)
         
         // Set up title label
         titleLabel = UILabel()
@@ -121,82 +122,91 @@ class DataViewPortrait: UIViewController, CBCentralManagerDelegate, CBPeripheral
         // Do any additional setup after loading the view.
         button   = UIButton.buttonWithType(UIButtonType.System) as! UIButton
         button.frame = CGRectMake(100, 100, 100, 50)
-        button.backgroundColor = UIColor.greenColor()
+        button.layer.cornerRadius = 15
+        button.backgroundColor = UIColor(red: 0.0, green:0.777, blue:0.222, alpha:1.0)
         button.setTitle("Start", forState: UIControlState.Normal)
+        button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
         button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
         button.center = CGPoint(x: self.view.frame.midX, y: self.view.bounds.maxY - 100 )
         
         self.view.addSubview(button)
-        
-        //start timer at 20Hz
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("recordData"), userInfo: nil, repeats: true)
+        //start timer at 20Hz Changed to be 10 HZ since sensor tag operates at 4
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("recordData"), userInfo: nil, repeats: true)
         
         //BLUETOOTH STUFF
         
         // Initialize all sensor values and labels
-        allSensorLabels = SensorTag.getSensorLabels()
+        /*allSensorLabels = SensorTag.getSensorLabels()
         for (var i=0; i<allSensorLabels.count; i++) {
             allSensorValues.append(0)
-        }
+        }*/
     }
     
     func buttonAction(sender:UIButton!)
     {
-        let btn:UIButton = sender
-        let title = btn.titleLabel?.text
-        if (title == "Start")
+        if connected
         {
-            //Start
-            startDate = NSDate()
-            recording = true
-            count = 0
-            dataArray = []
-            dataName = String()
-            //creating new objects
-            insertData = []
-            //Start bluetooth recording (or have that automatic based on flag
-            btn.setTitle("Stop", forState: UIControlState.Normal)
-            btn.backgroundColor = UIColor.redColor()
-            var error: NSError?
-            
-            let fetchRequest = NSFetchRequest(entityName:"RecordInfo")
-            let fetchedResults = context.executeFetchRequest(fetchRequest,
-                error: &error) as? [NSManagedObject]
-            if let results = fetchedResults {
-                for result in results{
-                    println(result.valueForKey("rName"))
-                    println(result.valueForKey("rDate"))
-                    let dataArray = (result.valueForKey("dataRelation")) as! NSOrderedSet
-                    for data in dataArray{
-                        print(data.valueForKey("rData"), " ")
+            let btn:UIButton = sender
+            let title = btn.titleLabel?.text
+            if (title == "Start")
+            {
+                //Start
+                startDate = NSDate()
+                recording = true
+                dataArray = []
+                dataName = String()
+                //creating new objects
+                insertData = []
+                //Start bluetooth recording (or have that automatic based on flag
+                btn.setTitle("Stop", forState: UIControlState.Normal)
+                btn.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
+
+                btn.backgroundColor = UIColor.redColor()
+                var error: NSError?
+                
+                let fetchRequest = NSFetchRequest(entityName:"RecordInfo")
+                let fetchedResults = context.executeFetchRequest(fetchRequest,
+                    error: &error) as? [NSManagedObject]
+                if let results = fetchedResults {
+                    for result in results{
+                        println(result.valueForKey("rName"))
+                        println(result.valueForKey("rDate"))
+                        let dataArray = (result.valueForKey("dataRelation")) as! NSOrderedSet
+                        for data in dataArray{
+                            print(data.valueForKey("rData"), " ")
+                        }
+                        println()
                     }
-                    println()
                 }
+            }
+            else
+            {
+                //Stop
+                recording = false
+                //Save data to NSData here
+                println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
+                insertDataInfo.setValue(startDate, forKey: "rDate")
+                println(dataArray)
+                for data in dataArray {
+                    var newData = NSEntityDescription.insertNewObjectForEntityForName ("RecordData",
+                        inManagedObjectContext: context) as! NSManagedObject
+                    newData.setValue(data, forKey: "rData")
+                    
+                    insertData.addObject(newData)
+                }
+                insertDataInfo.setValue(insertData, forKey: "dataRelation")
+                addName(self) //sets and saves rName
+                println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
+                println(dataArray)
+
+                println()
+                btn.setTitle("Start", forState: UIControlState.Normal)
+                btn.backgroundColor = UIColor(red: 0.0, green:0.777, blue:0.222, alpha:1.0)
             }
         }
         else
         {
-            //Stop
-            recording = false
-            //Save data to NSData here
-            println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
-            insertDataInfo.setValue(startDate, forKey: "rDate")
-            println(dataArray)
-            for data in dataArray {
-                var newData = NSEntityDescription.insertNewObjectForEntityForName ("RecordData",
-                    inManagedObjectContext: context) as! NSManagedObject
-                newData.setValue(data, forKey: "rData")
-                
-                insertData.addObject(newData)
-            }
-            insertDataInfo.setValue(insertData, forKey: "dataRelation")
-            addName(self) //sets and saves rName
-            println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
-            println(dataArray)
-
-            println()
-            btn.setTitle("Start", forState: UIControlState.Normal)
-            btn.backgroundColor = UIColor.greenColor()
+            showAlertWithText(header: "Error", message: "Connect the device before recording data")
         }
     }
 
@@ -228,7 +238,7 @@ class DataViewPortrait: UIViewController, CBCentralManagerDelegate, CBPeripheral
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if(segue.identifier == "DataToCal"){
+        if(segue.identifier != "DataToLandscape"){
             // Notification center will detect when you rotate to landscape view and will call
             // a segue to DataLandscape
             let notificationCenter = NSNotificationCenter.defaultCenter()
@@ -288,19 +298,56 @@ class DataViewPortrait: UIViewController, CBCentralManagerDelegate, CBPeripheral
     
     
     func recordData() {
+        if(appDel.sensorTag.getStatus() != lastStatus){
+            lastStatus = appDel.sensorTag.getStatus()
+            switch(appDel.sensorTag.getStatus()){
+                /*
+                Status Code for the device, used to print the status text on portrait mode
+                0 = loading / haven't scanned
+                1 = searching for device
+                2 = Sesor Tag found
+                -2 = sensor tag not found
+                3 = discovering services
+                4 = looking at peripheral services
+                5 = enabling sensors
+                */
+            case 0:
+                statusLabel.text = "Loading..."
+            case 1:
+                statusLabel.text = "Searching for Device"
+            case 2:
+                statusLabel.text = "SensorTag found"
+            case 3:
+                statusLabel.text = "Discovering Services"
+            case 4:
+                statusLabel.text = "Looking at Peripheral Services"
+            case 5:
+                statusLabel.text = "Enabling Sensors"
+            case 6:
+                statusLabel.text = "Connected"
+                connected = true
+            case -1:
+                showAlertWithText(header: "Error", message: "Bluetooth switched off or not initialized")
+            case -2:
+                showAlertWithText(header: "Warning", message: "SensorTag Not Found")
+            default:
+                statusLabel.text = "Unknown"
+            }
+        }
         if(recording){
             // Call bluetooth here
-            
-            
-            
-            //count++
-            //dataArray.append(Double(count))
+            //let tmp = Int.min
+            if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN){
+                lastTemp = appDel.sensorTag.getTemp()
+                dataArray.append(lastTemp)
+                tempLabel.text = String(format:"%.2f", self.lastTemp)
+            }
         }
     }
     
     
-    /******* CBCentralManagerDelegate *******/
-    
+   /******* CBCentralManagerDelegate *******/
+    /*
     // Check status of BLE hardware
     func centralManagerDidUpdateState(central: CBCentralManager!) {
         if central.state == CBCentralManagerState.PoweredOn {
@@ -421,7 +468,7 @@ class DataViewPortrait: UIViewController, CBCentralManagerDelegate, CBPeripheral
 //            tempLabel.text = String(format:"%.2f", self.ambientTemperature)
         }
     }
-    
+    */
     // Show alert
     func showAlertWithText (header : String = "Warning", message : String) {
         var alert = UIAlertController(title: header, message: message, preferredStyle: UIAlertControllerStyle.Alert)
@@ -456,5 +503,6 @@ class DataViewPortrait: UIViewController, CBCentralManagerDelegate, CBPeripheral
         // Pass the selected object to the new view controller.
     }
     */
+
 
 }

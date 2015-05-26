@@ -1,15 +1,15 @@
 //
-//  dayDataViewTable.swift
+//  ListDataView.swift
 //  Mobile Medicine
 //
-//  Created by Conor Woods on 5/3/15.
+//  Created by Conor Woods on 5/18/15.
 //  Copyright (c) 2015 BRIM. All rights reserved.
 //
 
 import UIKit
 import CoreData
 
-class dayDataViewTable: UITableViewController {
+class ListDataView: UITableViewController {
 
     internal var date:CVDate!
     var context:NSManagedObjectContext!
@@ -21,6 +21,9 @@ class dayDataViewTable: UITableViewController {
     var tableElements: [NSManagedObject]! = []
     //var dataToPass: [Double]! = []
     var selectedIndex: NSIndexPath!
+    var daysWithData: [String] = []
+    let calendar = NSCalendar.currentCalendar()
+    //var dataOnDay: [NSManagedObect]! = []
     
     convenience init()
     {
@@ -47,54 +50,44 @@ class dayDataViewTable: UITableViewController {
         
     }
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         tableView.registerClass(UITableViewCell.self,
             forCellReuseIdentifier: "Cell")
         var error: NSError?
+        //var dateHeader: NSDateComponents?
+        var inArray: Bool =  false
         let fetchRequest = NSFetchRequest(entityName:"RecordInfo")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "rDate", ascending: false)]
 
-            
         if let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error)
         {
+            let formatter = NSDateFormatter()
+            formatter.dateFormat = "MMM d, y"
             let fetchedResultsOne = fetchedResults as? [NSManagedObject]
             if let results = fetchedResultsOne
             {
                 for result in results
                 {
-                    let rDay = result.valueForKey("rDate") as? NSDate
-                    let cDay = date.convertedDate()
-                    println("Cday is", cDay)
-                    println("rday is", rDay)
-                    
-                    let next = cDay!.dateByAddingTimeInterval((24 * 60 * 60))
-                    println("next", next)
-                    //let prev = cDay!.dateByAddingTimeInterval( (-24 * 60 * 60 - 8*60*60))
-                    if rDay?.earlierDate(next) == rDay && rDay?.laterDate(cDay!) == rDay
+                    if let rDay = result.valueForKey("rDate") as? NSDate
                     {
-                        //println(result.valueForKey("rName"))
-                        //println(result.valueForKey("rDate"))
+                        let dateString = formatter.stringFromDate(rDay) // this was causing crashes when i hit back so i'm trying to use conditional binding to avoid those crashes... come back to this ian
+                    
                         let dataArray = (result.valueForKey("dataRelation")) as! NSOrderedSet
                         if !result.isEqual(nil)
                         {
                             tableElements.append(result)
-                            //println("Appended value")
                         }
-                        /*for data in dataArray
-                        {
-                            print(data.valueForKey("rData"), " ")
-                        }*/
                     }
-                    println()
+                    
                 }
             }
         }
-
+        println(daysWithData)
         tableView.reloadData()
         // Do view setup here.
     }
-    
-    
     
     override func tableView(tableView: UITableView,
         numberOfRowsInSection section: Int) -> Int {
@@ -112,28 +105,33 @@ class dayDataViewTable: UITableViewController {
         cellForRowAtIndexPath
         indexPath: NSIndexPath) -> UITableViewCell {
             
+            let formatter = NSDateFormatter()
+            formatter.dateFormat = "MMM d, y"
             let cell =
             tableView.dequeueReusableCellWithIdentifier("Cell")
                 as! UITableViewCell
-            
             let row = tableElements[indexPath.row]
-            cell.textLabel!.text = row.valueForKey("rName") as? String
-            
-            return cell
-    }
+            let dataName = row.valueForKey("rName") as? String
+            let dataDateStr = formatter.stringFromDate((row.valueForKey("rDate") as? NSDate)!)
+            let sortDescriptor = NSSortDescriptor(key: "rDate", ascending: true)
 
+            cell.textLabel!.text = dataName! + " - " + dataDateStr
+            return cell
+
+    }
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         selectedIndex = indexPath
-        self.performSegueWithIdentifier("dayDataViewToGraph", sender: self)
+        self.performSegueWithIdentifier("listDataViewToGraph", sender: self)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "dayDataViewToGraph") {
+        if (segue.identifier == "listDataViewToGraph") {
             var graphView:DataViewLandscape = segue.destinationViewController as! DataViewLandscape
             graphView.dataName = tableElements[selectedIndex.row].valueForKey("rName") as! String
             let data = (tableElements[selectedIndex.row].valueForKey("dataRelation")) as! NSOrderedSet
             graphView.graphData = arrayHelper(data)
-
+            
         }
     }
     func arrayHelper(orderedSet: NSOrderedSet) -> [Double]
@@ -146,4 +144,6 @@ class dayDataViewTable: UITableViewController {
         }
         return(output)
     }
+    
 }
+
