@@ -114,55 +114,27 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         
         // Set up temperature label
         tempLabel = UILabel()
-        tempLabel.text = "00.00"
+        tempLabel.text = "00.00" + "°C"
         tempLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 72)
         tempLabel.sizeToFit()
         tempLabel.center = self.view.center
         self.view.addSubview(tempLabel)
-        if connected
-        {
-            // Do any additional setup after loading the view.
-            button   = UIButton.buttonWithType(UIButtonType.System) as! UIButton
-            button.frame = CGRectMake(100, 100, 100, 50)
-            button.layer.cornerRadius = 15
-            button.backgroundColor = UIColor(red: 0.0, green:0.777, blue:0.222, alpha:1.0)
-            button.setTitle("Start", forState: UIControlState.Normal)
-            button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
-            button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
-            button.center = CGPoint(x: self.view.frame.midX, y: self.view.bounds.maxY - 100 )
-            
-            self.view.addSubview(button)
-        }
-        else
-        {
-            var warningLabel = UILabel(frame:CGRectMake(0, 0, 200, 100))
-            warningLabel.backgroundColor = UIColor(red: 0.777, green:0.222, blue:0.222, alpha:1.0)
-            warningLabel.textAlignment = .Center
-            warningLabel.text = "Please connect the device before recording data"
-            warningLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
-            warningLabel.center = CGPoint(x: self.view.frame.midX, y:self.titleLabel.bounds.midY + 350)
-            warningLabel.lineBreakMode = .ByWordWrapping
-            warningLabel.numberOfLines = 0
-            warningLabel.layer.cornerRadius = 15
-            self.view.addSubview(warningLabel)
-            
-        }
+
         //start timer at 20Hz Changed to be 10 HZ since sensor tag operates at 4
         timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("recordData"), userInfo: nil, repeats: true)
         
-        //BLUETOOTH STUFF
+        //BLUETOOTH
         
-        // Initialize all sensor values and labels
-        /*allSensorLabels = SensorTag.getSensorLabels()
-        for (var i=0; i<allSensorLabels.count; i++) {
-            allSensorValues.append(0)
-        }*/
     }
     
     func buttonAction(sender:UIButton!)
     {
+        let btn:UIButton = sender
         if connected
         {
+            warningLabel.removeFromSuperview()
+            //warningLabel.removeAllSubviews()
+            
             let btn:UIButton = sender
             let title = btn.titleLabel?.text
             if (title == "Start")
@@ -315,6 +287,27 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
     
     
     func recordData() {
+        
+        button = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+        button.frame = CGRectMake(100, 100, 100, 50)
+        button.layer.cornerRadius = 15
+        button.backgroundColor = UIColor(red: 0.0, green:0.777, blue:0.222, alpha:1.0)
+        button.setTitle("Start", forState: UIControlState.Normal)
+        button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
+        button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        button.center = CGPoint(x: self.view.frame.midX, y: self.view.bounds.maxY - 100 )
+        
+        warningLabel = UILabel(frame:CGRectMake(0, 0, 200, 100))
+        warningLabel.backgroundColor = UIColor(red: 0.777, green:0.222, blue:0.222, alpha:1.0)
+        warningLabel.textAlignment = .Center
+        warningLabel.text = "Please connect the device before recording data"
+        warningLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
+        warningLabel.center = CGPoint(x: self.view.frame.midX, y:self.titleLabel.bounds.midY + 350)
+        warningLabel.lineBreakMode = .ByWordWrapping
+        warningLabel.numberOfLines = 0
+        warningLabel.layer.cornerRadius = 15
+
+        
         if(appDel.sensorTag.getStatus() != lastStatus){
             lastStatus = appDel.sensorTag.getStatus()
             switch(appDel.sensorTag.getStatus()){
@@ -342,11 +335,24 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
                 statusLabel.text = "Enabling Sensors"
             case 6:
                 statusLabel.text = "Connected"
+                if(!connected)
+                {
+                    println("We in here")
+                    print(warningLabel)
+                    warningLabel.text = " "
+                    warningLabel.backgroundColor = UIColor(red:(228/255) , green:(241/255), blue:(254/255), alpha:1.0)
+                    self.view.addSubview(warningLabel)
+
+                }
                 connected = true
+                self.view.addSubview(button)
+
             case -1:
                 showAlertWithText(header: "Error", message: "Bluetooth switched off or not initialized")
             case -2:
+                connected = false
                 showAlertWithText(header: "Warning", message: "SensorTag Not Found")
+                self.view.addSubview(warningLabel)
             default:
                 statusLabel.text = "Unknown"
             }
@@ -357,135 +363,11 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
             if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN){
                 lastTemp = appDel.sensorTag.getTemp()
                 dataArray.append(lastTemp)
-                tempLabel.text = String(format:"%.2f", self.lastTemp)
+                tempLabel.text = String(format:"%.2f" + "°C", self.lastTemp)
             }
         }
     }
     
-    
-   /******* CBCentralManagerDelegate *******/
-    /*
-    // Check status of BLE hardware
-    func centralManagerDidUpdateState(central: CBCentralManager!) {
-        if central.state == CBCentralManagerState.PoweredOn {
-            println("CM did update state")
-            // Scan for peripherals if BLE is turned on
-            central.scanForPeripheralsWithServices(nil, options: nil)
-            self.statusLabel.text = "Searching for BLE Devices"
-        }
-        else {
-            // Can have different conditions for all states if needed - show generic alert for now
-            showAlertWithText(header: "Error", message: "Bluetooth switched off or not initialized")
-        }
-    }
-    
-    
-    // Check out the discovered peripherals to find Sensor Tag
-    func centralManager(central: CBCentralManager!, didDiscoverPeripheral peripheral: CBPeripheral!, advertisementData: [NSObject : AnyObject]!, RSSI: NSNumber!) {
-        println("CM 1")
-        
-        if SensorTag.sensorTagFound(advertisementData) == true {
-            
-            // Update Status Label
-            self.statusLabel.text = "Sensor Tag Found"
-            
-            // Stop scanning, set as the peripheral to use and establish connection
-            self.centralManager.stopScan()
-            self.sensorTagPeripheral = peripheral
-            self.sensorTagPeripheral?.delegate = self
-            self.centralManager.connectPeripheral(peripheral, options: nil)
-        }
-        else {
-            self.statusLabel.text = "Sensor Tag NOT Found"
-            //showAlertWithText(header: "Warning", message: "SensorTag Not Found")
-        }
-    }
-    
-    // Discover services of the peripheral
-    func centralManager(central: CBCentralManager!, didConnectPeripheral peripheral: CBPeripheral!) {
-        println("CM 2")
-        
-        self.statusLabel.text = "Discovering peripheral services"
-        peripheral.discoverServices(nil)
-    }
-    
-    
-    // If disconnected, start searching again
-    func centralManager(central: CBCentralManager!, didDisconnectPeripheral peripheral: CBPeripheral!, error: NSError!) {
-        println("CM 3")
-        
-        self.statusLabel.text = "Disconnected"
-        central.scanForPeripheralsWithServices(nil, options: nil)
-        print("looking for shit")
-    }
-    
-    /******* CBCentralPeripheralDelegate *******/
-    
-    // Check if the service discovered is valid i.e. one of the following:
-    // IR Temperature Service
-    // Accelerometer Service
-    // Humidity Service
-    // Magnetometer Service
-    // Barometer Service
-    // Gyroscope Service
-    // (Others are not implemented)
-    func peripheral(peripheral: CBPeripheral!, didDiscoverServices error: NSError!) {
-        self.statusLabel.text = "Looking at peripheral services"
-        for service in peripheral.services {
-            let thisService = service as! CBService
-            if SensorTag.validService(thisService) {
-                // Discover characteristics of all valid services
-                peripheral.discoverCharacteristics(nil, forService: thisService)
-            }
-        }
-    }
-    
-    
-    // Enable notification and sensor for each characteristic of valid service
-    func peripheral(peripheral: CBPeripheral!, didDiscoverCharacteristicsForService service: CBService!, error: NSError!) {
-        println("Peripheral 1")
-        
-        self.statusLabel.text = "Enabling sensors"
-        
-        var enableValue = 1
-        let enablyBytes = NSData(bytes: &enableValue, length: sizeof(UInt8))
-        
-        for charateristic in service.characteristics {
-            let thisCharacteristic = charateristic as! CBCharacteristic
-            if SensorTag.validDataCharacteristic(thisCharacteristic) {
-                // Enable Sensor Notification
-                self.sensorTagPeripheral?.setNotifyValue(true, forCharacteristic: thisCharacteristic)
-            }
-            if SensorTag.validConfigCharacteristic(thisCharacteristic) {
-                // Enable Sensor
-                self.sensorTagPeripheral?.writeValue(enablyBytes, forCharacteristic: thisCharacteristic, type: CBCharacteristicWriteType.WithResponse)
-            }
-        }
-        
-    }
-    
-    
-    // Get data values when they are updated
-    func peripheral(peripheral: CBPeripheral!, didUpdateValueForCharacteristic characteristic: CBCharacteristic!, error: NSError!) {
-        println("Peripheral 2")
-        
-        self.statusLabel.text = "Connected"
-        
-        if characteristic.UUID == IRTemperatureDataUUID {
-            self.ambientTemperature = SensorTag.getAmbientTemperature(characteristic.value)
-            self.allSensorValues[0] = self.ambientTemperature
-            //let model = (self.tabBarController as! CustomTabBarController).model
-            //model.dataArray.append(self.ambientTemperature)
-            if(recording)
-            {
-                dataArray.append(self.ambientTemperature)
-                tempLabel.text = String(format:"%.2f", self.ambientTemperature)
-            }
-//            dataArray.append(self.ambientTemperature)
-//            tempLabel.text = String(format:"%.2f", self.ambientTemperature)
-        }
-    }
-    */
     // Show alert
     func showAlertWithText (header : String = "Warning", message : String) {
         var alert = UIAlertController(title: header, message: message, preferredStyle: UIAlertControllerStyle.Alert)
@@ -494,32 +376,4 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
-    /* Apple example code (in Obj C)
-    
-    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
-    if (UIDeviceOrientationIsLandscape(deviceOrientation) &&
-    !isShowingLandscapeView)
-    {
-    [self performSegueWithIdentifier:@"DisplayAlternateView" sender:self];
-    isShowingLandscapeView = YES;
-    }
-    else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
-    isShowingLandscapeView)
-    {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    isShowingLandscapeView = NO;
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-
 }
