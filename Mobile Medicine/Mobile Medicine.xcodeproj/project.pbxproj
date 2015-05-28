@@ -25,6 +25,8 @@
 		6558855B1ADFA25D00B29F61 /* ChartTooltipTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6558855A1ADFA25D00B29F61 /* ChartTooltipTipView.swift */; };
 		657E10251B1423150021B2D4 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 657E10241B1423150021B2D4 /* Accelerate.framework */; };
 		657E10271B14231D0021B2D4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 657E10261B14231D0021B2D4 /* QuartzCore.framework */; };
+		657E102B1B14317A0021B2D4 /* CPTMutablePlotRange+SwiftCompat.m in Sources */ = {isa = PBXBuildFile; fileRef = 657E102A1B14317A0021B2D4 /* CPTMutablePlotRange+SwiftCompat.m */; };
+		65C113941B16D83E00E8622C /* FloatToDecimal.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C113931B16D83E00E8622C /* FloatToDecimal.m */; };
 		9B09EEB31AF84CB7001B68BA /* SensorTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09EEB21AF84CB7001B68BA /* SensorTag.swift */; };
 		9B09EEB51AF86C9A001B68BA /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09EEB41AF86C9A001B68BA /* CustomTabBarController.swift */; };
 		9B09EEB71AF88553001B68BA /* SensorTagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09EEB61AF88553001B68BA /* SensorTagTableViewCell.swift */; };
@@ -132,12 +134,16 @@
 		657E10241B1423150021B2D4 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		657E10261B14231D0021B2D4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		657E10281B1423470021B2D4 /* JBChartViewBridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBChartViewBridgingHeader.h; sourceTree = "<group>"; };
+		657E10291B14317A0021B2D4 /* CPTMutablePlotRange+SwiftCompat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CPTMutablePlotRange+SwiftCompat.h"; sourceTree = "<group>"; };
+		657E102A1B14317A0021B2D4 /* CPTMutablePlotRange+SwiftCompat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CPTMutablePlotRange+SwiftCompat.m"; sourceTree = "<group>"; };
+		65C113931B16D83E00E8622C /* FloatToDecimal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloatToDecimal.m; sourceTree = "<group>"; };
+		65C113951B16D9FD00E8622C /* FloatToDecimal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FloatToDecimal.h; path = ../FloatToDecimal.h; sourceTree = "<group>"; };
 		7FB74A9F196DBD5842283460 /* libPods-Mobile Medicine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Mobile Medicine.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B09EEB21AF84CB7001B68BA /* SensorTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorTag.swift; sourceTree = "<group>"; };
 		9B09EEB41AF86C9A001B68BA /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		9B09EEB61AF88553001B68BA /* SensorTagTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorTagTableViewCell.swift; sourceTree = "<group>"; };
-		A01228C41AF1FD060030D369 /* RecordData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordData.swift; sourceTree = "<group>"; };
-		A01228C61AF1FD070030D369 /* RecordInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordInfo.swift; sourceTree = "<group>"; };
+		A01228C41AF1FD060030D369 /* RecordData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecordData.swift; path = ../RecordData.swift; sourceTree = "<group>"; };
+		A01228C61AF1FD070030D369 /* RecordInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecordInfo.swift; path = ../RecordInfo.swift; sourceTree = "<group>"; };
 		A0192ED11AE47E2500A589C6 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		A0192ED51AE4871200A589C6 /* Bluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bluetooth.swift; sourceTree = "<group>"; };
 		E15791421AF721000072B86A /* dayDataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dayDataView.swift; sourceTree = "<group>"; };
@@ -200,8 +206,6 @@
 				657E10281B1423470021B2D4 /* JBChartViewBridgingHeader.h */,
 				657E10171B14227C0021B2D4 /* Pods.xcodeproj */,
 				E1E99B971AF592E500550C4B /* CVCalendar */,
-				A01228C61AF1FD070030D369 /* RecordInfo.swift */,
-				A01228C41AF1FD060030D369 /* RecordData.swift */,
 				6558854B1ADF8BDE00B29F61 /* JBChartView */,
 				6526FB8D1ACF6FC7007AAB8B /* Mobile Medicine */,
 				6526FBA31ACF6FC7007AAB8B /* Mobile MedicineTests */,
@@ -223,6 +227,8 @@
 		6526FB8D1ACF6FC7007AAB8B /* Mobile Medicine */ = {
 			isa = PBXGroup;
 			children = (
+				A01228C61AF1FD070030D369 /* RecordInfo.swift */,
+				A01228C41AF1FD060030D369 /* RecordData.swift */,
 				655885561ADF8D2300B29F61 /* ChartHeaderView.swift */,
 				6526FB901ACF6FC7007AAB8B /* AppDelegate.swift */,
 				E15791421AF721000072B86A /* dayDataView.swift */,
@@ -245,6 +251,10 @@
 				9B09EEB61AF88553001B68BA /* SensorTagTableViewCell.swift */,
 				E1DCF04C1B0AA0FB00034476 /* ListDataView.swift */,
 				E1DCF04E1B0AEA3C00034476 /* ListDataHeader.swift */,
+				657E10291B14317A0021B2D4 /* CPTMutablePlotRange+SwiftCompat.h */,
+				657E102A1B14317A0021B2D4 /* CPTMutablePlotRange+SwiftCompat.m */,
+				65C113951B16D9FD00E8622C /* FloatToDecimal.h */,
+				65C113931B16D83E00E8622C /* FloatToDecimal.m */,
 			);
 			path = "Mobile Medicine";
 			sourceTree = "<group>";
@@ -577,6 +587,7 @@
 				E1E99BAE1AF595D000550C4B /* CVCalendarDayView.swift in Sources */,
 				E1E99BB81AF596DE00550C4B /* CVCalendarViewAppearance.swift in Sources */,
 				E1E99BBC1AF5970700550C4B /* CVDate.swift in Sources */,
+				65C113941B16D83E00E8622C /* FloatToDecimal.m in Sources */,
 				E1E99BBA1AF596F500550C4B /* CVCalendarManager.swift in Sources */,
 				655885531ADF8BDE00B29F61 /* JBChartView.m in Sources */,
 				E1E99BB21AF5962600550C4B /* CVCalendarViewAnimator.swift in Sources */,
@@ -594,6 +605,7 @@
 				6526FBB71ACF7390007AAB8B /* CalendarViewPortrait.swift in Sources */,
 				E1E99BC61AF597C200550C4B /* CVCalendarViewAppearanceDelegate.swift in Sources */,
 				E1DCF04F1B0AEA3C00034476 /* ListDataHeader.swift in Sources */,
+				657E102B1B14317A0021B2D4 /* CPTMutablePlotRange+SwiftCompat.m in Sources */,
 				E1E99BC21AF5978300550C4B /* CVCalendarMenuViewDelegate.swift in Sources */,
 				6526FB931ACF6FC7007AAB8B /* IntroViewController.swift in Sources */,
 				E1DCF04D1B0AA0FB00034476 /* ListDataView.swift in Sources */,
