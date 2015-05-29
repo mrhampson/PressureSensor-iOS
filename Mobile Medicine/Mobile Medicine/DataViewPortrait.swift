@@ -340,7 +340,8 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
                     println("We in here")
                     print(warningLabel)
                     warningLabel.text = " "
-                    warningLabel.backgroundColor = UIColor(red:(228/255) , green:(241/255), blue:(254/255), alpha:1.0)
+                    warningLabel.backgroundColor = UIColor.clearColor()
+                    //(red:(0xe4/255) , green:(0xf1/255), blue:(0xfe/255), alpha:1.0)
                     self.view.addSubview(warningLabel)
 
                 }
