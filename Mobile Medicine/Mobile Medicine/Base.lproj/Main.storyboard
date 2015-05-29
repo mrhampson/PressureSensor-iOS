@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -24,7 +24,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ped-dr-P1x">
-                                <rect key="frame" x="64" y="270" width="192" height="45"/>
+                                <rect key="frame" x="64" y="317" width="192" height="45"/>
                                 <color key="backgroundColor" red="0.0" green="0.15686274509803921" blue="0.32941176470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="j8k-KB-1Ct"/>
@@ -45,7 +45,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xbb-WD-6Kr">
-                                <rect key="frame" x="64" y="323" width="192" height="45"/>
+                                <rect key="frame" x="64" y="370" width="192" height="45"/>
                                 <color key="backgroundColor" red="0.0" green="0.15686274510000001" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="WZA-QF-7GZ"/>
@@ -69,7 +69,7 @@
                                 <rect key="frame" x="36" y="110" width="248" height="152"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0UT-PR-ELO">
-                                <rect key="frame" x="64" y="376" width="192" height="45"/>
+                                <rect key="frame" x="64" y="423" width="192" height="45"/>
                                 <color key="backgroundColor" red="0.0" green="0.15686274510000001" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Us2-v2-P1j"/>
@@ -93,7 +93,7 @@
                         <color key="backgroundColor" red="0.89411764705882357" green="0.94509803921568625" blue="0.99607843137254903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="0UT-PR-ELO" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="48" id="1bm-tn-e3T"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="0UT-PR-ELO" secondAttribute="bottom" constant="147" id="2RN-uR-hgZ"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="0UT-PR-ELO" secondAttribute="bottom" constant="100" id="2RN-uR-hgZ"/>
                             <constraint firstItem="fsZ-ez-4jz" firstAttribute="top" secondItem="PET-rd-WcH" secondAttribute="bottom" constant="8" id="3aZ-6x-mUB"/>
                             <constraint firstAttribute="trailingMargin" secondItem="PET-rd-WcH" secondAttribute="trailing" constant="20" id="CHW-LH-dMB"/>
                             <constraint firstItem="ped-dr-P1x" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="48" id="Dwa-6C-JqH"/>
