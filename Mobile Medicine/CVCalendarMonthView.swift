@@ -63,6 +63,7 @@ class CVCalendarMonthView: UIView {
     func mapDayViews(body: (DayView) -> Void) {
         for weekView in self.weekViews {
             for dayView in weekView.dayViews {
+                println("3")
                 body(dayView)
             }
         }
