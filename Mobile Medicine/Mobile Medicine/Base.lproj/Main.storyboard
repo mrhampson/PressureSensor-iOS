@@ -62,7 +62,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="lsc-Up-A8K" kind="modal" id="wPh-Fu-QPK"/>
+                                    <segue destination="bp9-m8-rC6" kind="modal" id="pgD-WH-gp8"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="MiNi-Logo" translatesAutoresizingMaskIntoConstraints="NO" id="fsZ-ez-4jz">
@@ -125,6 +125,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <button key="tableHeaderView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="rsY-ny-ppL">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Home">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <segue destination="vXZ-lx-hvc" kind="modal" id="glb-O9-Gh7"/>
+                            </connections>
+                        </button>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="3k9-GT-pXd">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -157,7 +167,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Y1-eB-gI5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1180.5" y="393.5"/>
+            <point key="canvasLocation" x="612" y="410"/>
         </scene>
         <!--Data View Portrait-->
         <scene sceneID="DaL-bM-svG">
@@ -483,24 +493,6 @@
             </objects>
             <point key="canvasLocation" x="1408.5" y="1011.5"/>
         </scene>
-        <!--Working-->
-        <scene sceneID="gS8-u8-9N2">
-            <objects>
-                <navigationController title="Working" automaticallyAdjustsScrollViewInsets="NO" id="lsc-Up-A8K" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="euF-0o-EpJ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="bp9-m8-rC6" kind="relationship" relationship="rootViewController" id="caH-BF-E3e"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="U6h-F3-OLi" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="626" y="415"/>
-        </scene>
         <!--Data View Landscape-->
         <scene sceneID="FwQ-CF-gbT">
             <objects>
@@ -559,9 +551,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Xfn-Pe-2pJ"/>
-        <segue reference="caH-BF-E3e"/>
-        <segue reference="L6A-UZ-wcd"/>
         <segue reference="zYb-pw-p1d"/>
+        <segue reference="Xfn-Pe-2pJ"/>
+        <segue reference="pgD-WH-gp8"/>
+        <segue reference="L6A-UZ-wcd"/>
     </inferredMetricsTieBreakers>
 </document>
