@@ -83,18 +83,21 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         return false
     }
 
-    override func supportedInterfaceOrientations() -> Int {
-        return Int(UIInterfaceOrientationMask.Portrait.rawValue)
-    }
+
     
     
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
         //centralManager = CBCentralManager(delegate: self, queue: nil)
-        
+        //manually check device in case entering view from landscape
+        let deviceOrientation = UIDevice.currentDevice().orientation;
+        if (UIDeviceOrientationIsLandscape(deviceOrientation)){
+            self.performSegueWithIdentifier("DataToLandscape", sender: self)
+            isShowingLandscapeView = true
+        }
+        if(!isShowingLandscapeView){
         // Set up title label
         titleLabel = UILabel()
         titleLabel.text = "Mobile Medicine"
@@ -122,7 +125,7 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
 
         //start timer at 20Hz Changed to be 10 HZ since sensor tag operates at 4
         timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("recordData"), userInfo: nil, repeats: true)
-        
+        }
         //BLUETOOTH
         
     }
@@ -204,11 +207,16 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         // Dispose of any resources that can be recreated.
     }
     
+
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: "orientationChanged:", name: UIDeviceOrientationDidChangeNotification, object: nil)
+        
+
+
         
     }
     
