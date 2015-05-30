@@ -363,6 +363,10 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
                 
                 let textField = alert.textFields![0] as! UITextField
                 self.dataName = textField.text
+                if(self.dataName == ""){
+                    self.dataName = self.dateFormat.stringFromDate(self.startDate)
+                    self.insertDataInfo.setValue(self.dataName, forKey: "rName")
+                }
                 self.insertDataInfo.setValue(self.dataName, forKey: "rName")
                 println(self.dataName) //There is some sort of threading going on, tis isn't waiting for addName
                 println()
@@ -376,6 +380,9 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
         
         let cancelAction = UIAlertAction(title: "Cancel",
             style: .Default) { (action: UIAlertAction!) -> Void in
+                self.dataName = self.dateFormat.stringFromDate(self.startDate)
+                self.insertDataInfo.setValue(self.dataName, forKey: "rName")
+
                 self.insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: self.context) as! RecordInfo
                 
         }
@@ -420,6 +427,8 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
             if !self.context.save(&error) {
                 println("Could not save \(error), \(error?.userInfo)")
             }
+            self.insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: self.context) as! RecordInfo
+            
             recording = false
         }
     }
