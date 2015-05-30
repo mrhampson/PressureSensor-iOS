@@ -20,6 +20,7 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
     var button : UIButton!
     var isShowingLandscapeView = false
     var timer : NSTimer!
+
     
     var context:NSManagedObjectContext!
     var infoEntity:NSEntityDescription
@@ -29,13 +30,15 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
     var appDel:AppDelegate!
     
     //The variables we will record data to
-    var startDate: NSDate!
-    var dataName : String = ""
-    var dataArray: [Double] = []      //temp for testing
+    internal var startDate: NSDate!
+    internal var dataName : String = ""
+    internal var dataArray: [Double] = []      //temp for testing
     var lastTemp : Double = Double.NaN
     var lastStatus : Int = 0
-    var recording : Bool = false
+    internal var recording : Bool = false
     var connected : Bool = false
+    var dateFormat : NSDateFormatter
+    
     
     /*
     //BLUETOOTH STUFF
@@ -63,7 +66,7 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         dataEntity = NSEntityDescription.entityForName("RecordData", inManagedObjectContext: context)!
         //insertDataInfo = NSManagedObject(entity: infoEntity, insertIntoManagedObjectContext: context)
         insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: context) as! RecordInfo
-        
+        dateFormat = NSDateFormatter()
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -75,8 +78,10 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         dataEntity = NSEntityDescription.entityForName("RecordData", inManagedObjectContext: context)!
         //insertDataInfo = NSManagedObject(entity: infoEntity, insertIntoManagedObjectContext: context)
         insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: context) as! RecordInfo
+         dateFormat = NSDateFormatter()
         super.init(coder: aDecoder)
-        
+       
+
      }
     
     override func shouldAutorotate() -> Bool {
@@ -98,7 +103,9 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
             isShowingLandscapeView = true
         }
         if(!isShowingLandscapeView){
-        // Set up title label
+            dateFormat.dateStyle = NSDateFormatterStyle.MediumStyle
+            dateFormat.timeStyle = NSDateFormatterStyle.MediumStyle
+            // Set up title label
         titleLabel = UILabel()
         titleLabel.text = "Mobile Medicine"
         titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
@@ -126,6 +133,7 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         //start timer at 20Hz Changed to be 10 HZ since sensor tag operates at 4
         timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("recordData"), userInfo: nil, repeats: true)
         }
+        println(dateFormat.stringFromDate(NSDate()))
         //BLUETOOTH
         
     }
@@ -144,6 +152,7 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
             {
                 //Start
                 startDate = NSDate()
+                
                 recording = true
                 dataArray = []
                 dataName = String()
@@ -214,9 +223,8 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: "orientationChanged:", name: UIDeviceOrientationDidChangeNotification, object: nil)
-        
-
-
+        notificationCenter.addObserver(self, selector: "saveOnQuit:", name:UIApplicationWillResignActiveNotification, object: nil)
+        notificationCenter.addObserver(self, selector: "saveOnQuit:", name:UIApplicationWillTerminateNotification, object: nil)
         
     }
     
@@ -234,12 +242,40 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
 
     }
     
+    
+    func saveOnQuit(notification: NSNotification){
+        if(recording){
+            
+            
+            insertDataInfo.setValue(startDate, forKey: "rDate")
+            for data in dataArray {
+                var newData = NSEntityDescription.insertNewObjectForEntityForName ("RecordData",
+                    inManagedObjectContext: context) as! NSManagedObject
+                newData.setValue(data, forKey: "rData")
+                
+                insertData.addObject(newData)
+            }
+            insertDataInfo.setValue(insertData, forKey: "dataRelation")
+            dataName = dateFormat.stringFromDate(startDate)
+            insertDataInfo.setValue(dataName, forKey: "rName")
+            
+            //save the data set
+            var error: NSError?
+            if !self.context.save(&error) {
+                println("Could not save \(error), \(error?.userInfo)")
+            }
+            recording = false
+        }
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier != "DataToLandscape"){
             // Notification center will detect when you rotate to landscape view and will call
             // a segue to DataLandscape
             let notificationCenter = NSNotificationCenter.defaultCenter()
             notificationCenter.removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
+            notificationCenter.removeObserver(self, name: UIApplicationWillResignActiveNotification, object: nil)
+            notificationCenter.removeObserver(self, name: UIApplicationWillTerminateNotification, object: nil)
         } else if(segue.identifier == "DataToLandscape" && self.dataArray.count != 0 ) {
             var destinationView:DataViewLandscape = segue.destinationViewController as! DataViewLandscape;
             destinationView.startDate = self.startDate;

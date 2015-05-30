@@ -39,6 +39,7 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
     var insertData:NSMutableOrderedSet = []
     var appDel:AppDelegate!
     var connected : Bool = false
+    var dateFormat : NSDateFormatter
 
     
     convenience init(){
@@ -50,7 +51,7 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
         dataEntity = NSEntityDescription.entityForName("RecordData", inManagedObjectContext: context)!
         //insertDataInfo = NSManagedObject(entity: infoEntity, insertIntoManagedObjectContext: context)
         insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: context) as! RecordInfo
-        
+        dateFormat = NSDateFormatter()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -62,6 +63,7 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
         dataEntity = NSEntityDescription.entityForName("RecordData", inManagedObjectContext: context)!
         //insertDataInfo = NSManagedObject(entity: infoEntity, insertIntoManagedObjectContext: context)
         insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: context) as! RecordInfo
+        dateFormat = NSDateFormatter()
         super.init(coder: aDecoder)
         
     }
@@ -390,5 +392,54 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
             completion: nil)
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.addObserver(self, selector: "saveOnQuit:", name:UIApplicationWillResignActiveNotification, object: nil)
+        notificationCenter.addObserver(self, selector: "saveOnQuit:", name:UIApplicationWillTerminateNotification, object: nil)
+        
+    }
     
+    func saveOnQuit(notification: NSNotification){
+        if(recording){
+            insertDataInfo.setValue(startDate, forKey: "rDate")
+            for data in graphData {
+                var newData = NSEntityDescription.insertNewObjectForEntityForName ("RecordData",
+                    inManagedObjectContext: context) as! NSManagedObject
+                newData.setValue(data, forKey: "rData")
+                
+                insertData.addObject(newData)
+            }
+            insertDataInfo.setValue(insertData, forKey: "dataRelation")
+            dataName = dateFormat.stringFromDate(startDate)
+            insertDataInfo.setValue(dataName, forKey: "rName")
+            
+            //save the data set
+            var error: NSError?
+            if !self.context.save(&error) {
+                println("Could not save \(error), \(error?.userInfo)")
+            }
+            recording = false
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        
+        notificationCenter.removeObserver(self, name: UIApplicationWillResignActiveNotification, object: nil)
+        notificationCenter.removeObserver(self, name: UIApplicationWillTerminateNotification, object: nil)
+        
+        //moving data back to portrait
+        if(segue.identifier == "DataToPortrait" && self.graphData.count != 0 ) {
+            var destinationView:DataViewPortrait = segue.destinationViewController as! DataViewPortrait;
+            destinationView.startDate = self.startDate;
+            destinationView.dataName = self.dataName;
+            for stuff in graphData{
+                print(stuff)
+            }
+            destinationView.dataArray = self.graphData;
+            destinationView.recording = self.recording;
+        }
+    }
 }
