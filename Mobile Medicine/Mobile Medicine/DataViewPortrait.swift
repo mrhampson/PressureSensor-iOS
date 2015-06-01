@@ -356,6 +356,7 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         warningLabel.lineBreakMode = .ByWordWrapping
         warningLabel.numberOfLines = 0
         warningLabel.layer.cornerRadius = 15
+        warningLabel.tag = 100
 
         
         if(appDel.sensorTag.getStatus() != lastStatus){
@@ -389,11 +390,13 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
                 {
                     println("We in here")
                     print(warningLabel)
-                    warningLabel.text = " "
-                    warningLabel.backgroundColor = UIColor.clearColor()
-                    //(red:(0xe4/255) , green:(0xf1/255), blue:(0xfe/255), alpha:1.0)
-                    self.view.addSubview(warningLabel)
-
+                    for subview in view.subviews {
+                        if subview is UILabel {
+                            if (subview.tag == 100) {
+                                subview.removeFromSuperview()
+                            }
+                        }
+                    }
                 }
                 connected = true
                 self.view.addSubview(button)
