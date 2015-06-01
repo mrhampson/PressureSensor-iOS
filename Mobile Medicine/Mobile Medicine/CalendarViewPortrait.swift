@@ -67,13 +67,13 @@ extension ViewController: CVCalendarViewDelegate {
     }
     
     func didSelectDayView(dayView: CVCalendarDayView) {
-        if(!fromNextArrow)
-        {
+        //if(!fromNextArrow)
+        //{
             date = dayView.date
             //For some reason, when a new month is chosen, it selects the first day of that month. lame
             println("\(calendarView.presentedDate.commonDescription) is selected!")
             self.performSegueWithIdentifier("calendarToData", sender: nil)
-        } // potential problem with not resetting fromNextArrow or whatever it's called
+        //} // potential problem with not resetting fromNextArrow or whatever it's called
           // if there are problems, look here
     }
     
