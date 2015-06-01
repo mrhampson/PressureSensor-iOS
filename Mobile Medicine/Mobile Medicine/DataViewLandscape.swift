@@ -24,7 +24,7 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
     // used so the Portrait View Controller can set that vars
     internal var startDate: NSDate!
     internal var dataName : String = ""
-    internal var graphData: [Double] = []
+    internal var graphData: [Double] = [1, 10, 5, 7]
     internal var recording: Bool = false
     var timer : NSTimer!
     //temp for testing
@@ -121,7 +121,7 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         // Set up plot space
         var plots:[CPTScatterPlot] = [aaplPlot]
         plotSpace.scaleToFitPlots(plots)
-        plotSpace.globalXRange = CPTMutablePlotRange(location:  FloatToDecimal.Convert(0), length: FloatToDecimal.Convert(Float(self.numberOfRecordsForPlot(aaplPlot))))
+        plotSpace.globalXRange = CPTPlotRange(location: FloatToDecimal.Convert(0), length: FloatToDecimal.Convert(1500))
         // Create styles and symbols
     }
     
@@ -131,14 +131,20 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         axisTitleStyle.fontSize = 12
         
         var axisSet:CPTXYAxisSet = self.graphView.hostedGraph.axisSet as! CPTXYAxisSet
-        var x:CPTAxis = axisSet.xAxis
+        var x:CPTXYAxis = axisSet.xAxis
         x.title = "time (0.25s)"
+        x.axisConstraints = CPTConstraints(lowerOffset: 0.0)
+        x.minorTicksPerInterval = 3
         
+        var y:CPTXYAxis = axisSet.yAxis
+        y.axisConstraints = CPTConstraints(lowerOffset: 0.0)
+        y.minorTicksPerInterval = 3
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.initPlot()
+        
     }
     
     override func viewDidLoad() {
@@ -147,11 +153,17 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
     }
     
     func numberOfRecordsForPlot(plot: CPTPlot!) -> UInt {
-        return 5;//UInt(graphData.count);
+        return UInt(graphData.count);
     }
     
     func numberForPlot(plot: CPTPlot!, field fieldEnum: UInt, recordIndex idx: UInt) -> AnyObject! {
-        return idx + 1;//graphData[Int(idx)];
+        if (fieldEnum == UInt(CPTScatterPlotField.X.rawValue)) {
+            // Divide by 4 because our sample rate is 4 Hz.
+            return Double(idx)/4
+        } else if(fieldEnum == UInt(CPTScatterPlotField.Y.rawValue)) {
+            return graphData[Int(idx)]
+        }
+        return graphData[Int(idx)];
     }
     
     

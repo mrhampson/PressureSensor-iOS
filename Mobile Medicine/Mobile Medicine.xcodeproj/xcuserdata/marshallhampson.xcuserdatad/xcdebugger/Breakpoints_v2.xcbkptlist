@@ -355,7 +355,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mobile Medicine/DataViewLandscape.swift"
@@ -365,6 +365,22 @@
             startingLineNumber = "124"
             endingLineNumber = "124"
             landmarkName = "configurePlots()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mobile Medicine/DataViewLandscape.swift"
+            timestampString = "454894683.779542"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "numberForPlot(_:field:recordIndex:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
