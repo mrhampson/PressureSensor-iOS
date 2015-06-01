@@ -25,7 +25,7 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
     internal var startDate: NSDate!
     internal var dataName : String = ""
     internal var graphData: [Double] = []
-    internal var recording: Bool = false
+    internal var recording = false // this may be the problem, it's always initialized to false
     var timer : NSTimer!
     //temp for testing
     var lastTemp : Double = Double.NaN
@@ -106,6 +106,7 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
     
     @IBAction func StartStopButtonAction(sender: AnyObject) {
         println("Start/Stop button pressed");
+        println("Recording: \(recording)")
         if !connected
         {
             showAlertWithText(header: "Error", message: "Device is not connected")
@@ -114,6 +115,7 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
         {
             let btn:UIBarButtonItem = sender as! UIBarButtonItem
             let title = btn.title
+
             if (!recording)
             {
                 println("starting")
@@ -141,10 +143,10 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
                         for data in dataArray{
                             print(data.valueForKey("rData"), " ")
                         }
-                        println()
                     }
                 }
             }
+        
             else
             {
                 //Stop
@@ -172,7 +174,9 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
                 //btn.setTitle("Start", forState: UIControlState.Normal)
                 //btn.backgroundColor = UIColor.greenColor()
             }
+            
         }
+        
         
     }
     
@@ -328,18 +332,21 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
                 println( "Unknown" )
             }
         }
-        if(recording){
-            // Call bluetooth here
-            println("Landscape: Recording")
-            //let tmp = Int.min
-            if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN){
-                println("Landscape: recorded")
-                lastTemp = appDel.sensorTag.getTemp()
-                graphData.append(lastTemp)
-                lineChartView.reloadData()
-                
+        
+        if(recording)
+        {
+        // Call bluetooth here
+        //println("Landscape: Recording")
+        //let tmp = Int.min
+        if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN){
+            //println("Landscape: recorded")
+            lastTemp = appDel.sensorTag.getTemp()
+            graphData.append(lastTemp)
+            lineChartView.reloadData()
             }
+            
         }
+        
     }
     
     
@@ -403,6 +410,7 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
         super.awakeFromNib()
         UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
         let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.addObserver(self, selector: "orientationChanged:", name: UIDeviceOrientationDidChangeNotification, object: nil)
         notificationCenter.addObserver(self, selector: "saveOnQuit:", name:UIApplicationWillResignActiveNotification, object: nil)
         notificationCenter.addObserver(self, selector: "saveOnQuit:", name:UIApplicationWillTerminateNotification, object: nil)
         
@@ -434,21 +442,46 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
         let notificationCenter = NSNotificationCenter.defaultCenter()
         
         notificationCenter.removeObserver(self, name: UIApplicationWillResignActiveNotification, object: nil)
         notificationCenter.removeObserver(self, name: UIApplicationWillTerminateNotification, object: nil)
         
         //moving data back to portrait
-        if(segue.identifier == "DataToPortrait" && self.graphData.count != 0 ) {
+        println("preparing for segue from Landscape");
+        if(segue.identifier == "DataToPortrait") {
+            println("Data to portrait: \(self.recording)")
             var destinationView:DataViewPortrait = segue.destinationViewController as! DataViewPortrait;
+            destinationView.dataArray = self.graphData;
+            destinationView.recording = self.recording;
             destinationView.startDate = self.startDate;
             destinationView.dataName = self.dataName;
             for stuff in graphData{
                 print(stuff)
             }
-            destinationView.dataArray = self.graphData;
-            destinationView.recording = self.recording;
+
+            
         }
+    }
+    
+    func orientationChanged(notification: NSNotification){
+        let deviceOrientation = UIDevice.currentDevice().orientation;
+        if (UIDeviceOrientationIsPortrait(deviceOrientation)){
+            
+            let notificationCenter = NSNotificationCenter.defaultCenter()
+            notificationCenter.removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
+            self.performSegueWithIdentifier("DataToPortrait", sender: self)
+            //isShowingLandscapeView = true
+
+            
+        }
+        /*
+        else if(UIDeviceOrientationIsPortrait(deviceOrientation) && isShowingLandscapeView){
+        self.dismissViewControllerAnimated(true, completion: nil)
+        isShowingLandscapeView = false
+        }
+        */
+        
     }
 }
