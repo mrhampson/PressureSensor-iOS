@@ -375,6 +375,7 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         warningLabel.lineBreakMode = .ByWordWrapping
         warningLabel.numberOfLines = 0
         warningLabel.layer.cornerRadius = 15
+        warningLabel.tag = 100
 
         
         if(appDel.sensorTag.getStatus() != lastStatus){
@@ -404,9 +405,17 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
                 statusLabel.text = "Enabling Sensors"
             case 6:
                 statusLabel.text = "Connected"
-
-                warningLabel.removeFromSuperview()
-
+                if(!connected)
+                {
+                    print(warningLabel)
+                    for subview in view.subviews {
+                        if subview is UILabel {
+                            if (subview.tag == 100) {
+                                subview.removeFromSuperview()
+                            }
+                        }
+                    }
+                }
                 connected = true
                 self.view.addSubview(button)
 
