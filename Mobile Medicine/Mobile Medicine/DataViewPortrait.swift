@@ -248,7 +248,7 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         notificationCenter.addObserver(self, selector: "orientationChanged:", name: UIDeviceOrientationDidChangeNotification, object: nil)
         notificationCenter.addObserver(self, selector: "saveOnQuit:", name:UIApplicationWillResignActiveNotification, object: nil)
         notificationCenter.addObserver(self, selector: "saveOnQuit:", name:UIApplicationWillTerminateNotification, object: nil)
-        
+        notificationCenter.addObserver(self, selector: "refreshView:", name:UIApplicationDidBecomeActiveNotification, object: nil)
     }
     
     func orientationChanged(notification: NSNotification){
@@ -268,6 +268,19 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         }
         */
 
+    }
+    
+    func refreshView(notification: NSNotification){
+        if(recording == false){
+            button.backgroundColor = UIColor(red: 0.0, green:0.777, blue:0.222, alpha:1.0)
+            button.setTitle("Start", forState: UIControlState.Normal)
+            button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
+        }
+        else{
+            button.setTitle("Stop", forState: UIControlState.Normal)
+            button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
+            button.backgroundColor = UIColor.redColor()
+        }
     }
     
     
@@ -295,14 +308,13 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if(segue.identifier != "DataToLandscape"){
-            // Notification center will detect when you rotate to landscape view and will call
-            // a segue to DataLandscape
-            let notificationCenter = NSNotificationCenter.defaultCenter()
-            notificationCenter.removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
-            notificationCenter.removeObserver(self, name: UIApplicationWillResignActiveNotification, object: nil)
-            notificationCenter.removeObserver(self, name: UIApplicationWillTerminateNotification, object: nil)
-        } else if(segue.identifier == "DataToLandscape" ) {
+        
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
+        notificationCenter.removeObserver(self, name: UIApplicationWillResignActiveNotification, object: nil)
+        notificationCenter.removeObserver(self, name: UIApplicationWillTerminateNotification, object: nil)
+        notificationCenter.addObserver(self, selector: "refreshView:", name:UIApplicationDidBecomeActiveNotification, object: nil)
+        if(segue.identifier == "DataToLandscape" ) {
             var destinationView:DataViewLandscape = segue.destinationViewController as! DataViewLandscape;
             destinationView.startDate = self.startDate;
             destinationView.dataName = self.dataName;
