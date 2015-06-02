@@ -115,7 +115,7 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
             isShowingLandscapeView = true
         }
         if(!isShowingLandscapeView){
-            dateFormat.dateStyle = NSDateFormatterStyle.MediumStyle
+            dateFormat.dateStyle = NSDateFormatterStyle.NoStyle
             dateFormat.timeStyle = NSDateFormatterStyle.MediumStyle
             // Set up title label
         titleLabel.text = "Mobile Medicine"
