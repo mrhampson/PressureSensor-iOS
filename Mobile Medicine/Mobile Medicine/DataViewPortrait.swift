@@ -67,6 +67,12 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         //insertDataInfo = NSManagedObject(entity: infoEntity, insertIntoManagedObjectContext: context)
         insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: context) as! RecordInfo
         dateFormat = NSDateFormatter()
+        tempLabel = UILabel()
+        titleLabel = UILabel()
+        statusLabel = UILabel()
+        button = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+        tempLabel.text = "00.00" + "°C"
+
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -79,6 +85,12 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         //insertDataInfo = NSManagedObject(entity: infoEntity, insertIntoManagedObjectContext: context)
         insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: context) as! RecordInfo
          dateFormat = NSDateFormatter()
+        tempLabel = UILabel()
+        titleLabel = UILabel()
+        statusLabel = UILabel()
+        button = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+        tempLabel.text = "00.00" + "°C"
+
         super.init(coder: aDecoder)
        
 
@@ -106,7 +118,6 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
             dateFormat.dateStyle = NSDateFormatterStyle.MediumStyle
             dateFormat.timeStyle = NSDateFormatterStyle.MediumStyle
             // Set up title label
-        titleLabel = UILabel()
         titleLabel.text = "Mobile Medicine"
         titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
         titleLabel.sizeToFit()
@@ -114,7 +125,7 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         self.view.addSubview(titleLabel)
         
         // Set up status label
-        statusLabel = UILabel()
+        
         statusLabel.textAlignment = NSTextAlignment.Center
         statusLabel.text = "Loading..."
         statusLabel.font = UIFont(name: "HelveticaNeue-Light", size: 12)
@@ -123,8 +134,6 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         self.view.addSubview(statusLabel)
         
         // Set up temperature label
-        tempLabel = UILabel()
-        tempLabel.text = "00.00" + "°C"
         tempLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 72)
         tempLabel.sizeToFit()
         tempLabel.center = self.view.center
@@ -133,6 +142,25 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         //start timer at 20Hz Changed to be 10 HZ since sensor tag operates at 4
         timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("recordData"), userInfo: nil, repeats: true)
         }
+        
+        button.frame = CGRectMake(100, 100, 100, 50)
+        button.layer.cornerRadius = 15
+        button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        button.center = CGPoint(x: self.view.frame.midX, y: self.view.bounds.maxY - 100 )
+        if(recording == false){
+            button.backgroundColor = UIColor(red: 0.0, green:0.777, blue:0.222, alpha:1.0)
+            button.setTitle("Start", forState: UIControlState.Normal)
+            button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
+        }
+        else{
+            button.setTitle("Stop", forState: UIControlState.Normal)
+            button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
+            button.backgroundColor = UIColor.redColor()
+        }
+        
+        
+        
+        
         println(dateFormat.stringFromDate(NSDate()))
         //BLUETOOTH
         
@@ -143,13 +171,14 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         let btn:UIButton = sender
         if connected
         {
-            warningLabel.removeFromSuperview()
-            //warningLabel.removeAllSubviews()
+            //warningLabel.removeFromSuperview()
             
             let btn:UIButton = sender
             let title = btn.titleLabel?.text
-            if (title == "Start")
+            println("Recording: \(recording)")
+            if (recording == false)
             {
+                println("Entered if")
                 //Start
                 startDate = NSDate()
                 
@@ -180,14 +209,12 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
                     }
                 }
             }
-            else
+            else // recording = true
             {
                 //Stop
                 recording = false
                 //Save data to NSData here
-                println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
                 insertDataInfo.setValue(startDate, forKey: "rDate")
-                println(dataArray)
                 for data in dataArray {
                     var newData = NSEntityDescription.insertNewObjectForEntityForName ("RecordData",
                         inManagedObjectContext: context) as! NSManagedObject
@@ -197,10 +224,6 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
                 }
                 insertDataInfo.setValue(insertData, forKey: "dataRelation")
                 addName(self) //sets and saves rName
-                println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
-                println(dataArray)
-
-                println()
                 btn.setTitle("Start", forState: UIControlState.Normal)
                 btn.backgroundColor = UIColor(red: 0.0, green:0.777, blue:0.222, alpha:1.0)
             }
@@ -230,23 +253,26 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
     
     func orientationChanged(notification: NSNotification){
         let deviceOrientation = UIDevice.currentDevice().orientation;
-        if (UIDeviceOrientationIsLandscape(deviceOrientation) && !isShowingLandscapeView){
+        if (UIDeviceOrientationIsLandscape(deviceOrientation)){
+            let notificationCenter = NSNotificationCenter.defaultCenter()
+            notificationCenter.removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
             self.performSegueWithIdentifier("DataToLandscape", sender: self)
-            isShowingLandscapeView = true
+            //isShowingLandscapeView = true
+
             
         }
+        /*
         else if(UIDeviceOrientationIsPortrait(deviceOrientation) && isShowingLandscapeView){
             self.dismissViewControllerAnimated(true, completion: nil)
             isShowingLandscapeView = false
         }
+        */
 
     }
     
     
     func saveOnQuit(notification: NSNotification){
         if(recording){
-            
-            
             insertDataInfo.setValue(startDate, forKey: "rDate")
             for data in dataArray {
                 var newData = NSEntityDescription.insertNewObjectForEntityForName ("RecordData",
@@ -276,7 +302,7 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
             notificationCenter.removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
             notificationCenter.removeObserver(self, name: UIApplicationWillResignActiveNotification, object: nil)
             notificationCenter.removeObserver(self, name: UIApplicationWillTerminateNotification, object: nil)
-        } else if(segue.identifier == "DataToLandscape" && self.dataArray.count != 0 ) {
+        } else if(segue.identifier == "DataToLandscape" ) {
             var destinationView:DataViewLandscape = segue.destinationViewController as! DataViewLandscape;
             destinationView.startDate = self.startDate;
             destinationView.dataName = self.dataName;
@@ -338,14 +364,7 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
     
     func recordData() {
         
-        button = UIButton.buttonWithType(UIButtonType.System) as! UIButton
-        button.frame = CGRectMake(100, 100, 100, 50)
-        button.layer.cornerRadius = 15
-        button.backgroundColor = UIColor(red: 0.0, green:0.777, blue:0.222, alpha:1.0)
-        button.setTitle("Start", forState: UIControlState.Normal)
-        button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
-        button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        button.center = CGPoint(x: self.view.frame.midX, y: self.view.bounds.maxY - 100 )
+        
         
         warningLabel = UILabel(frame:CGRectMake(0, 0, 200, 100))
         warningLabel.backgroundColor = UIColor(red: 0.777, green:0.222, blue:0.222, alpha:1.0)
@@ -388,7 +407,6 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
                 statusLabel.text = "Connected"
                 if(!connected)
                 {
-                    println("We in here")
                     print(warningLabel)
                     for subview in view.subviews {
                         if subview is UILabel {
