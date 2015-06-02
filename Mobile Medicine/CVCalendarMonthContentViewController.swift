@@ -340,7 +340,6 @@ extension CVCalendarMonthContentViewController {
                 if matchedMonths(current, presented) {
                     selectDayViewWithDay(current.day, inMonthView: presentedMonthView)
                 } else {
-                    println("2")
                     //selectDayViewWithDay(Date(date: calendarView.manager.monthDateRange(presentedMonthView.date).monthStartDate).day, inMonthView: presentedMonthView)
                 }
             }
@@ -353,7 +352,6 @@ extension CVCalendarMonthContentViewController {
         monthView.mapDayViews { dayView in
             if dayView.date.day == day && !dayView.isOut {
                 if let selected = coordinator.selectedDayView where selected != dayView {
-                    println("4")
                     self.calendarView.didSelectDayView(dayView)
                 }
                 
@@ -393,7 +391,6 @@ extension CVCalendarMonthContentViewController {
             default: break
             }
         }
-        println("1")
         updateSelection()
         updateLayoutIfNeeded()
         pageLoadingEnabled = true

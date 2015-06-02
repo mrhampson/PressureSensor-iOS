@@ -72,7 +72,7 @@ class ListDataView: UITableViewController {
                 {
                     if let rDay = result.valueForKey("rDate") as? NSDate
                     {
-                        let dateString = formatter.stringFromDate(rDay) // this was causing crashes when i hit back so i'm trying to use conditional binding to avoid those crashes... come back to this ian
+                        let dateString = formatter.stringFromDate(rDay)
                     
                         let dataArray = (result.valueForKey("dataRelation")) as! NSOrderedSet
                         if !result.isEqual(nil)
@@ -84,7 +84,7 @@ class ListDataView: UITableViewController {
                 }
             }
         }
-        println(daysWithData)
+        //println(daysWithData)
         tableView.reloadData()
         // Do view setup here.
     }
@@ -140,7 +140,7 @@ class ListDataView: UITableViewController {
         for data in orderedSet
         {
             output.append(Double(data.valueForKey("rData") as! NSNumber ))
-            println(data.valueForKey("rData"))
+            //println(data.valueForKey("rData"))
         }
         return(output)
     }

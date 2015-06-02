@@ -64,32 +64,22 @@ class dayDataViewTable: UITableViewController {
                 {
                     let rDay = result.valueForKey("rDate") as? NSDate
                     let cDay = date.convertedDate()
-                    println("Cday is", cDay)
-                    println("rday is", rDay)
-                    
                     let next = cDay!.dateByAddingTimeInterval((24 * 60 * 60))
-                    println("next", next)
-                    //let prev = cDay!.dateByAddingTimeInterval( (-24 * 60 * 60 - 8*60*60))
                     if rDay?.earlierDate(next) == rDay && rDay?.laterDate(cDay!) == rDay
                     {
-                        //println(result.valueForKey("rName"))
-                        //println(result.valueForKey("rDate"))
-                        let dataArray = (result.valueForKey("dataRelation")) as! NSOrderedSet
-                        if !result.isEqual(nil)
+                        if(result.valueForKey("rName") != nil )
                         {
-                            tableElements.append(result)
-                            //println("Appended value")
+                            //println(result.valueForKey("rName"))
+                            let dataArray = (result.valueForKey("dataRelation")) as! NSOrderedSet
+                            if !result.isEqual(nil)
+                            {
+                                tableElements.append(result)
+                            }
                         }
-                        /*for data in dataArray
-                        {
-                            print(data.valueForKey("rData"), " ")
-                        }*/
                     }
-                    println()
                 }
             }
         }
-
         tableView.reloadData()
         // Do view setup here.
     }
@@ -142,7 +132,7 @@ class dayDataViewTable: UITableViewController {
         for data in orderedSet
         {
             output.append(Double(data.valueForKey("rData") as! NSNumber ))
-            println(data.valueForKey("rData"))
+            //println(data.valueForKey("rData"))
         }
         return(output)
     }

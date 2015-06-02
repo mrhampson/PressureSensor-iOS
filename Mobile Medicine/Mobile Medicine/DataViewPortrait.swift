@@ -199,8 +199,8 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
                     error: &error) as? [NSManagedObject]
                 if let results = fetchedResults {
                     for result in results{
-                        println(result.valueForKey("rName"))
-                        println(result.valueForKey("rDate"))
+                        //println(result.valueForKey("rName"))
+                        //println(result.valueForKey("rDate"))
                         let dataArray = (result.valueForKey("dataRelation")) as! NSOrderedSet
                         for data in dataArray{
                             print(data.valueForKey("rData"), " ")
