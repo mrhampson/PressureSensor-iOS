@@ -114,12 +114,11 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         var graph:CPTGraph = graphView.hostedGraph
         var plotSpace:CPTXYPlotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace
         // Create plots
-        var aaplPlot:CPTScatterPlot = CPTScatterPlot(frame: CGRectZero)
-        aaplPlot.dataSource = self
-        var aaplColor:CPTColor = CPTColor.redColor()
-        graph.addPlot(aaplPlot, toPlotSpace: plotSpace)
+        var plot:CPTScatterPlot = CPTScatterPlot(frame: CGRectZero)
+        plot.dataSource = self
+        graph.addPlot(plot, toPlotSpace: plotSpace)
         // Set up plot space
-        var plots:[CPTScatterPlot] = [aaplPlot]
+        var plots:[CPTScatterPlot] = [plot]
         plotSpace.scaleToFitPlots(plots)
         plotSpace.globalXRange = CPTPlotRange(location: FloatToDecimal.Convert(0), length: FloatToDecimal.Convert(1500))
         // Create styles and symbols
@@ -288,8 +287,9 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
                 println("Landscape: recorded")
                 lastTemp = appDel.sensorTag.getTemp()
                 graphData.append(lastTemp)
-                lineChartView.reloadData()
-                
+                if let plot = graphView.hostedGraph.plotAtIndex(0) {
+                    plot.reloadData()
+                }
             }
         }
     }
