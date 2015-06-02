@@ -26,6 +26,9 @@
 		9B09EEB31AF84CB7001B68BA /* SensorTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09EEB21AF84CB7001B68BA /* SensorTag.swift */; };
 		9B09EEB51AF86C9A001B68BA /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09EEB41AF86C9A001B68BA /* CustomTabBarController.swift */; };
 		9B09EEB71AF88553001B68BA /* SensorTagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09EEB61AF88553001B68BA /* SensorTagTableViewCell.swift */; };
+		9B3C083F1B1D3AD000F9FC7E /* icon120.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B3C083E1B1D3AD000F9FC7E /* icon120.png */; };
+		9B3C08411B1D3B8700F9FC7E /* icon80.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B3C08401B1D3B8700F9FC7E /* icon80.png */; };
+		9B3C08431B1D3BB200F9FC7E /* icon58.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B3C08421B1D3BB200F9FC7E /* icon58.png */; };
 		A01228C51AF1FD060030D369 /* RecordData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01228C41AF1FD060030D369 /* RecordData.swift */; };
 		A01228C71AF1FD070030D369 /* RecordInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01228C61AF1FD070030D369 /* RecordInfo.swift */; };
 		A0192ED21AE47E2500A589C6 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A0192ED01AE47E2500A589C6 /* DataModel.xcdatamodeld */; };
@@ -98,6 +101,9 @@
 		9B09EEB21AF84CB7001B68BA /* SensorTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorTag.swift; sourceTree = "<group>"; };
 		9B09EEB41AF86C9A001B68BA /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		9B09EEB61AF88553001B68BA /* SensorTagTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorTagTableViewCell.swift; sourceTree = "<group>"; };
+		9B3C083E1B1D3AD000F9FC7E /* icon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon120.png; sourceTree = "<group>"; };
+		9B3C08401B1D3B8700F9FC7E /* icon80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon80.png; sourceTree = "<group>"; };
+		9B3C08421B1D3BB200F9FC7E /* icon58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon58.png; sourceTree = "<group>"; };
 		A01228C41AF1FD060030D369 /* RecordData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordData.swift; sourceTree = "<group>"; };
 		A01228C61AF1FD070030D369 /* RecordInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordInfo.swift; sourceTree = "<group>"; };
 		A0192ED11AE47E2500A589C6 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -204,6 +210,9 @@
 		6526FB8E1ACF6FC7007AAB8B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9B3C08421B1D3BB200F9FC7E /* icon58.png */,
+				9B3C08401B1D3B8700F9FC7E /* icon80.png */,
+				9B3C083E1B1D3AD000F9FC7E /* icon120.png */,
 				6526FB8F1ACF6FC7007AAB8B /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -412,7 +421,10 @@
 			files = (
 				6526FB961ACF6FC7007AAB8B /* Main.storyboard in Resources */,
 				6526FB9B1ACF6FC7007AAB8B /* LaunchScreen.xib in Resources */,
+				9B3C083F1B1D3AD000F9FC7E /* icon120.png in Resources */,
+				9B3C08431B1D3BB200F9FC7E /* icon58.png in Resources */,
 				6526FB981ACF6FC7007AAB8B /* Images.xcassets in Resources */,
+				9B3C08411B1D3B8700F9FC7E /* icon80.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
