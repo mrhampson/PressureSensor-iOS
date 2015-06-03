@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class DataViewLandscape: UIViewController, CPTPlotDataSource {
+class DataViewLandscape: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDelegate {
     let _headerHeight:CGFloat = 80
     let _footerHeight:CGFloat = 40
     let _padding:CGFloat = 10
@@ -25,7 +25,7 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
     var fromDataViewPortrait: Bool?
     internal var startDate: NSDate!
     internal var dataName : String = ""
-    internal var graphData: [Double] = [1, 10, 5, 7]
+    internal var graphData: [Double] = []
     internal var recording: Bool = false
     var timer : NSTimer!
     //temp for testing
@@ -42,6 +42,7 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
     var connected : Bool = false
     var dateFormat : NSDateFormatter
 
+    var counter:Int = 1
     
     convenience init(){
         self.init()
@@ -121,6 +122,14 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         // Create plots
         var plot:CPTScatterPlot = CPTScatterPlot(frame: CGRectZero)
         plot.dataSource = self
+        plot.delegate = self
+        
+        // Add plot symbols
+        var plotSymbol:CPTPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol()
+        plotSymbol.fill = CPTFill(color: CPTColor.redColor())
+        plotSymbol.size = CGSizeMake(2, 2)
+        plot.plotSymbol = plotSymbol
+        
         graph.addPlot(plot, toPlotSpace: plotSpace)
         // Set up plot space
         var plots:[CPTScatterPlot] = [plot]
@@ -139,7 +148,6 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         x.title = "time (0.25s)"
         x.axisConstraints = CPTConstraints(lowerOffset: 0.0)
         x.minorTicksPerInterval = 3
-        x.labelingPolicy = .Automatic
         
         var y:CPTXYAxis = axisSet.yAxis
         y.axisConstraints = CPTConstraints(lowerOffset: 0.0)
@@ -173,6 +181,22 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         return graphData[Int(idx)];
     }
     
+    func scatterPlot(plot: CPTScatterPlot!, plotSymbolTouchDownAtRecordIndex idx: UInt) {
+        var formatter:NSNumberFormatter = NSNumberFormatter()
+        plot.labelFormatter = formatter
+        var pointLabelTextStyle:CPTMutableTextStyle = CPTMutableTextStyle()
+        pointLabelTextStyle.color = CPTColor.blackColor()
+        pointLabelTextStyle.fontName = "Helvetica-Bold"
+        pointLabelTextStyle.fontSize = 16.0
+        plot.labelTextStyle = pointLabelTextStyle
+        plot.reloadDataLabels()
+    }
+    
+    func scatterPlot(plot: CPTScatterPlot!, plotSymbolTouchUpAtRecordIndex idx: UInt) {
+        plot.labelFormatter = nil
+        plot.labelTextStyle = nil
+        plot.reloadDataLabels()
+    }
     
     @IBAction func StartStopButtonAction(sender: AnyObject) {
         println("Start/Stop button pressed");
@@ -302,7 +326,7 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
                 }
             }
             
-            //if(recording)
+            if(recording) {
             //{
             // Call bluetooth here
             //println("Landscape: Recording")
@@ -320,8 +344,7 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
                 if let plot = graphView.hostedGraph.plotAtIndex(0) {
                     plot.reloadData()
                 }
-            //}
-            //}
+            }
         }
         
     }
