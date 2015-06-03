@@ -147,36 +147,27 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         button.layer.cornerRadius = 15
         button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
         button.center = CGPoint(x: self.view.frame.midX, y: self.view.bounds.maxY - 100 )
-        if(connected){
-            if(recording == false){
-                button.backgroundColor = UIColor(red: 0.0, green:0.777, blue:0.222, alpha:1.0)
-                button.setTitle("Start", forState: UIControlState.Normal)
-                button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
-            }
-            else{
-                button.setTitle("Stop", forState: UIControlState.Normal)
-                button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
-                button.backgroundColor = UIColor.redColor()
-            }
+        if(recording == false){
+            button.backgroundColor = UIColor(red: 0.0, green:0.777, blue:0.222, alpha:1.0)
+            button.setTitle("Start", forState: UIControlState.Normal)
+            button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
         }
         else{
-            warningLabel = UILabel(frame:CGRectMake(0, 0, 200, 100))
-            warningLabel.backgroundColor = UIColor(red: 0.777, green:0.222, blue:0.222, alpha:1.0)
-            warningLabel.textAlignment = .Center
-            warningLabel.text = "Please connect the device before recording data"
-            warningLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
-            warningLabel.center = CGPoint(x: self.view.frame.midX, y: self.view.bounds.maxY - 100 )
-            //warningLabel.center = CGPoint(x: self.view.frame.midX, y:self.titleLabel.bounds.midY + 350)
-            warningLabel.lineBreakMode = .ByWordWrapping
-            warningLabel.numberOfLines = 0
-            warningLabel.layer.cornerRadius = 15
-            warningLabel.tag = 100
-            self.view.addSubview(warningLabel)
-            
+            button.setTitle("Stop", forState: UIControlState.Normal)
+            button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
+            button.backgroundColor = UIColor.redColor()
         }
-        
-        
-        
+        warningLabel = UILabel(frame:CGRectMake(0, 0, 200, 100))
+        warningLabel.backgroundColor = UIColor(red: 0.777, green:0.222, blue:0.222, alpha:1.0)
+        warningLabel.textAlignment = .Center
+        warningLabel.text = "Please connect the device before recording data"
+        warningLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
+        warningLabel.center = CGPoint(x: self.view.frame.midX, y: self.view.bounds.maxY - 100 )
+        //warningLabel.center = CGPoint(x: self.view.frame.midX, y:self.titleLabel.bounds.midY + 350)
+        warningLabel.lineBreakMode = .ByWordWrapping
+        warningLabel.numberOfLines = 0
+        warningLabel.layer.cornerRadius = 15
+        warningLabel.tag = 100
         
         println(dateFormat.stringFromDate(NSDate()))
         //BLUETOOTH
@@ -396,19 +387,6 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
     
     
     func recordData() {
-
-        warningLabel = UILabel(frame:CGRectMake(0, 0, 200, 100))
-        warningLabel.backgroundColor = UIColor(red: 0.777, green:0.222, blue:0.222, alpha:1.0)
-        warningLabel.textAlignment = .Center
-        warningLabel.text = "Please connect the device before recording data"
-        warningLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
-        warningLabel.center = CGPoint(x: self.view.frame.midX, y: self.view.bounds.maxY - 100 )
-        //warningLabel.center = CGPoint(x: self.view.frame.midX, y:self.titleLabel.bounds.midY + 350)
-        warningLabel.lineBreakMode = .ByWordWrapping
-        warningLabel.numberOfLines = 0
-        warningLabel.layer.cornerRadius = 15
-        warningLabel.tag = 100
-
         
         if(appDel.sensorTag.getStatus() != lastStatus){
             lastStatus = appDel.sensorTag.getStatus()
@@ -453,6 +431,7 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
 
             case -1:
                 showAlertWithText(header: "Error", message: "Bluetooth switched off or not initialized")
+                self.view.addSubview(warningLabel)
             case -2:
                 connected = false
                 showAlertWithText(header: "Warning", message: "SensorTag Not Found")
