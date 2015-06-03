@@ -9,21 +9,14 @@
 import UIKit
 import CoreData
 
-class DataViewLandscape: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDelegate {
-    let _headerHeight:CGFloat = 80
-    let _footerHeight:CGFloat = 40
-    let _padding:CGFloat = 10
-    //let graphData:[CGFloat] = [37,89,48,95,54,50,46,31,77,40,61,58];
-    let chartHeaderView = ChartHeaderView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-    let _tooltipView = ChartTooltipView();
-    let _tooltipTipView = ChartTooltipTipView();
-    var lineChartView : JBLineChartView!
+class DataViewLandscape: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDelegate, CPTPlotSpaceDelegate {
     var alert : UIAlertController?
     
     
     // Variables to be set from the segue DataToLandscape
     // internal is an access specifier that is somewhere in between public and private
     // used so the Portrait View Controller can set that vars
+    var showLabels:Bool = false
     var fromDataViewPortrait: Bool?
     internal var startDate: NSDate!
     internal var dataName : String = ""
@@ -130,6 +123,7 @@ class DataViewLandscape: UIViewController, CPTScatterPlotDataSource, CPTScatterP
         var plot:CPTScatterPlot = CPTScatterPlot(frame: CGRectZero)
         var lineStyle: CPTMutableLineStyle = plot.dataLineStyle.mutableCopy() as! CPTMutableLineStyle
         lineStyle.lineColor = CPTColor.blueColor()
+        lineStyle.lineWidth = 2
         plot.dataLineStyle = lineStyle
         plot.interpolation = CPTScatterPlotInterpolation.Curved
         plot.dataSource = self
@@ -137,7 +131,7 @@ class DataViewLandscape: UIViewController, CPTScatterPlotDataSource, CPTScatterP
         // Add plot symbols
         var plotSymbol:CPTPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol()
         plotSymbol.fill = CPTFill(color: CPTColor.redColor())
-        plotSymbol.size = CGSizeMake(2, 2)
+        plotSymbol.size = CGSizeMake(5, 5)
         plot.plotSymbol = plotSymbol
         graph.addPlot(plot, toPlotSpace: plotSpace)
 
@@ -197,21 +191,26 @@ class DataViewLandscape: UIViewController, CPTScatterPlotDataSource, CPTScatterP
         return graphData[Int(idx)];
     }
     
-    func scatterPlot(plot: CPTScatterPlot!, plotSymbolTouchDownAtRecordIndex idx: UInt) {
-        var formatter:NSNumberFormatter = NSNumberFormatter()
-        plot.labelFormatter = formatter
-        var pointLabelTextStyle:CPTMutableTextStyle = CPTMutableTextStyle()
-        pointLabelTextStyle.color = CPTColor.blackColor()
-        pointLabelTextStyle.fontName = "Helvetica-Bold"
-        pointLabelTextStyle.fontSize = 16.0
-        plot.labelTextStyle = pointLabelTextStyle
-        plot.reloadDataLabels()
-    }
-    
-    func scatterPlot(plot: CPTScatterPlot!, plotSymbolTouchUpAtRecordIndex idx: UInt) {
-        plot.labelFormatter = nil
-        plot.labelTextStyle = nil
-        plot.reloadDataLabels()
+    func scatterPlotDataLineWasSelected(plot: CPTScatterPlot!) {
+        if let plot = graphView.hostedGraph.plotAtIndex(0) {
+            showLabels = !showLabels
+            if (showLabels) {
+                var formatter:NSNumberFormatter = NSNumberFormatter()
+                formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
+                formatter.minimumFractionDigits = 2
+                plot.labelFormatter = formatter
+                var pointLabelTextStyle:CPTMutableTextStyle = CPTMutableTextStyle()
+                pointLabelTextStyle.color = CPTColor.blackColor()
+                pointLabelTextStyle.fontName = "Helvetica-Bold"
+                pointLabelTextStyle.fontSize = 16.0
+                plot.labelTextStyle = pointLabelTextStyle
+                plot.reloadDataLabels()
+            } else {
+                plot.labelFormatter = nil
+                plot.labelTextStyle = nil
+                plot.reloadDataLabels()
+            }
+        }
     }
     
     @IBAction func StartStopButtonAction(sender: AnyObject) {
