@@ -323,6 +323,7 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
             }
             destinationView.graphData = self.dataArray;
             destinationView.recording = self.recording;
+            destinationView.fromDataViewPortrait = true
         }
     }
     

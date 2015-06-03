@@ -131,6 +131,7 @@ class ListDataView: UITableViewController {
             graphView.dataName = tableElements[selectedIndex.row].valueForKey("rName") as! String
             let data = (tableElements[selectedIndex.row].valueForKey("dataRelation")) as! NSOrderedSet
             graphView.graphData = arrayHelper(data)
+            graphView.fromDataViewPortrait = false
             
         }
     }

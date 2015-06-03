@@ -22,6 +22,7 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
     // Variables to be set from the segue DataToLandscape
     // internal is an access specifier that is somewhere in between public and private
     // used so the Portrait View Controller can set that vars
+    var fromDataViewPortrait: Bool?
     internal var startDate: NSDate!
     internal var dataName : String = ""
     internal var graphData: [Double] = []
@@ -296,55 +297,58 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
         return UIColor(red:red, green:green, blue:blue, alpha:1.0)
     }
     func recordData() {
-        if(appDel.sensorTag.getStatus() != lastStatus){
-            lastStatus = appDel.sensorTag.getStatus()
-            switch(appDel.sensorTag.getStatus()){
-                /*
-                Status Code for the device, used to print the status text on portrait mode
-                0 = loading / haven't scanned
-                1 = searching for device
-                2 = Sesor Tag found
-                -2 = sensor tag not found
-                3 = discovering services
-                4 = looking at peripheral services
-                5 = enabling sensors
-                */
-            case 0:
-                println( "Loading...")
-            case 1:
-                println( "Searching for Device" )
-            case 2:
-                println( "SensorTag found")
-            case 3:
-                println( "Discovering Services" )
-            case 4:
-                println( "Looking at Peripheral Services" )
-            case 5:
-                println( "Enabling Sensors" )
-            case 6:
-                println( "Connected" )
-                connected = true
-            case -1:
-                showAlertWithText(header: "Error", message: "Bluetooth switched off or not initialized")
-            case -2:
-                showAlertWithText(header: "Warning", message: "SensorTag Not Found")
-            default:
-                println( "Unknown" )
-            }
-        }
-        
-        if(recording)
+        if(fromDataViewPortrait!)
         {
-        // Call bluetooth here
-        //println("Landscape: Recording")
-        //let tmp = Int.min
-        if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN){
-            //println("Landscape: recorded")
-            lastTemp = appDel.sensorTag.getTemp()
-            graphData.append(lastTemp)
-            lineChartView.reloadData()
+            if(appDel.sensorTag.getStatus() != lastStatus){
+                lastStatus = appDel.sensorTag.getStatus()
+                switch(appDel.sensorTag.getStatus()){
+                    /*
+                    Status Code for the device, used to print the status text on portrait mode
+                    0 = loading / haven't scanned
+                    1 = searching for device
+                    2 = Sesor Tag found
+                    -2 = sensor tag not found
+                    3 = discovering services
+                    4 = looking at peripheral services
+                    5 = enabling sensors
+                    */
+                case 0:
+                    println( "Loading...")
+                case 1:
+                    println( "Searching for Device" )
+                case 2:
+                    println( "SensorTag found")
+                case 3:
+                    println( "Discovering Services" )
+                case 4:
+                    println( "Looking at Peripheral Services" )
+                case 5:
+                    println( "Enabling Sensors" )
+                case 6:
+                    println( "Connected" )
+                    connected = true
+                case -1:
+                    showAlertWithText(header: "Error", message: "Bluetooth switched off or not initialized")
+                case -2:
+                    showAlertWithText(header: "Warning", message: "SensorTag Not Found")
+                default:
+                    println( "Unknown" )
+                }
             }
             
+            if(recording)
+            {
+            // Call bluetooth here
+            //println("Landscape: Recording")
+            //let tmp = Int.min
+            if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN){
+                //println("Landscape: recorded")
+                lastTemp = appDel.sensorTag.getTemp()
+                graphData.append(lastTemp)
+                lineChartView.reloadData()
+                }
+                
+            }
         }
         
     }
@@ -352,10 +356,13 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
     
     // Show alert
     func showAlertWithText (header : String = "Warning", message : String) {
-        var alert = UIAlertController(title: header, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-        alert.view.tintColor = UIColor.redColor()
-        self.presentViewController(alert, animated: true, completion: nil)
+        if(fromDataViewPortrait!)
+        {
+            var alert = UIAlertController(title: header, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+            alert.view.tintColor = UIColor.redColor()
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     //give our data a name
@@ -417,7 +424,7 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
     }
     
     func saveOnQuit(notification: NSNotification){
-        if(recording){
+        if(recording && fromDataViewPortrait!){
             insertDataInfo.setValue(startDate, forKey: "rDate")
             for data in graphData {
                 var newData = NSEntityDescription.insertNewObjectForEntityForName ("RecordData",
@@ -442,46 +449,48 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        let notificationCenter = NSNotificationCenter.defaultCenter()
-        
-        notificationCenter.removeObserver(self, name: UIApplicationWillResignActiveNotification, object: nil)
-        notificationCenter.removeObserver(self, name: UIApplicationWillTerminateNotification, object: nil)
-        
-        //moving data back to portrait
-        println("preparing for segue from Landscape");
-        if(segue.identifier == "DataToPortrait") {
-            println("Data to portrait: \(self.recording)")
-            var destinationView:DataViewPortrait = segue.destinationViewController as! DataViewPortrait;
-            destinationView.dataArray = self.graphData;
-            destinationView.recording = self.recording;
-            destinationView.startDate = self.startDate;
-            destinationView.dataName = self.dataName;
-            for stuff in graphData{
-                print(stuff)
-            }
-
+        if(fromDataViewPortrait!)
+        {
             
+            
+            let notificationCenter = NSNotificationCenter.defaultCenter()
+            
+            notificationCenter.removeObserver(self, name: UIApplicationWillResignActiveNotification, object: nil)
+            notificationCenter.removeObserver(self, name: UIApplicationWillTerminateNotification, object: nil)
+            
+            //moving data back to portrait
+            println("preparing for segue from Landscape");
+            if(segue.identifier == "DataToPortrait") {
+                println("Data to portrait: \(self.recording)")
+                var destinationView:DataViewPortrait = segue.destinationViewController as! DataViewPortrait;
+                destinationView.dataArray = self.graphData;
+                destinationView.recording = self.recording;
+                destinationView.startDate = self.startDate;
+                destinationView.dataName = self.dataName;
+                for stuff in graphData{
+                    print(stuff)
+                }
+            }
         }
     }
     
     func orientationChanged(notification: NSNotification){
-        let deviceOrientation = UIDevice.currentDevice().orientation;
-        if (UIDeviceOrientationIsPortrait(deviceOrientation)){
-            
-            let notificationCenter = NSNotificationCenter.defaultCenter()
-            notificationCenter.removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
-            self.performSegueWithIdentifier("DataToPortrait", sender: self)
-            //isShowingLandscapeView = true
-
-            
+        if(fromDataViewPortrait!)
+        {
+            let deviceOrientation = UIDevice.currentDevice().orientation;
+            if (UIDeviceOrientationIsPortrait(deviceOrientation)){
+                
+                let notificationCenter = NSNotificationCenter.defaultCenter()
+                notificationCenter.removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
+                self.performSegueWithIdentifier("DataToPortrait", sender: self)
+                //isShowingLandscapeView = true
+            }
+            /*
+            else if(UIDeviceOrientationIsPortrait(deviceOrientation) && isShowingLandscapeView){
+            self.dismissViewControllerAnimated(true, completion: nil)
+            isShowingLandscapeView = false
+            }
+            */
         }
-        /*
-        else if(UIDeviceOrientationIsPortrait(deviceOrientation) && isShowingLandscapeView){
-        self.dismissViewControllerAnimated(true, completion: nil)
-        isShowingLandscapeView = false
-        }
-        */
-        
     }
 }
