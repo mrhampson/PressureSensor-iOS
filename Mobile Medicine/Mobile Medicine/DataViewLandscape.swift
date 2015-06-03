@@ -208,24 +208,22 @@ class DataViewLandscape: UIViewController, CPTScatterPlotDataSource, CPTScatterP
     }
     
     func scatterPlotDataLineWasSelected(plot: CPTScatterPlot!) {
-        if let plot = graphView.hostedGraph.plotAtIndex(0) {
-            showLabels = !showLabels
-            if (showLabels) {
-                var formatter:NSNumberFormatter = NSNumberFormatter()
-                formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
-                formatter.minimumFractionDigits = 2
-                plot.labelFormatter = formatter
-                var pointLabelTextStyle:CPTMutableTextStyle = CPTMutableTextStyle()
-                pointLabelTextStyle.color = CPTColor.blackColor()
-                pointLabelTextStyle.fontName = "Helvetica-Bold"
-                pointLabelTextStyle.fontSize = 16.0
-                plot.labelTextStyle = pointLabelTextStyle
-                plot.reloadDataLabels()
-            } else {
-                plot.labelFormatter = nil
-                plot.labelTextStyle = nil
-                plot.reloadDataLabels()
-            }
+        showLabels = !showLabels
+        if (showLabels) {
+            var formatter:NSNumberFormatter = NSNumberFormatter()
+            formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
+            formatter.minimumFractionDigits = 2
+            plot.labelFormatter = formatter
+            var pointLabelTextStyle:CPTMutableTextStyle = CPTMutableTextStyle()
+            pointLabelTextStyle.color = CPTColor.blackColor()
+            pointLabelTextStyle.fontName = "Helvetica-Bold"
+            pointLabelTextStyle.fontSize = 16.0
+            plot.labelTextStyle = pointLabelTextStyle
+            plot.reloadDataLabels()
+        } else {
+            plot.labelFormatter = nil
+            plot.labelTextStyle = nil
+            plot.reloadDataLabels()
         }
     }
     
