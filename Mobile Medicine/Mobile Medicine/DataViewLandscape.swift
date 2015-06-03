@@ -167,6 +167,8 @@ class DataViewLandscape: UIViewController, CPTScatterPlotDataSource, CPTScatterP
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.initPlot()
+        dateFormat.dateStyle = NSDateFormatterStyle.NoStyle
+        dateFormat.timeStyle = NSDateFormatterStyle.MediumStyle
         //start timer at 20Hz Changed to be 10 HZ since sensor tag operates at 4
         timer = NSTimer.scheduledTimerWithTimeInterval(0.25, target: self, selector: Selector("recordData"), userInfo: nil, repeats: true)
         
