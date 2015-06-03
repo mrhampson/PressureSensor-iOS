@@ -22,13 +22,14 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
     // Variables to be set from the segue DataToLandscape
     // internal is an access specifier that is somewhere in between public and private
     // used so the Portrait View Controller can set that vars
+    var fromDataViewPortrait: Bool?
     internal var startDate: NSDate!
     internal var dataName : String = ""
     internal var graphData: [Double] = [1, 10, 5, 7]
     internal var recording: Bool = false
     var timer : NSTimer!
     //temp for testing
-    var lastTemp : Double = Double.NaN
+    var lastTemp : Double = 0.0
     var lastStatus : Int = 0
     
     //core data stuff
@@ -38,7 +39,10 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
     var insertDataInfo:NSManagedObject
     var insertData:NSMutableOrderedSet = []
     var appDel:AppDelegate!
+    var connected : Bool = false
+    var dateFormat : NSDateFormatter
 
+    
     convenience init(){
         self.init()
         //Core data context
@@ -48,7 +52,7 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         dataEntity = NSEntityDescription.entityForName("RecordData", inManagedObjectContext: context)!
         //insertDataInfo = NSManagedObject(entity: infoEntity, insertIntoManagedObjectContext: context)
         insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: context) as! RecordInfo
-        
+        dateFormat = NSDateFormatter()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -60,6 +64,7 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         dataEntity = NSEntityDescription.entityForName("RecordData", inManagedObjectContext: context)!
         //insertDataInfo = NSManagedObject(entity: infoEntity, insertIntoManagedObjectContext: context)
         insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: context) as! RecordInfo
+        dateFormat = NSDateFormatter()
         super.init(coder: aDecoder)
         
     }
@@ -121,6 +126,9 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         var plots:[CPTScatterPlot] = [plot]
         plotSpace.scaleToFitPlots(plots)
         plotSpace.globalXRange = CPTPlotRange(location: FloatToDecimal.Convert(0), length: FloatToDecimal.Convert(1500))
+        var lineStyle: CPTMutableLineStyle = plot.dataLineStyle.mutableCopy() as! CPTMutableLineStyle
+        lineStyle.lineColor = CPTColor(componentRed: 52, green: 152, blue: 219, alpha: 1)
+        plot.dataLineStyle = lineStyle
         // Create styles and symbols
     }
     
@@ -153,6 +161,8 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.initPlot()
+        //start timer at 20Hz Changed to be 10 HZ since sensor tag operates at 4
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("recordData"), userInfo: nil, repeats: true)
         
     }
     
@@ -178,66 +188,77 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
     
     @IBAction func StartStopButtonAction(sender: AnyObject) {
         println("Start/Stop button pressed");
-        let btn:UIBarButtonItem = sender as! UIBarButtonItem
-        let title = btn.title
-        if (!recording)
+        println("Recording: \(recording)")
+        if !connected
         {
-            println("starting")
-            //Start
-            startDate = NSDate()
-            recording = true
-           
-            graphData = []
-            dataName = String()
-            //creating new objects
-            insertData = []
-            //Start bluetooth recording (or have that automatic based on flag
-            //btn.setTitle("Stop", forState: UIControlState.Normal)
-            //btn.backgroundColor = UIColor.redColor()
-            var error: NSError?
-            
-            let fetchRequest = NSFetchRequest(entityName:"RecordInfo")
-            let fetchedResults = context.executeFetchRequest(fetchRequest,
-                error: &error) as? [NSManagedObject]
-            if let results = fetchedResults {
-                for result in results{
-                    println(result.valueForKey("rName"))
-                    println(result.valueForKey("rDate"))
-                    let dataArray = (result.valueForKey("dataRelation")) as! NSOrderedSet
-                    for data in dataArray{
-                        print(data.valueForKey("rData"), " ")
-                    }
-                    println()
-                }
-            }
+            showAlertWithText(header: "Error", message: "Device is not connected")
         }
         else
         {
-            //Stop
-            println("Landscape Stopping")
-            recording = false
-            //Save data to NSData here
-            println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
-            println("inserting Date")
-            insertDataInfo.setValue(startDate, forKey: "rDate")
-            println(graphData)
-            for data in graphData {
-                var newData = NSEntityDescription.insertNewObjectForEntityForName ("RecordData",
-                    inManagedObjectContext: context) as! NSManagedObject
-                newData.setValue(data, forKey: "rData")
+            let btn:UIBarButtonItem = sender as! UIBarButtonItem
+            let title = btn.title
+
+            if (!recording)
+            {
+                println("starting")
+                //Start
+                startDate = NSDate()
+                recording = true
+               
+                graphData = []
+                dataName = String()
+                //creating new objects
+                insertData = []
+                //Start bluetooth recording (or have that automatic based on flag
+                //btn.setTitle("Stop", forState: UIControlState.Normal)
+                //btn.backgroundColor = UIColor.redColor()
+                var error: NSError?
                 
-                insertData.addObject(newData)
+                let fetchRequest = NSFetchRequest(entityName:"RecordInfo")
+                let fetchedResults = context.executeFetchRequest(fetchRequest,
+                    error: &error) as? [NSManagedObject]
+                if let results = fetchedResults {
+                    for result in results{
+                        println(result.valueForKey("rName"))
+                        println(result.valueForKey("rDate"))
+                        let dataArray = (result.valueForKey("dataRelation")) as! NSOrderedSet
+                        for data in dataArray{
+                            print(data.valueForKey("rData"), " ")
+                        }
+                    }
+                }
             }
-            insertDataInfo.setValue(insertData, forKey: "dataRelation")
-            println(insertDataInfo.valueForKey("rDate"))
-            addName(self) //sets and saves rName
-            //println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
-            //println(graphData)
+        
+            else
+            {
+                //Stop
+                println("Landscape Stopping")
+                recording = false
+                //Save data to NSData here
+                println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
+                println("inserting Date")
+                insertDataInfo.setValue(startDate, forKey: "rDate")
+                println(graphData)
+                for data in graphData {
+                    var newData = NSEntityDescription.insertNewObjectForEntityForName ("RecordData",
+                        inManagedObjectContext: context) as! NSManagedObject
+                    newData.setValue(data, forKey: "rData")
+                    
+                    insertData.addObject(newData)
+                }
+                insertDataInfo.setValue(insertData, forKey: "dataRelation")
+                println(insertDataInfo.valueForKey("rDate"))
+                addName(self) //sets and saves rName
+                //println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
+                //println(graphData)
+                
+                println()
+                //btn.setTitle("Start", forState: UIControlState.Normal)
+                //btn.backgroundColor = UIColor.greenColor()
+            }
             
-            println()
-            //btn.setTitle("Start", forState: UIControlState.Normal)
-            //btn.backgroundColor = UIColor.greenColor()
         }
+        
         
     }
     
@@ -254,63 +275,79 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         return UIColor(red:red, green:green, blue:blue, alpha:1.0)
     }
     func recordData() {
-        if(appDel.sensorTag.getStatus() != lastStatus){
-            lastStatus = appDel.sensorTag.getStatus()
-            switch(appDel.sensorTag.getStatus()){
-                /*
-                Status Code for the device, used to print the status text on portrait mode
-                0 = loading / haven't scanned
-                1 = searching for device
-                2 = Sesor Tag found
-                -2 = sensor tag not found
-                3 = discovering services
-                4 = looking at peripheral services
-                5 = enabling sensors
-                */
-            case 0:
-                println( "Loading...")
-            case 1:
-                println( "Searching for Device" )
-            case 2:
-                println( "SensorTag found")
-            case 3:
-                println( "Discovering Services" )
-            case 4:
-                println( "Looking at Peripheral Services" )
-            case 5:
-                println( "Enabling Sensors" )
-            case 6:
-                println( "Connected" )
-            case -1:
-                showAlertWithText(header: "Error", message: "Bluetooth switched off or not initialized")
-            case -2:
-                showAlertWithText(header: "Warning", message: "SensorTag Not Found")
-            default:
-                println( "Unknown" )
+        if(fromDataViewPortrait!)
+        {
+            if(appDel.sensorTag.getStatus() != lastStatus){
+                lastStatus = appDel.sensorTag.getStatus()
+                switch(appDel.sensorTag.getStatus()){
+                    /*
+                    Status Code for the device, used to print the status text on portrait mode
+                    0 = loading / haven't scanned
+                    1 = searching for device
+                    2 = Sesor Tag found
+                    -2 = sensor tag not found
+                    3 = discovering services
+                    4 = looking at peripheral services
+                    5 = enabling sensors
+                    */
+                case 0:
+                    println( "Loading...")
+                case 1:
+                    println( "Searching for Device" )
+                case 2:
+                    println( "SensorTag found")
+                case 3:
+                    println( "Discovering Services" )
+                case 4:
+                    println( "Looking at Peripheral Services" )
+                case 5:
+                    println( "Enabling Sensors" )
+                case 6:
+                    println( "Connected" )
+                    connected = true
+                case -1:
+                    showAlertWithText(header: "Error", message: "Bluetooth switched off or not initialized")
+                case -2:
+                    showAlertWithText(header: "Warning", message: "SensorTag Not Found")
+                default:
+                    println( "Unknown" )
+                }
             }
-        }
-        if(recording){
+            
+            if(recording)
+            {
             // Call bluetooth here
-            println("Landscape: Recording")
+            //println("Landscape: Recording")
             //let tmp = Int.min
             if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN){
-                println("Landscape: recorded")
+                //println("Landscape: recorded")
                 lastTemp = appDel.sensorTag.getTemp()
+                //lastTemp = (lastTemp+1)%10
                 graphData.append(lastTemp)
+                //println(lastTemp)
+                if let plotspace = graphView.hostedGraph.defaultPlotSpace {
+                    plotspace.scaleToFitPlots(graphView.hostedGraph.allPlots())
+            
+                }
                 if let plot = graphView.hostedGraph.plotAtIndex(0) {
                     plot.reloadData()
                 }
             }
+            }
         }
+        
     }
     
     
     // Show alert
     func showAlertWithText (header : String = "Warning", message : String) {
-        var alert = UIAlertController(title: header, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-        alert.view.tintColor = UIColor.redColor()
-        self.presentViewController(alert, animated: true, completion: nil)
+        if(fromDataViewPortrait!)
+        {
+            var alert = UIAlertController(title: header, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+            alert.view.tintColor = UIColor.redColor()
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     //give our data a name
@@ -325,6 +362,10 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
                 
                 let textField = alert.textFields![0] as! UITextField
                 self.dataName = textField.text
+                if(self.dataName == ""){
+                    self.dataName = self.dateFormat.stringFromDate(self.startDate)
+                    self.insertDataInfo.setValue(self.dataName, forKey: "rName")
+                }
                 self.insertDataInfo.setValue(self.dataName, forKey: "rName")
                 println(self.dataName) //There is some sort of threading going on, tis isn't waiting for addName
                 println()
@@ -338,6 +379,9 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         
         let cancelAction = UIAlertAction(title: "Cancel",
             style: .Default) { (action: UIAlertAction!) -> Void in
+                self.dataName = self.dateFormat.stringFromDate(self.startDate)
+                self.insertDataInfo.setValue(self.dataName, forKey: "rName")
+
                 self.insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: self.context) as! RecordInfo
                 
         }
@@ -354,5 +398,84 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
             completion: nil)
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.addObserver(self, selector: "orientationChanged:", name: UIDeviceOrientationDidChangeNotification, object: nil)
+        notificationCenter.addObserver(self, selector: "saveOnQuit:", name:UIApplicationWillResignActiveNotification, object: nil)
+        notificationCenter.addObserver(self, selector: "saveOnQuit:", name:UIApplicationWillTerminateNotification, object: nil)
+        
+    }
     
+    func saveOnQuit(notification: NSNotification){
+        if(recording && fromDataViewPortrait!){
+            insertDataInfo.setValue(startDate, forKey: "rDate")
+            for data in graphData {
+                var newData = NSEntityDescription.insertNewObjectForEntityForName ("RecordData",
+                    inManagedObjectContext: context) as! NSManagedObject
+                newData.setValue(data, forKey: "rData")
+                
+                insertData.addObject(newData)
+            }
+            insertDataInfo.setValue(insertData, forKey: "dataRelation")
+            dataName = dateFormat.stringFromDate(startDate)
+            insertDataInfo.setValue(dataName, forKey: "rName")
+            
+            //save the data set
+            var error: NSError?
+            if !self.context.save(&error) {
+                println("Could not save \(error), \(error?.userInfo)")
+            }
+            self.insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: self.context) as! RecordInfo
+            
+            recording = false
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(fromDataViewPortrait!)
+        {
+            
+            
+            let notificationCenter = NSNotificationCenter.defaultCenter()
+            
+            notificationCenter.removeObserver(self, name: UIApplicationWillResignActiveNotification, object: nil)
+            notificationCenter.removeObserver(self, name: UIApplicationWillTerminateNotification, object: nil)
+            
+            //moving data back to portrait
+            println("preparing for segue from Landscape");
+            if(segue.identifier == "DataToPortrait") {
+                println("Data to portrait: \(self.recording)")
+                var destinationView:DataViewPortrait = segue.destinationViewController as! DataViewPortrait;
+                destinationView.dataArray = self.graphData;
+                destinationView.recording = self.recording;
+                destinationView.startDate = self.startDate;
+                destinationView.dataName = self.dataName;
+                for stuff in graphData{
+                    print(stuff)
+                }
+            }
+        }
+    }
+    
+    func orientationChanged(notification: NSNotification){
+        if(fromDataViewPortrait!)
+        {
+            let deviceOrientation = UIDevice.currentDevice().orientation;
+            if (UIDeviceOrientationIsPortrait(deviceOrientation)){
+                
+                let notificationCenter = NSNotificationCenter.defaultCenter()
+                notificationCenter.removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
+                self.performSegueWithIdentifier("DataToPortrait", sender: self)
+                //isShowingLandscapeView = true
+            }
+            /*
+            else if(UIDeviceOrientationIsPortrait(deviceOrientation) && isShowingLandscapeView){
+            self.dismissViewControllerAnimated(true, completion: nil)
+            isShowingLandscapeView = false
+            }
+            */
+        }
+    }
 }

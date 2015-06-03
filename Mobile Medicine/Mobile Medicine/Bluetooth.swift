@@ -155,7 +155,7 @@ class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
 //    }
     
     func peripheral(peripheral: CBPeripheral!, didUpdateValueForCharacteristic characteristic: CBCharacteristic!, error: NSError!) {
-        println("Peripheral 2")
+        //println("Peripheral 2")
         
         sensorStatus = 6
         
@@ -164,17 +164,17 @@ class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             //self.allSensorValues[0] = self.ambientTemperature
             //let model = (self.tabBarController as! CustomTabBarController).model
             //model.dataArray.append(self.ambientTemperature)
-            println("BTemp = ", bTemp.description)
+            //println("BTemp = ", bTemp.description)
         }
     }
     
     func getTemp() -> Double{
-        println("Bluetooth: Temp = ", bTemp.description)
+        //println("Bluetooth: Temp = ", bTemp.description)
         return bTemp
     }
     
     func getStatus() -> Int{
-        println("BlueTooth: Status = ", sensorStatus.description)
+        //println("BlueTooth: Status = ", sensorStatus.description)
         return sensorStatus
     }
 

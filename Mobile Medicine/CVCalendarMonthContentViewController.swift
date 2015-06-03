@@ -340,7 +340,7 @@ extension CVCalendarMonthContentViewController {
                 if matchedMonths(current, presented) {
                     selectDayViewWithDay(current.day, inMonthView: presentedMonthView)
                 } else {
-                    selectDayViewWithDay(Date(date: calendarView.manager.monthDateRange(presentedMonthView.date).monthStartDate).day, inMonthView: presentedMonthView)
+                    //selectDayViewWithDay(Date(date: calendarView.manager.monthDateRange(presentedMonthView.date).monthStartDate).day, inMonthView: presentedMonthView)
                 }
             }
         }
@@ -391,7 +391,6 @@ extension CVCalendarMonthContentViewController {
             default: break
             }
         }
-        
         updateSelection()
         updateLayoutIfNeeded()
         pageLoadingEnabled = true

@@ -208,6 +208,7 @@ extension CVCalendarView {
     func didSelectDayView(dayView: CVCalendarDayView) {
         if let controller = contentController {
             presentedDate = dayView.date
+            println("5")
             delegate?.didSelectDayView?(dayView)
             controller.performedDayViewSelection(dayView) // TODO: Update to range selection
         }

@@ -64,28 +64,22 @@ class dayDataViewTable: UITableViewController {
                 {
                     let rDay = result.valueForKey("rDate") as? NSDate
                     let cDay = date.convertedDate()
-                    let next = cDay!.dateByAddingTimeInterval((24 * 60 * 60 - 8*60*60))
-                    //let prev = cDay!.dateByAddingTimeInterval( (-24 * 60 * 60 - 8*60*60))
+                    let next = cDay!.dateByAddingTimeInterval((24 * 60 * 60))
                     if rDay?.earlierDate(next) == rDay && rDay?.laterDate(cDay!) == rDay
                     {
-                        //println(result.valueForKey("rName"))
-                        //println(result.valueForKey("rDate"))
-                        let dataArray = (result.valueForKey("dataRelation")) as! NSOrderedSet
-                        if !result.isEqual(nil)
+                        if(result.valueForKey("rName") != nil )
                         {
-                            tableElements.append(result)
-                            //println("Appended value")
+                            //println(result.valueForKey("rName"))
+                            let dataArray = (result.valueForKey("dataRelation")) as! NSOrderedSet
+                            if !result.isEqual(nil)
+                            {
+                                tableElements.append(result)
+                            }
                         }
-                        /*for data in dataArray
-                        {
-                            print(data.valueForKey("rData"), " ")
-                        }*/
                     }
-                    println()
                 }
             }
         }
-
         tableView.reloadData()
         // Do view setup here.
     }
@@ -129,6 +123,7 @@ class dayDataViewTable: UITableViewController {
             graphView.dataName = tableElements[selectedIndex.row].valueForKey("rName") as! String
             let data = (tableElements[selectedIndex.row].valueForKey("dataRelation")) as! NSOrderedSet
             graphView.graphData = arrayHelper(data)
+            graphView.fromDataViewPortrait = false
 
         }
     }
@@ -138,7 +133,7 @@ class dayDataViewTable: UITableViewController {
         for data in orderedSet
         {
             output.append(Double(data.valueForKey("rData") as! NSNumber ))
-            println(data.valueForKey("rData"))
+            //println(data.valueForKey("rData"))
         }
         return(output)
     }

@@ -16,9 +16,11 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
     var titleLabel : UILabel!
     var statusLabel : UILabel!
     var tempLabel : UILabel!
+    var warningLabel : UILabel!
     var button : UIButton!
     var isShowingLandscapeView = false
     var timer : NSTimer!
+    
     
     var context:NSManagedObjectContext!
     var infoEntity:NSEntityDescription
@@ -28,12 +30,15 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
     var appDel:AppDelegate!
     
     //The variables we will record data to
-    var startDate: NSDate!
-    var dataName : String = ""
-    var dataArray: [Double] = []      //temp for testing
+    internal var startDate: NSDate!
+    internal var dataName : String = ""
+    internal var dataArray: [Double] = []      //temp for testing
     var lastTemp : Double = Double.NaN
     var lastStatus : Int = 0
-    var recording : Bool = false
+    internal var recording : Bool = false
+    var connected : Bool = false
+    var dateFormat : NSDateFormatter
+    
     
     /*
     //BLUETOOTH STUFF
@@ -61,9 +66,15 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         dataEntity = NSEntityDescription.entityForName("RecordData", inManagedObjectContext: context)!
         //insertDataInfo = NSManagedObject(entity: infoEntity, insertIntoManagedObjectContext: context)
         insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: context) as! RecordInfo
+        dateFormat = NSDateFormatter()
+        tempLabel = UILabel()
+        titleLabel = UILabel()
+        statusLabel = UILabel()
+        button = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+        tempLabel.text = "00.00" + "°C"
         
     }
-
+    
     required init(coder aDecoder: NSCoder) {
         
         //Core data context
@@ -73,114 +84,209 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         dataEntity = NSEntityDescription.entityForName("RecordData", inManagedObjectContext: context)!
         //insertDataInfo = NSManagedObject(entity: infoEntity, insertIntoManagedObjectContext: context)
         insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: context) as! RecordInfo
+        dateFormat = NSDateFormatter()
+        tempLabel = UILabel()
+        titleLabel = UILabel()
+        statusLabel = UILabel()
+        button = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+        tempLabel.text = "00.00" + "°C"
+        
         super.init(coder: aDecoder)
         
-     }
+        
+    }
     
     override func shouldAutorotate() -> Bool {
         return false
     }
-
-    override func supportedInterfaceOrientations() -> Int {
-        return Int(UIInterfaceOrientationMask.Portrait.rawValue)
-    }
     
     
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
         //centralManager = CBCentralManager(delegate: self, queue: nil)
+        //manually check device in case entering view from landscape
+        let deviceOrientation = UIDevice.currentDevice().orientation;
+        if (UIDeviceOrientationIsLandscape(deviceOrientation)){
+            self.performSegueWithIdentifier("DataToLandscape", sender: self)
+            isShowingLandscapeView = true
+        }
+        if(!isShowingLandscapeView){
+            dateFormat.dateStyle = NSDateFormatterStyle.NoStyle
+            dateFormat.timeStyle = NSDateFormatterStyle.MediumStyle
+            // Set up title label
+            titleLabel.text = "Mobile Medicine"
+            titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+            titleLabel.sizeToFit()
+            titleLabel.center = CGPoint(x: self.view.frame.midX, y: self.titleLabel.bounds.midY+28)
+            self.view.addSubview(titleLabel)
+            
+            // Set up status label
+            
+            statusLabel.textAlignment = NSTextAlignment.Center
+            statusLabel.text = "Loading..."
+            statusLabel.font = UIFont(name: "HelveticaNeue-Light", size: 12)
+            statusLabel.sizeToFit()
+            statusLabel.frame = CGRect(x: self.view.frame.origin.x, y: self.titleLabel.frame.maxY, width: self.view.frame.width, height: self.statusLabel.bounds.height)
+            self.view.addSubview(statusLabel)
+            
+            // Set up temperature label
+            tempLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 72)
+            tempLabel.sizeToFit()
+            tempLabel.center = self.view.center
+            self.view.addSubview(tempLabel)
+            
+            //start timer at 20Hz Changed to be 10 HZ since sensor tag operates at 4
+            timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("recordData"), userInfo: nil, repeats: true)
+        }
         
-        // Set up title label
-        titleLabel = UILabel()
-        titleLabel.text = "Mobile Medicine"
-        titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
-        titleLabel.sizeToFit()
-        titleLabel.center = CGPoint(x: self.view.frame.midX, y: self.titleLabel.bounds.midY+28)
-        self.view.addSubview(titleLabel)
-        
-        // Set up status label
-        statusLabel = UILabel()
-        statusLabel.textAlignment = NSTextAlignment.Center
-        statusLabel.text = "Loading..."
-        statusLabel.font = UIFont(name: "HelveticaNeue-Light", size: 12)
-        statusLabel.sizeToFit()
-        statusLabel.frame = CGRect(x: self.view.frame.origin.x, y: self.titleLabel.frame.maxY, width: self.view.frame.width, height: self.statusLabel.bounds.height)
-        self.view.addSubview(statusLabel)
-        
-        // Set up temperature label
-        tempLabel = UILabel()
-        tempLabel.text = "00.00"
-        tempLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 72)
-        tempLabel.sizeToFit()
-        tempLabel.center = self.view.center
-        self.view.addSubview(tempLabel)
-
-        // Do any additional setup after loading the view.
-        button   = UIButton.buttonWithType(UIButtonType.System) as! UIButton
         button.frame = CGRectMake(100, 100, 100, 50)
-        button.backgroundColor = UIColor.greenColor()
-        button.setTitle("Start", forState: UIControlState.Normal)
+        button.layer.cornerRadius = 15
         button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
         button.center = CGPoint(x: self.view.frame.midX, y: self.view.bounds.maxY - 100 )
+        if(recording == false){
+            button.backgroundColor = UIColor(red: 0.0, green:0.777, blue:0.222, alpha:1.0)
+            button.setTitle("Start", forState: UIControlState.Normal)
+            button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
+        }
+        else{
+            button.setTitle("Stop", forState: UIControlState.Normal)
+            button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
+            button.backgroundColor = UIColor.redColor()
+        }
         
-        self.view.addSubview(button)
         
-        //start timer at 20Hz Changed to be 10 HZ since sensor tag operates at 4
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("recordData"), userInfo: nil, repeats: true)
         
-        //BLUETOOTH STUFF
         
-        // Initialize all sensor values and labels
-        /*allSensorLabels = SensorTag.getSensorLabels()
-        for (var i=0; i<allSensorLabels.count; i++) {
-            allSensorValues.append(0)
-        }*/
+        println(dateFormat.stringFromDate(NSDate()))
+        //BLUETOOTH
+        
     }
     
     func buttonAction(sender:UIButton!)
     {
         let btn:UIButton = sender
-        let title = btn.titleLabel?.text
-        if (title == "Start")
+        if connected
         {
-            //Start
-            startDate = NSDate()
-            recording = true
-            dataArray = []
-            dataName = String()
-            //creating new objects
-            insertData = []
-            //Start bluetooth recording (or have that automatic based on flag
-            btn.setTitle("Stop", forState: UIControlState.Normal)
-            btn.backgroundColor = UIColor.redColor()
-            var error: NSError?
+            //warningLabel.removeFromSuperview()
             
-            let fetchRequest = NSFetchRequest(entityName:"RecordInfo")
-            let fetchedResults = context.executeFetchRequest(fetchRequest,
-                error: &error) as? [NSManagedObject]
-            if let results = fetchedResults {
-                for result in results{
-                    println(result.valueForKey("rName"))
-                    println(result.valueForKey("rDate"))
-                    let dataArray = (result.valueForKey("dataRelation")) as! NSOrderedSet
-                    for data in dataArray{
-                        print(data.valueForKey("rData"), " ")
+            let btn:UIButton = sender
+            let title = btn.titleLabel?.text
+            println("Recording: \(recording)")
+            if (recording == false)
+            {
+                println("Entered if")
+                //Start
+                startDate = NSDate()
+                
+                recording = true
+                dataArray = []
+                dataName = String()
+                //creating new objects
+                insertData = []
+                //Start bluetooth recording (or have that automatic based on flag
+                btn.setTitle("Stop", forState: UIControlState.Normal)
+                btn.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
+                
+                btn.backgroundColor = UIColor.redColor()
+                var error: NSError?
+                
+                let fetchRequest = NSFetchRequest(entityName:"RecordInfo")
+                let fetchedResults = context.executeFetchRequest(fetchRequest,
+                    error: &error) as? [NSManagedObject]
+                if let results = fetchedResults {
+                    for result in results{
+                        //println(result.valueForKey("rName"))
+                        //println(result.valueForKey("rDate"))
+                        let dataArray = (result.valueForKey("dataRelation")) as! NSOrderedSet
+                        for data in dataArray{
+                            print(data.valueForKey("rData"), " ")
+                        }
+                        println()
                     }
-                    println()
                 }
+            }
+            else // recording = true
+            {
+                //Stop
+                recording = false
+                //Save data to NSData here
+                insertDataInfo.setValue(startDate, forKey: "rDate")
+                for data in dataArray {
+                    var newData = NSEntityDescription.insertNewObjectForEntityForName ("RecordData",
+                        inManagedObjectContext: context) as! NSManagedObject
+                    newData.setValue(data, forKey: "rData")
+                    
+                    insertData.addObject(newData)
+                }
+                insertDataInfo.setValue(insertData, forKey: "dataRelation")
+                addName(self) //sets and saves rName
+                btn.setTitle("Start", forState: UIControlState.Normal)
+                btn.backgroundColor = UIColor(red: 0.0, green:0.777, blue:0.222, alpha:1.0)
             }
         }
         else
         {
-            //Stop
-            recording = false
-            //Save data to NSData here
-            println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
+            showAlertWithText(header: "Error", message: "Connect the device before recording data")
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.addObserver(self, selector: "orientationChanged:", name: UIDeviceOrientationDidChangeNotification, object: nil)
+        notificationCenter.addObserver(self, selector: "saveOnQuit:", name:UIApplicationWillResignActiveNotification, object: nil)
+        notificationCenter.addObserver(self, selector: "saveOnQuit:", name:UIApplicationWillTerminateNotification, object: nil)
+        notificationCenter.addObserver(self, selector: "refreshView:", name:UIApplicationDidBecomeActiveNotification, object: nil)
+    }
+    
+    func orientationChanged(notification: NSNotification){
+        let deviceOrientation = UIDevice.currentDevice().orientation;
+        if (UIDeviceOrientationIsLandscape(deviceOrientation)){
+            let notificationCenter = NSNotificationCenter.defaultCenter()
+            notificationCenter.removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
+            self.performSegueWithIdentifier("DataToLandscape", sender: self)
+            //isShowingLandscapeView = true
+            
+            
+        }
+        /*
+        else if(UIDeviceOrientationIsPortrait(deviceOrientation) && isShowingLandscapeView){
+        self.dismissViewControllerAnimated(true, completion: nil)
+        isShowingLandscapeView = false
+        }
+        */
+        
+    }
+    
+    func refreshView(notification: NSNotification){
+        if(recording == false){
+            button.backgroundColor = UIColor(red: 0.0, green:0.777, blue:0.222, alpha:1.0)
+            button.setTitle("Start", forState: UIControlState.Normal)
+            button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
+        }
+        else{
+            button.setTitle("Stop", forState: UIControlState.Normal)
+            button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
+            button.backgroundColor = UIColor.redColor()
+        }
+    }
+    
+    
+    func saveOnQuit(notification: NSNotification){
+        if(recording){
             insertDataInfo.setValue(startDate, forKey: "rDate")
-            println(dataArray)
             for data in dataArray {
                 var newData = NSEntityDescription.insertNewObjectForEntityForName ("RecordData",
                     inManagedObjectContext: context) as! NSManagedObject
@@ -189,50 +295,26 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
                 insertData.addObject(newData)
             }
             insertDataInfo.setValue(insertData, forKey: "dataRelation")
-            addName(self) //sets and saves rName
-            println(startDate.descriptionWithLocale(NSLocale.autoupdatingCurrentLocale()))
-            println(dataArray)
-
-            println()
-            btn.setTitle("Start", forState: UIControlState.Normal)
-            btn.backgroundColor = UIColor.greenColor()
-        }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
-        let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserver(self, selector: "orientationChanged:", name: UIDeviceOrientationDidChangeNotification, object: nil)
-        
-    }
-    
-    func orientationChanged(notification: NSNotification){
-        let deviceOrientation = UIDevice.currentDevice().orientation;
-        if (UIDeviceOrientationIsLandscape(deviceOrientation) && !isShowingLandscapeView){
-            self.performSegueWithIdentifier("DataToLandscape", sender: self)
-            isShowingLandscapeView = true
+            dataName = dateFormat.stringFromDate(startDate)
+            insertDataInfo.setValue(dataName, forKey: "rName")
             
+            //save the data set
+            var error: NSError?
+            if !self.context.save(&error) {
+                println("Could not save \(error), \(error?.userInfo)")
+            }
+            recording = false
         }
-        else if(UIDeviceOrientationIsPortrait(deviceOrientation) && isShowingLandscapeView){
-            self.dismissViewControllerAnimated(true, completion: nil)
-            isShowingLandscapeView = false
-        }
-
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if(segue.identifier == "DataToCal"){
-            // Notification center will detect when you rotate to landscape view and will call
-            // a segue to DataLandscape
-            let notificationCenter = NSNotificationCenter.defaultCenter()
-            notificationCenter.removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
-        } else if(segue.identifier == "DataToLandscape" && self.dataArray.count != 0 ) {
+        
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
+        notificationCenter.removeObserver(self, name: UIApplicationWillResignActiveNotification, object: nil)
+        notificationCenter.removeObserver(self, name: UIApplicationWillTerminateNotification, object: nil)
+        notificationCenter.addObserver(self, selector: "refreshView:", name:UIApplicationDidBecomeActiveNotification, object: nil)
+        if(segue.identifier == "DataToLandscape" ) {
             var destinationView:DataViewLandscape = segue.destinationViewController as! DataViewLandscape;
             destinationView.startDate = self.startDate;
             destinationView.dataName = self.dataName;
@@ -241,6 +323,7 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
             }
             destinationView.graphData = self.dataArray;
             destinationView.recording = self.recording;
+            destinationView.fromDataViewPortrait = true
         }
     }
     
@@ -256,6 +339,10 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
                 
                 let textField = alert.textFields![0] as! UITextField
                 self.dataName = textField.text
+                if(self.dataName == ""){
+                    self.dataName = self.dateFormat.stringFromDate(self.startDate)
+                    self.insertDataInfo.setValue(self.dataName, forKey: "rName")
+                }
                 self.insertDataInfo.setValue(self.dataName, forKey: "rName")
                 println(self.dataName) //There is some sort of threading going on, tis isn't waiting for addName
                 println()
@@ -269,8 +356,10 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         
         let cancelAction = UIAlertAction(title: "Cancel",
             style: .Default) { (action: UIAlertAction!) -> Void in
+                self.dataName = self.dateFormat.stringFromDate(self.startDate)
+                self.insertDataInfo.setValue(self.dataName, forKey: "rName")
                 self.insertDataInfo = NSEntityDescription.insertNewObjectForEntityForName ("RecordInfo", inManagedObjectContext: self.context) as! RecordInfo
-
+                
         }
         
         alert.addTextFieldWithConfigurationHandler {
@@ -287,6 +376,21 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
     
     
     func recordData() {
+        
+        
+        
+        warningLabel = UILabel(frame:CGRectMake(0, 0, 200, 100))
+        warningLabel.backgroundColor = UIColor(red: 0.777, green:0.222, blue:0.222, alpha:1.0)
+        warningLabel.textAlignment = .Center
+        warningLabel.text = "Please connect the device before recording data"
+        warningLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
+        warningLabel.center = CGPoint(x: self.view.frame.midX, y:self.titleLabel.bounds.midY + 350)
+        warningLabel.lineBreakMode = .ByWordWrapping
+        warningLabel.numberOfLines = 0
+        warningLabel.layer.cornerRadius = 15
+        warningLabel.tag = 100
+        
+        
         if(appDel.sensorTag.getStatus() != lastStatus){
             lastStatus = appDel.sensorTag.getStatus()
             switch(appDel.sensorTag.getStatus()){
@@ -314,10 +418,26 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
                 statusLabel.text = "Enabling Sensors"
             case 6:
                 statusLabel.text = "Connected"
+                if(!connected)
+                {
+                    print(warningLabel)
+                    for subview in view.subviews {
+                        if subview is UILabel {
+                            if (subview.tag == 100) {
+                                subview.removeFromSuperview()
+                            }
+                        }
+                    }
+                }
+                connected = true
+                self.view.addSubview(button)
+                
             case -1:
                 showAlertWithText(header: "Error", message: "Bluetooth switched off or not initialized")
             case -2:
+                connected = false
                 showAlertWithText(header: "Warning", message: "SensorTag Not Found")
+                self.view.addSubview(warningLabel)
             default:
                 statusLabel.text = "Unknown"
             }
@@ -328,138 +448,11 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
             if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN){
                 lastTemp = appDel.sensorTag.getTemp()
                 dataArray.append(lastTemp)
-                tempLabel.text = String(format:"%.2f", self.lastTemp)
-                var newData:[Double] = dataArray
-                DataViewLandscape.refreshGraphData(newData)
-                
+                tempLabel.text = String(format:"%.2f" + "°C", self.lastTemp)
             }
         }
     }
     
-    
-   /******* CBCentralManagerDelegate *******/
-    /*
-    // Check status of BLE hardware
-    func centralManagerDidUpdateState(central: CBCentralManager!) {
-        if central.state == CBCentralManagerState.PoweredOn {
-            println("CM did update state")
-            // Scan for peripherals if BLE is turned on
-            central.scanForPeripheralsWithServices(nil, options: nil)
-            self.statusLabel.text = "Searching for BLE Devices"
-        }
-        else {
-            // Can have different conditions for all states if needed - show generic alert for now
-            showAlertWithText(header: "Error", message: "Bluetooth switched off or not initialized")
-        }
-    }
-    
-    
-    // Check out the discovered peripherals to find Sensor Tag
-    func centralManager(central: CBCentralManager!, didDiscoverPeripheral peripheral: CBPeripheral!, advertisementData: [NSObject : AnyObject]!, RSSI: NSNumber!) {
-        println("CM 1")
-        
-        if SensorTag.sensorTagFound(advertisementData) == true {
-            
-            // Update Status Label
-            self.statusLabel.text = "Sensor Tag Found"
-            
-            // Stop scanning, set as the peripheral to use and establish connection
-            self.centralManager.stopScan()
-            self.sensorTagPeripheral = peripheral
-            self.sensorTagPeripheral?.delegate = self
-            self.centralManager.connectPeripheral(peripheral, options: nil)
-        }
-        else {
-            self.statusLabel.text = "Sensor Tag NOT Found"
-            //showAlertWithText(header: "Warning", message: "SensorTag Not Found")
-        }
-    }
-    
-    // Discover services of the peripheral
-    func centralManager(central: CBCentralManager!, didConnectPeripheral peripheral: CBPeripheral!) {
-        println("CM 2")
-        
-        self.statusLabel.text = "Discovering peripheral services"
-        peripheral.discoverServices(nil)
-    }
-    
-    
-    // If disconnected, start searching again
-    func centralManager(central: CBCentralManager!, didDisconnectPeripheral peripheral: CBPeripheral!, error: NSError!) {
-        println("CM 3")
-        
-        self.statusLabel.text = "Disconnected"
-        central.scanForPeripheralsWithServices(nil, options: nil)
-        print("looking for shit")
-    }
-    
-    /******* CBCentralPeripheralDelegate *******/
-    
-    // Check if the service discovered is valid i.e. one of the following:
-    // IR Temperature Service
-    // Accelerometer Service
-    // Humidity Service
-    // Magnetometer Service
-    // Barometer Service
-    // Gyroscope Service
-    // (Others are not implemented)
-    func peripheral(peripheral: CBPeripheral!, didDiscoverServices error: NSError!) {
-        self.statusLabel.text = "Looking at peripheral services"
-        for service in peripheral.services {
-            let thisService = service as! CBService
-            if SensorTag.validService(thisService) {
-                // Discover characteristics of all valid services
-                peripheral.discoverCharacteristics(nil, forService: thisService)
-            }
-        }
-    }
-    
-    
-    // Enable notification and sensor for each characteristic of valid service
-    func peripheral(peripheral: CBPeripheral!, didDiscoverCharacteristicsForService service: CBService!, error: NSError!) {
-        println("Peripheral 1")
-        
-        self.statusLabel.text = "Enabling sensors"
-        
-        var enableValue = 1
-        let enablyBytes = NSData(bytes: &enableValue, length: sizeof(UInt8))
-        
-        for charateristic in service.characteristics {
-            let thisCharacteristic = charateristic as! CBCharacteristic
-            if SensorTag.validDataCharacteristic(thisCharacteristic) {
-                // Enable Sensor Notification
-                self.sensorTagPeripheral?.setNotifyValue(true, forCharacteristic: thisCharacteristic)
-            }
-            if SensorTag.validConfigCharacteristic(thisCharacteristic) {
-                // Enable Sensor
-                self.sensorTagPeripheral?.writeValue(enablyBytes, forCharacteristic: thisCharacteristic, type: CBCharacteristicWriteType.WithResponse)
-            }
-        }
-        
-    }
-    
-    
-    // Get data values when they are updated
-    func peripheral(peripheral: CBPeripheral!, didUpdateValueForCharacteristic characteristic: CBCharacteristic!, error: NSError!) {
-        println("Peripheral 2")
-        
-        self.statusLabel.text = "Connected"
-        
-        if characteristic.UUID == IRTemperatureDataUUID {
-            self.ambientTemperature = SensorTag.getAmbientTemperature(characteristic.value)
-            self.allSensorValues[0] = self.ambientTemperature
-            //let model = (self.tabBarController as! CustomTabBarController).model
-            //model.dataArray.append(self.ambientTemperature)
-            if(recording)
-            {
-                dataArray.append(self.ambientTemperature)
-                tempLabel.text = String(format:"%.2f", self.ambientTemperature)
-            }
-//            dataArray.append(self.ambientTemperature)
-//            tempLabel.text = String(format:"%.2f", self.ambientTemperature)
-        }
-    }
-    */
     // Show alert
     func showAlertWithText (header : String = "Warning", message : String) {
         var alert = UIAlertController(title: header, message: message, preferredStyle: UIAlertControllerStyle.Alert)
@@ -468,32 +461,4 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
-    /* Apple example code (in Obj C)
-    
-    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
-    if (UIDeviceOrientationIsLandscape(deviceOrientation) &&
-    !isShowingLandscapeView)
-    {
-    [self performSegueWithIdentifier:@"DisplayAlternateView" sender:self];
-    isShowingLandscapeView = YES;
-    }
-    else if (UIDeviceOrientationIsPortrait(deviceOrientation) &&
-    isShowingLandscapeView)
-    {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    isShowingLandscapeView = NO;
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-
 }
