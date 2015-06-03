@@ -1,0 +1,6 @@
+#include "Pods-Mobile Medicine-CorePlot.xcconfig"
+ALWAYS_SEARCH_USER_PATHS = ${PODS_MOBILE_MEDICINE_COREPLOT_ALWAYS_SEARCH_USER_PATHS}
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Build" "${PODS_ROOT}/Headers/Build/CorePlot" "${PODS_ROOT}/Headers/Build/CorePlot/ios" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/CorePlot" "${PODS_ROOT}/Headers/Public/CorePlot/ios"
+OTHER_LDFLAGS = ${PODS_MOBILE_MEDICINE_COREPLOT_OTHER_LDFLAGS} -ObjC
+PODS_ROOT = ${SRCROOT}

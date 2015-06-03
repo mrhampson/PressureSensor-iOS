@@ -1,0 +1,2 @@
+PODS_MOBILE_MEDICINE_COREPLOT_ALWAYS_SEARCH_USER_PATHS = YES
+PODS_MOBILE_MEDICINE_COREPLOT_OTHER_LDFLAGS = -framework "Accelerate" -framework "Foundation" -framework "QuartzCore" -framework "UIKit"

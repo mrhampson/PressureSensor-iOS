@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChartViewDelegate {
+class DataViewLandscape: UIViewController, CPTPlotDataSource {
     let _headerHeight:CGFloat = 80
     let _footerHeight:CGFloat = 40
     let _padding:CGFloat = 10
@@ -25,8 +25,8 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
     var fromDataViewPortrait: Bool?
     internal var startDate: NSDate!
     internal var dataName : String = ""
-    internal var graphData: [Double] = []
-    internal var recording = false // this may be the problem, it's always initialized to false
+    internal var graphData: [Double] = [1, 10, 5, 7]
+    internal var recording: Bool = false
     var timer : NSTimer!
     //temp for testing
     var lastTemp : Double = Double.NaN
@@ -78,30 +78,96 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
     }
     
 
+    @IBOutlet var graphView: CPTGraphHostingView!
+    
+    func initPlot() -> Void {
+        self.configureHost();
+        self.configureGraph();
+        self.configurePlots();
+        self.configureAxes();
+    }
+    
+    func configureHost() -> Void {
+        graphView.frame = self.view.bounds
+        graphView.allowPinchScaling = true
+    }
+    
+    func configureGraph() -> Void {
+        // Create the graph
+        var graph:CPTGraph = CPTXYGraph(frame: self.graphView.bounds)
+        graph.applyTheme(CPTTheme(named: "kCPTDarkGradientTheme"))
+        self.graphView.hostedGraph = graph
+        // Set title
+        graph.title = "Test Graph"
+        // Create and set text syle
+        var titleStyle:CPTMutableTextStyle = CPTMutableTextStyle()
+        titleStyle.color = CPTColor.whiteColor()
+        titleStyle.fontName = "Helvetica-Bold"
+        titleStyle.fontSize = 16.0
+        graph.titleTextStyle = titleStyle
+        graph.titlePlotAreaFrameAnchor = CPTRectAnchor.Top
+        graph.titleDisplacement = CGPointMake(0, 10)
+        // Set padding for plot area
+        graph.plotAreaFrame.paddingLeft = 30
+        graph.plotAreaFrame.paddingBottom = 30
+        // Enable user interaction for plot space
+        graph.defaultPlotSpace.allowsUserInteraction = true
+    }
+    
+    func configurePlots() -> Void {
+        // Get graph and plot space
+        var graph:CPTGraph = graphView.hostedGraph
+        var plotSpace:CPTXYPlotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace
+        // Create plots
+        var plot:CPTScatterPlot = CPTScatterPlot(frame: CGRectZero)
+        plot.dataSource = self
+        graph.addPlot(plot, toPlotSpace: plotSpace)
+        // Set up plot space
+        var plots:[CPTScatterPlot] = [plot]
+        plotSpace.scaleToFitPlots(plots)
+        plotSpace.globalXRange = CPTPlotRange(location: FloatToDecimal.Convert(0), length: FloatToDecimal.Convert(1500))
+        // Create styles and symbols
+    }
+    
+    func configureAxes() -> Void {
+        var axisTitleStyle:CPTMutableTextStyle = CPTMutableTextStyle()
+        axisTitleStyle.color = CPTColor.blackColor()
+        axisTitleStyle.fontSize = 12
+        
+        var axisSet:CPTXYAxisSet = self.graphView.hostedGraph.axisSet as! CPTXYAxisSet
+        var x:CPTXYAxis = axisSet.xAxis
+        x.title = "time (0.25s)"
+        x.axisConstraints = CPTConstraints(lowerOffset: 0.0)
+        x.minorTicksPerInterval = 3
+        
+        var y:CPTXYAxis = axisSet.yAxis
+        y.axisConstraints = CPTConstraints(lowerOffset: 0.0)
+        y.minorTicksPerInterval = 3
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.initPlot()
+        
+    }
+    
     override func viewDidLoad() {
-        super.viewDidLoad();
+        super.viewDidLoad()
         
-        lineChartView = JBLineChartView();
-        lineChartView.dataSource = self;
-        lineChartView.delegate = self;
-        lineChartView.backgroundColor = UIColor.whiteColor();
-        lineChartView.frame = CGRectMake(0, 44, self.view.frame.height, self.view.frame.width-44);
-        lineChartView.reloadData();
-        self.view.addSubview(lineChartView);
-        
-        chartHeaderView.frame =  CGRectMake(_padding,ceil(self.view.bounds.size.height * 0.5) - ceil(_headerHeight * 0.5),self.view.bounds.width - _padding*2, _headerHeight);
-        chartHeaderView.titleLabel.text = "Temperature vs Time";
-        chartHeaderView.backgroundColor = UIColor.whiteColor();
-        chartHeaderView.titleLabel.textColor = UIColor.blackColor();
-        chartHeaderView.titleLabel.shadowColor = UIColor.whiteColor();
-        lineChartView.headerView = chartHeaderView;
-        
-        _tooltipView.alpha = 0.0;
-        lineChartView.addSubview(_tooltipView);
-        _tooltipTipView.alpha = 0.0;
-        lineChartView.addSubview(_tooltipTipView);
-        //start timer at 20Hz Changed to be 10 HZ since sensor tag operates at 4
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("recordData"), userInfo: nil, repeats: true)
+    }
+    
+    func numberOfRecordsForPlot(plot: CPTPlot!) -> UInt {
+        return UInt(graphData.count);
+    }
+    
+    func numberForPlot(plot: CPTPlot!, field fieldEnum: UInt, recordIndex idx: UInt) -> AnyObject! {
+        if (fieldEnum == UInt(CPTScatterPlotField.X.rawValue)) {
+            // Divide by 4 because our sample rate is 4 Hz.
+            return Double(idx)/4
+        } else if(fieldEnum == UInt(CPTScatterPlotField.Y.rawValue)) {
+            return graphData[Int(idx)]
+        }
+        return graphData[Int(idx)];
     }
     
     
@@ -181,112 +247,9 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
         
     }
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    
-    
-    func numberOfLinesInLineChartView(lineChartView: JBLineChartView!) -> UInt {
-        return 1;
-    }
-    
-    func lineChartView(lineChartView: JBLineChartView!, selectionColorForLineAtLineIndex lineIndex: UInt) -> UIColor! {
-        return uicolorFromHex(0x3498db);
-    }
-    
-    func lineChartView(lineChartView: JBLineChartView!, selectionColorForDotAtHorizontalIndex horizontalIndex: UInt, atLineIndex lineIndex: UInt) -> UIColor! {
-        return uicolorFromHex(0xe74c3c);
-    }
-    
-    
-    
-    func lineChartView(lineChartView: JBLineChartView!, numberOfVerticalValuesAtLineIndex lineIndex: UInt) -> UInt {
-        return UInt(graphData.count);
-    }
-    
-    func lineChartView(lineChartView: JBLineChartView!, verticalValueForHorizontalIndex horizontalIndex: UInt, atLineIndex lineIndex: UInt) -> CGFloat {
-        return CGFloat(graphData[Int(horizontalIndex)]);
-    }
-    
-    func lineChartView(lineChartView: JBLineChartView!, colorForLineAtLineIndex lineIndex: UInt) -> UIColor! {
-        return uicolorFromHex(0x3498db)
-    }
-    
-    func lineChartView(lineChartView: JBLineChartView!, smoothLineAtLineIndex lineIndex: UInt) -> Bool {
-        return true;
-    }
-    
-    func lineChartView(lineChartView: JBLineChartView!, dotRadiusForDotAtHorizontalIndex horizontalIndex: UInt, atLineIndex lineIndex: UInt) -> CGFloat {
-        return 2;
-    }
-    
-    func lineChartView(lineChartView: JBLineChartView!, widthForLineAtLineIndex lineIndex: UInt) -> CGFloat {
-        return 1;
-    }
-    
-    func lineChartView(lineChartView: JBLineChartView!, showsDotsForLineAtLineIndex lineIndex: UInt) -> Bool {
-        return true;
-    }
-    func lineChartView(lineChartView: JBLineChartView!, colorForDotAtHorizontalIndex horizontalIndex: UInt, atLineIndex lineIndex: UInt) -> UIColor! {
-        return uicolorFromHex(0xe74c3c)
-    }
-
-    func lineChartView(lineChartView: JBLineChartView!, didSelectLineAtIndex lineIndex: UInt, horizontalIndex: UInt, touchPoint: CGPoint) {
-
-        // Adjust tooltip position
-        var convertedTouchPoint:CGPoint = touchPoint
-        let minChartX:CGFloat = (lineChartView.frame.origin.x + ceil(_tooltipView.frame.size.width * 0.5))
-        if (convertedTouchPoint.x < minChartX)
-        {
-            convertedTouchPoint.x = minChartX
-        }
-        var maxChartX:CGFloat = (lineChartView.frame.origin.x + lineChartView.frame.size.width - ceil(_tooltipView.frame.size.width * 0.5))
-        if (convertedTouchPoint.x > maxChartX)
-        {
-            convertedTouchPoint.x = maxChartX
-        }
-        _tooltipView.frame = CGRectMake(
-                                convertedTouchPoint.x - ceil(_tooltipView.frame.size.width * 0.5),
-                                CGRectGetMaxY(chartHeaderView.frame),
-                                _tooltipView.frame.size.width,
-                                _tooltipView.frame.size.height
-                             );
-        
-        let formatter = NSNumberFormatter();
-        formatter.maximumSignificantDigits = 2;
-        formatter.minimumSignificantDigits = 2;
-        let currentValue:CGFloat = CGFloat(graphData[Int(horizontalIndex)]);
-        let string = formatter.stringFromNumber(currentValue) ?? "0.00";
-        _tooltipView.setText(string);
-        
-        
-        var originalTouchPoint:CGPoint = touchPoint
-        let minTipX:CGFloat = (lineChartView.frame.origin.x + _tooltipTipView.frame.size.width)
-        if (touchPoint.x < minTipX)
-        {
-            originalTouchPoint.x = minTipX;
-        }
-        let maxTipX = (lineChartView.frame.origin.x + lineChartView.frame.size.width - _tooltipTipView.frame.size.width);
-        if (originalTouchPoint.x > maxTipX)
-        {
-            originalTouchPoint.x = maxTipX;
-        }
-        _tooltipTipView.frame = CGRectMake(
-                                    originalTouchPoint.x - ceil(_tooltipTipView.frame.size.width * 0.5),
-                                    CGRectGetMaxY(_tooltipView.frame),
-                                    _tooltipTipView.frame.size.width,
-                                    _tooltipTipView.frame.size.height
-                                );
-        _tooltipView.alpha = 1.0;
-        _tooltipTipView.alpha = 1.0;
-    }
-    
-    func didDeselectLineInLineChartView(lineChartView: JBLineChartView!) {
-        _tooltipView.alpha = 0.0
-        _tooltipTipView.alpha = 0.0
     }
     
     func uicolorFromHex(rgbValue:UInt32)->UIColor{
@@ -345,9 +308,10 @@ class DataViewLandscape: UIViewController, JBLineChartViewDataSource, JBLineChar
                 //println("Landscape: recorded")
                 lastTemp = appDel.sensorTag.getTemp()
                 graphData.append(lastTemp)
-                lineChartView.reloadData()
+                if let plot = graphView.hostedGraph.plotAtIndex(0) {
+                    plot.reloadData()
                 }
-                
+            }
             }
         }
         
