@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class DataViewLandscape: UIViewController, CPTPlotDataSource {
+class DataViewLandscape: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDelegate {
     let _headerHeight:CGFloat = 80
     let _footerHeight:CGFloat = 40
     let _padding:CGFloat = 10
@@ -18,6 +18,8 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
     let _tooltipView = ChartTooltipView();
     let _tooltipTipView = ChartTooltipTipView();
     var lineChartView : JBLineChartView!
+    var alert : UIAlertController?
+    
     
     // Variables to be set from the segue DataToLandscape
     // internal is an access specifier that is somewhere in between public and private
@@ -25,7 +27,7 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
     var fromDataViewPortrait: Bool?
     internal var startDate: NSDate!
     internal var dataName : String = ""
-    internal var graphData: [Double] = [1, 10, 5, 7]
+    internal var graphData: [Double] = []
     internal var recording: Bool = false
     var timer : NSTimer!
     //temp for testing
@@ -42,6 +44,7 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
     var connected : Bool = false
     var dateFormat : NSDateFormatter
 
+    var counter:Int = 1
     
     convenience init(){
         self.init()
@@ -130,11 +133,12 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         plot.dataLineStyle = lineStyle
         plot.interpolation = CPTScatterPlotInterpolation.Curved
         plot.dataSource = self
+        plot.delegate = self
+        // Add plot symbols
         var plotSymbol:CPTPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol()
         plotSymbol.fill = CPTFill(color: CPTColor.redColor())
         plotSymbol.size = CGSizeMake(2, 2)
         plot.plotSymbol = plotSymbol
-        graph.addPlot(plot, toPlotSpace: plotSpace)
 
         // Set up plot space
         var plots:[CPTScatterPlot] = [plot]
@@ -150,12 +154,14 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         
         var axisSet:CPTXYAxisSet = self.graphView.hostedGraph.axisSet as! CPTXYAxisSet
         var x:CPTXYAxis = axisSet.xAxis
+        x.labelingPolicy = .Automatic
         x.title = "time (0.25s)"
         x.axisConstraints = CPTConstraints(lowerOffset: 0.0)
         x.minorTicksPerInterval = 3
-        x.labelingPolicy = .Automatic
         
         var y:CPTXYAxis = axisSet.yAxis
+        
+        y.labelingPolicy = .Automatic
         y.axisConstraints = CPTConstraints(lowerOffset: 0.0)
         y.minorTicksPerInterval = 9
         y.labelingPolicy = .Automatic
@@ -188,6 +194,22 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         return graphData[Int(idx)];
     }
     
+    func scatterPlot(plot: CPTScatterPlot!, plotSymbolTouchDownAtRecordIndex idx: UInt) {
+        var formatter:NSNumberFormatter = NSNumberFormatter()
+        plot.labelFormatter = formatter
+        var pointLabelTextStyle:CPTMutableTextStyle = CPTMutableTextStyle()
+        pointLabelTextStyle.color = CPTColor.blackColor()
+        pointLabelTextStyle.fontName = "Helvetica-Bold"
+        pointLabelTextStyle.fontSize = 16.0
+        plot.labelTextStyle = pointLabelTextStyle
+        plot.reloadDataLabels()
+    }
+    
+    func scatterPlot(plot: CPTScatterPlot!, plotSymbolTouchUpAtRecordIndex idx: UInt) {
+        plot.labelFormatter = nil
+        plot.labelTextStyle = nil
+        plot.reloadDataLabels()
+    }
     
     @IBAction func StartStopButtonAction(sender: AnyObject) {
         println("Start/Stop button pressed");
@@ -317,27 +339,24 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
                 }
             }
             
-            if(recording)
-            {
-                // Call bluetooth here
-                //println("Landscape: Recording")
-                //let tmp = Int.min
-                //if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN)
-                //{
-                    //println("Landscape: recorded")
-                    lastTemp = appDel.sensorTag.getTemp()
-                    //lastTemp = (lastTemp+1)%10
-                    graphData.append(lastTemp)
-                    //println(lastTemp)
-                    if let plotspace = graphView.hostedGraph.defaultPlotSpace
-                    {
-                        plotspace.scaleToFitPlots(graphView.hostedGraph.allPlots())
-                    }
-                    if let plot = graphView.hostedGraph.plotAtIndex(0)
-                    {
-                        plot.reloadData()
-                    }
-                //}
+            if(recording) {
+            //{
+            // Call bluetooth here
+            //println("Landscape: Recording")
+            //let tmp = Int.min
+            //if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN){
+                //println("Landscape: recorded")
+                lastTemp = appDel.sensorTag.getTemp()
+                lastTemp = (lastTemp+1)%10
+                graphData.append(lastTemp)
+                //println(lastTemp)
+                if let plotspace = graphView.hostedGraph.defaultPlotSpace {
+                    plotspace.scaleToFitPlots(graphView.hostedGraph.allPlots())
+            
+                }
+                if let plot = graphView.hostedGraph.plotAtIndex(0) {
+                    plot.reloadData()
+                }
             }
         }
         
@@ -348,24 +367,24 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
     func showAlertWithText (header : String = "Warning", message : String) {
         if(fromDataViewPortrait!)
         {
-            var alert = UIAlertController(title: header, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-            alert.view.tintColor = UIColor.redColor()
-            self.presentViewController(alert, animated: true, completion: nil)
+            alert = UIAlertController(title: header, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+            alert!.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+            alert!.view.tintColor = UIColor.redColor()
+            self.presentViewController(alert!, animated: true, completion: nil)
         }
     }
     
     //give our data a name
     @IBAction func addName(sender: AnyObject) {
         
-        var alert = UIAlertController(title: "New name",
+        alert = UIAlertController(title: "New name",
             message: "Add a new name",
             preferredStyle: .Alert)
         
         let saveAction = UIAlertAction(title: "Save",
             style: .Default) { (action: UIAlertAction!) -> Void in
                 
-                let textField = alert.textFields![0] as! UITextField
+                let textField = self.alert!.textFields![0] as! UITextField
                 self.dataName = textField.text
                 if(self.dataName == ""){
                     self.dataName = self.dateFormat.stringFromDate(self.startDate)
@@ -391,14 +410,14 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
                 
         }
         
-        alert.addTextFieldWithConfigurationHandler {
+        alert!.addTextFieldWithConfigurationHandler {
             (textField: UITextField!) -> Void in
         }
         
-        alert.addAction(saveAction)
-        alert.addAction(cancelAction)
+        alert!.addAction(saveAction)
+        alert!.addAction(cancelAction)
         
-        presentViewController(alert,
+        presentViewController(alert!,
             animated: true,
             completion: nil)
     }
@@ -469,7 +488,9 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         {
             let deviceOrientation = UIDevice.currentDevice().orientation;
             if (UIDeviceOrientationIsPortrait(deviceOrientation)){
-                
+                if let activeAlert = alert{
+                    activeAlert.dismissViewControllerAnimated(false, completion: nil)
+                }
                 let notificationCenter = NSNotificationCenter.defaultCenter()
                 notificationCenter.removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
                 self.performSegueWithIdentifier("DataToPortrait", sender: self)
