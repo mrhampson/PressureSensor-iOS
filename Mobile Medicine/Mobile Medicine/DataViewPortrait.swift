@@ -20,6 +20,7 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
     var button : UIButton!
     var isShowingLandscapeView = false
     var timer : NSTimer!
+    var alert : UIAlertController?
 
     
     var context:NSManagedObjectContext!
@@ -254,6 +255,9 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
     func orientationChanged(notification: NSNotification){
         let deviceOrientation = UIDevice.currentDevice().orientation;
         if (UIDeviceOrientationIsLandscape(deviceOrientation)){
+            if let activeAlert = alert{
+                activeAlert.dismissViewControllerAnimated(false, completion: nil)
+            }
             let notificationCenter = NSNotificationCenter.defaultCenter()
             notificationCenter.removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
             self.performSegueWithIdentifier("DataToLandscape", sender: self)
@@ -330,14 +334,14 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
     //give our data a name
     @IBAction func addName(sender: AnyObject) {
         
-        var alert = UIAlertController(title: "New name",
+        alert = UIAlertController(title: "New name",
             message: "Add a new name",
             preferredStyle: .Alert)
         
         let saveAction = UIAlertAction(title: "Save",
             style: .Default) { (action: UIAlertAction!) -> Void in
                 
-                let textField = alert.textFields![0] as! UITextField
+                let textField = self.alert!.textFields![0] as! UITextField
                 self.dataName = textField.text
                 if(self.dataName == ""){
                     self.dataName = self.dateFormat.stringFromDate(self.startDate)
@@ -362,14 +366,14 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
 
         }
         
-        alert.addTextFieldWithConfigurationHandler {
+        alert!.addTextFieldWithConfigurationHandler {
             (textField: UITextField!) -> Void in
         }
         
-        alert.addAction(saveAction)
-        alert.addAction(cancelAction)
+        alert!.addAction(saveAction)
+        alert!.addAction(cancelAction)
         
-        presentViewController(alert,
+        presentViewController(alert!,
             animated: true,
             completion: nil)
     }
@@ -455,10 +459,10 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
     
     // Show alert
     func showAlertWithText (header : String = "Warning", message : String) {
-        var alert = UIAlertController(title: header, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-        alert.view.tintColor = UIColor.redColor()
-        self.presentViewController(alert, animated: true, completion: nil)
+        alert = UIAlertController(title: header, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert!.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+        alert!.view.tintColor = UIColor.redColor()
+        self.presentViewController(alert!, animated: true, completion: nil)
     }
     
 }
