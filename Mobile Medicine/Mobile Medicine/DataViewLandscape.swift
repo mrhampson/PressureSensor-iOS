@@ -122,8 +122,17 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         var plotSpace:CPTXYPlotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace
         // Create plots
         var plot:CPTScatterPlot = CPTScatterPlot(frame: CGRectZero)
+        var lineStyle: CPTMutableLineStyle = plot.dataLineStyle.mutableCopy() as! CPTMutableLineStyle
+        lineStyle.lineColor = CPTColor.blueColor()
+        plot.dataLineStyle = lineStyle
+        plot.interpolation = CPTScatterPlotInterpolation.Curved
         plot.dataSource = self
+        var plotSymbol:CPTPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol()
+        plotSymbol.fill = CPTFill(color: CPTColor.redColor())
+        plotSymbol.size = CGSizeMake(2, 2)
+        plot.plotSymbol = plotSymbol
         graph.addPlot(plot, toPlotSpace: plotSpace)
+
         // Set up plot space
         var plots:[CPTScatterPlot] = [plot]
         plotSpace.scaleToFitPlots(plots)
@@ -142,19 +151,21 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         x.title = "time (0.25s)"
         x.axisConstraints = CPTConstraints(lowerOffset: 0.0)
         x.minorTicksPerInterval = 3
+        x.labelingPolicy = .Automatic
         
         var y:CPTXYAxis = axisSet.yAxis
         
         y.labelingPolicy = .Automatic
         y.axisConstraints = CPTConstraints(lowerOffset: 0.0)
-        y.minorTicksPerInterval = 3
+        y.minorTicksPerInterval = 9
+        y.labelingPolicy = .Automatic
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.initPlot()
         //start timer at 20Hz Changed to be 10 HZ since sensor tag operates at 4
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("recordData"), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.25, target: self, selector: Selector("recordData"), userInfo: nil, repeats: true)
         
     }
     
@@ -308,23 +319,25 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
             
             if(recording)
             {
-            // Call bluetooth here
-            //println("Landscape: Recording")
-            //let tmp = Int.min
-            //if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN){
-                //println("Landscape: recorded")
-                //lastTemp = appDel.sensorTag.getTemp()
-                lastTemp = (lastTemp+1)%10
-                graphData.append(lastTemp)
-                //println(lastTemp)
-                if let plotspace = graphView.hostedGraph.defaultPlotSpace {
-                    plotspace.scaleToFitPlots(graphView.hostedGraph.allPlots())
-            
-                }
-                if let plot = graphView.hostedGraph.plotAtIndex(0) {
-                    plot.reloadData()
-                }
-            //}
+                // Call bluetooth here
+                //println("Landscape: Recording")
+                //let tmp = Int.min
+                //if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN)
+                //{
+                    //println("Landscape: recorded")
+                    lastTemp = appDel.sensorTag.getTemp()
+                    //lastTemp = (lastTemp+1)%10
+                    graphData.append(lastTemp)
+                    //println(lastTemp)
+                    if let plotspace = graphView.hostedGraph.defaultPlotSpace
+                    {
+                        plotspace.scaleToFitPlots(graphView.hostedGraph.allPlots())
+                    }
+                    if let plot = graphView.hostedGraph.plotAtIndex(0)
+                    {
+                        plot.reloadData()
+                    }
+                //}
             }
         }
         
