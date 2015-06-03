@@ -139,6 +139,7 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         x.title = "time (0.25s)"
         x.axisConstraints = CPTConstraints(lowerOffset: 0.0)
         x.minorTicksPerInterval = 3
+        x.labelingPolicy = .Automatic
         
         var y:CPTXYAxis = axisSet.yAxis
         y.axisConstraints = CPTConstraints(lowerOffset: 0.0)
@@ -301,15 +302,15 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
                 }
             }
             
-            if(recording)
-            {
+            //if(recording)
+            //{
             // Call bluetooth here
             //println("Landscape: Recording")
             //let tmp = Int.min
-            if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN){
+            //if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN){
                 //println("Landscape: recorded")
                 lastTemp = appDel.sensorTag.getTemp()
-                //lastTemp = (lastTemp+1)%10
+                lastTemp = (lastTemp+1)%10
                 graphData.append(lastTemp)
                 //println(lastTemp)
                 if let plotspace = graphView.hostedGraph.defaultPlotSpace {
@@ -319,8 +320,8 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
                 if let plot = graphView.hostedGraph.plotAtIndex(0) {
                     plot.reloadData()
                 }
-            }
-            }
+            //}
+            //}
         }
         
     }
