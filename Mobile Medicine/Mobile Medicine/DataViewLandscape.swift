@@ -124,8 +124,16 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         lineStyle.lineColor = CPTColor.blueColor()
         plot.dataLineStyle = lineStyle
         plot.dataSource = self
+        var plotSymbol:CPTPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol()
+        plotSymbol.fill = CPTFill(color: CPTColor.redColor())
+        plotSymbol.size = CGSizeMake(2, 2)
+        plot.plotSymbol = plotSymbol
         graph.addPlot(plot, toPlotSpace: plotSpace)
-        
+        /*
+CPTPlotSymbol *plotSymbol = [CPTPlotSymbol ellipsePlotSymbol];
+plotSymbol.fill = [CPTFill fillWithColor:[CPTColor whiteColor]];
+plotSymbol.size = CGSizeMake(10.0, 10.0);
+datasourceLinePlot.plotSymbol = plotSymbol;*/
         // Set up plot space
         var plots:[CPTScatterPlot] = [plot]
         plotSpace.scaleToFitPlots(plots)
