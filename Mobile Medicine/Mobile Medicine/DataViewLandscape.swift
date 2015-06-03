@@ -76,10 +76,10 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
     @IBOutlet var graphView: CPTGraphHostingView!
     
     func initPlot() -> Void {
-        self.configureHost();
-        self.configureGraph();
-        self.configurePlots();
-        self.configureAxes();
+        self.configureHost()
+        self.configureGraph()
+        self.configurePlots()
+        self.configureAxes()
     }
     
     func configureHost() -> Void {
@@ -138,6 +138,16 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         var y:CPTXYAxis = axisSet.yAxis
         y.axisConstraints = CPTConstraints(lowerOffset: 0.0)
         y.minorTicksPerInterval = 3
+    }
+    internal func refreshGraphData(newData:[Double]) -> Void {
+        self.graphData = newData
+        if let plot = self.graphView.hostedGraph.plotAtIndex(0)
+        {
+            plot.reloadData()
+            //return true
+        }
+        //return false
+        println("Sup")
     }
     
     override func viewDidAppear(animated: Bool) {

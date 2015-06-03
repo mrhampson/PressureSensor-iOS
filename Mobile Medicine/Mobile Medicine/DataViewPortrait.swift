@@ -329,6 +329,9 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
                 lastTemp = appDel.sensorTag.getTemp()
                 dataArray.append(lastTemp)
                 tempLabel.text = String(format:"%.2f", self.lastTemp)
+                var newData:[Double] = dataArray
+                DataViewLandscape.refreshGraphData(newData)
+                
             }
         }
     }
