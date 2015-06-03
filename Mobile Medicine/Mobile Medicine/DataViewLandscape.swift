@@ -29,7 +29,7 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
     internal var recording: Bool = false
     var timer : NSTimer!
     //temp for testing
-    var lastTemp : Double = Double.NaN
+    var lastTemp : Double = 0.0
     var lastStatus : Int = 0
     
     //core data stuff
@@ -148,6 +148,8 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.initPlot()
+        //start timer at 20Hz Changed to be 10 HZ since sensor tag operates at 4
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("recordData"), userInfo: nil, repeats: true)
         
     }
     
@@ -307,7 +309,13 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
             if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN){
                 //println("Landscape: recorded")
                 lastTemp = appDel.sensorTag.getTemp()
+                //lastTemp = (lastTemp+1)%10
                 graphData.append(lastTemp)
+                //println(lastTemp)
+                if let plotspace = graphView.hostedGraph.defaultPlotSpace {
+                    plotspace.scaleToFitPlots(graphView.hostedGraph.allPlots())
+            
+                }
                 if let plot = graphView.hostedGraph.plotAtIndex(0) {
                     plot.reloadData()
                 }
