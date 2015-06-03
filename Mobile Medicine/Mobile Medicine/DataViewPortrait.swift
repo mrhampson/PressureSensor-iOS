@@ -143,20 +143,36 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
         //start timer at 20Hz Changed to be 10 HZ since sensor tag operates at 4
         timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("recordData"), userInfo: nil, repeats: true)
         }
-        
         button.frame = CGRectMake(100, 100, 100, 50)
         button.layer.cornerRadius = 15
         button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
         button.center = CGPoint(x: self.view.frame.midX, y: self.view.bounds.maxY - 100 )
-        if(recording == false){
-            button.backgroundColor = UIColor(red: 0.0, green:0.777, blue:0.222, alpha:1.0)
-            button.setTitle("Start", forState: UIControlState.Normal)
-            button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
+        if(connected){
+            if(recording == false){
+                button.backgroundColor = UIColor(red: 0.0, green:0.777, blue:0.222, alpha:1.0)
+                button.setTitle("Start", forState: UIControlState.Normal)
+                button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
+            }
+            else{
+                button.setTitle("Stop", forState: UIControlState.Normal)
+                button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
+                button.backgroundColor = UIColor.redColor()
+            }
         }
         else{
-            button.setTitle("Stop", forState: UIControlState.Normal)
-            button.setTitleColor((UIColor.blackColor()), forState: UIControlState.Normal)
-            button.backgroundColor = UIColor.redColor()
+            warningLabel = UILabel(frame:CGRectMake(0, 0, 200, 100))
+            warningLabel.backgroundColor = UIColor(red: 0.777, green:0.222, blue:0.222, alpha:1.0)
+            warningLabel.textAlignment = .Center
+            warningLabel.text = "Please connect the device before recording data"
+            warningLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
+            warningLabel.center = CGPoint(x: self.view.frame.midX, y: self.view.bounds.maxY - 100 )
+            //warningLabel.center = CGPoint(x: self.view.frame.midX, y:self.titleLabel.bounds.midY + 350)
+            warningLabel.lineBreakMode = .ByWordWrapping
+            warningLabel.numberOfLines = 0
+            warningLabel.layer.cornerRadius = 15
+            warningLabel.tag = 100
+            self.view.addSubview(warningLabel)
+            
         }
         
         
@@ -380,15 +396,14 @@ class DataViewPortrait: UIViewController, UITableViewDelegate{
     
     
     func recordData() {
-        
-        
-        
+
         warningLabel = UILabel(frame:CGRectMake(0, 0, 200, 100))
         warningLabel.backgroundColor = UIColor(red: 0.777, green:0.222, blue:0.222, alpha:1.0)
         warningLabel.textAlignment = .Center
         warningLabel.text = "Please connect the device before recording data"
         warningLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
-        warningLabel.center = CGPoint(x: self.view.frame.midX, y:self.titleLabel.bounds.midY + 350)
+        warningLabel.center = CGPoint(x: self.view.frame.midX, y: self.view.bounds.maxY - 100 )
+        //warningLabel.center = CGPoint(x: self.view.frame.midX, y:self.titleLabel.bounds.midY + 350)
         warningLabel.lineBreakMode = .ByWordWrapping
         warningLabel.numberOfLines = 0
         warningLabel.layer.cornerRadius = 15
