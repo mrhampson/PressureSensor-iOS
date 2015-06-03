@@ -120,15 +120,21 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         var plotSpace:CPTXYPlotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace
         // Create plots
         var plot:CPTScatterPlot = CPTScatterPlot(frame: CGRectZero)
+        
+        var lineStyle: CPTMutableLineStyle = plot.dataLineStyle.mutableCopy() as! CPTMutableLineStyle
+        lineStyle.lineColor = CPTColor.blueColor()
+        plot.dataLineStyle = lineStyle
+        
+        
+        
         plot.dataSource = self
+
         graph.addPlot(plot, toPlotSpace: plotSpace)
         // Set up plot space
         var plots:[CPTScatterPlot] = [plot]
         plotSpace.scaleToFitPlots(plots)
         plotSpace.globalXRange = CPTPlotRange(location: FloatToDecimal.Convert(0), length: FloatToDecimal.Convert(1500))
-        var lineStyle: CPTMutableLineStyle = plot.dataLineStyle.mutableCopy() as! CPTMutableLineStyle
-        lineStyle.lineColor = CPTColor(componentRed: 52, green: 152, blue: 219, alpha: 1)
-        plot.dataLineStyle = lineStyle
+
         // Create styles and symbols
     }
     
@@ -314,26 +320,26 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
                 }
             }
             
-            if(recording)
-            {
+            //if(recording)
+            //{
             // Call bluetooth here
             //println("Landscape: Recording")
             //let tmp = Int.min
-            if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN){
-                //println("Landscape: recorded")
-                lastTemp = appDel.sensorTag.getTemp()
-                //lastTemp = (lastTemp+1)%10
-                graphData.append(lastTemp)
-                //println(lastTemp)
-                if let plotspace = graphView.hostedGraph.defaultPlotSpace {
-                    plotspace.scaleToFitPlots(graphView.hostedGraph.allPlots())
-            
-                }
-                if let plot = graphView.hostedGraph.plotAtIndex(0) {
-                    plot.reloadData()
-                }
-            }
-            }
+                //if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN)
+                //{
+                    //println("Landscape: recorded")
+                    //lastTemp = appDel.sensorTag.getTemp()
+                    lastTemp = (lastTemp+1)%10
+                    graphData.append(lastTemp)
+                    //println(lastTemp)
+                    if let plotspace = graphView.hostedGraph.defaultPlotSpace {
+                        plotspace.scaleToFitPlots(graphView.hostedGraph.allPlots())
+                    }
+                    if let plot = graphView.hostedGraph.plotAtIndex(0) {
+                        plot.reloadData()
+                    }
+                //}
+            //}
         }
         
     }
