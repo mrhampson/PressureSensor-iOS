@@ -120,8 +120,12 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         var plotSpace:CPTXYPlotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace
         // Create plots
         var plot:CPTScatterPlot = CPTScatterPlot(frame: CGRectZero)
+        var lineStyle: CPTMutableLineStyle = plot.dataLineStyle.mutableCopy() as! CPTMutableLineStyle
+        lineStyle.lineColor = CPTColor.blueColor()
+        plot.dataLineStyle = lineStyle
         plot.dataSource = self
         graph.addPlot(plot, toPlotSpace: plotSpace)
+        
         // Set up plot space
         var plots:[CPTScatterPlot] = [plot]
         plotSpace.scaleToFitPlots(plots)
@@ -309,7 +313,7 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
             //let tmp = Int.min
             //if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN){
                 //println("Landscape: recorded")
-                lastTemp = appDel.sensorTag.getTemp()
+                //lastTemp = appDel.sensorTag.getTemp()
                 lastTemp = (lastTemp+1)%10
                 graphData.append(lastTemp)
                 //println(lastTemp)
