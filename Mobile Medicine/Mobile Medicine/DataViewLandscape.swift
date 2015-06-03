@@ -84,7 +84,7 @@ class DataViewLandscape: UIViewController, CPTScatterPlotDataSource, CPTScatterP
     }
     
     func configureHost() -> Void {
-        //graphView.frame = CGRectMake(0, 30, self.view.frame.height, self.view.frame.width)
+
         graphView.frame = self.view.bounds
         graphView.frame.offset(dx: 0, dy: 30)
         //self.view.bounds.
@@ -107,10 +107,11 @@ class DataViewLandscape: UIViewController, CPTScatterPlotDataSource, CPTScatterP
         graph.titlePlotAreaFrameAnchor = CPTRectAnchor.Top
         graph.titleDisplacement = CGPointMake(0, 10)
         // Set padding for plot area
-        graph.plotAreaFrame.paddingLeft = 30
-        graph.plotAreaFrame.paddingBottom = 40
-        //graph.paddingTop = 30
-        //graph.plotAreaFrame.paddingTop = 30
+
+        graph.plotAreaFrame.paddingLeft = 60
+        graph.plotAreaFrame.paddingBottom = 45
+        graph.plotAreaFrame.paddingTop = 0
+
         // Enable user interaction for plot space
         graph.defaultPlotSpace.allowsUserInteraction = true
     }
@@ -148,20 +149,33 @@ class DataViewLandscape: UIViewController, CPTScatterPlotDataSource, CPTScatterP
         axisTitleStyle.fontSize = 12
         
         var axisSet:CPTXYAxisSet = self.graphView.hostedGraph.axisSet as! CPTXYAxisSet
+        axisSet.xAxis.title = "Time (Seconds)"
+        axisSet.xAxis.titleTextStyle = axisTitleStyle;
+        axisSet.xAxis.titleOffset = 17.0;
         var x:CPTXYAxis = axisSet.xAxis
         x.labelingPolicy = .Automatic
-        x.title = "time (0.25s)"
+        //x.title = "time (0.25s)"
         x.axisConstraints = CPTConstraints(lowerOffset: 0.0)
         x.minorTicksPerInterval = 3
         
         
         
+        axisSet.yAxis.title = "Temp (°C)"
+        axisSet.yAxis.titleTextStyle = axisTitleStyle;
+        axisSet.yAxis.titleOffset = 30.0;
         var y:CPTXYAxis = axisSet.yAxis
         
         y.labelingPolicy = .Automatic
         y.axisConstraints = CPTConstraints(lowerOffset: 0.0)
         y.minorTicksPerInterval = 9
         y.labelingPolicy = .Automatic
+        
+        //axisSet.yAxis.title = "Temp (°C)"
+        
+//        y.titleTextStyle = axisTitleStyle
+//        axisSet.xAxis.titleTextStyle = axisTitleStyle;
+//        axisSet.xAxis.titleOffset = 10.0f;
+
     }
     
     override func viewDidAppear(animated: Bool) {
