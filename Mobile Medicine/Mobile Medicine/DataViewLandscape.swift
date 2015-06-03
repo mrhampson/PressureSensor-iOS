@@ -134,6 +134,7 @@ class DataViewLandscape: UIViewController, CPTScatterPlotDataSource, CPTScatterP
         plotSymbol.fill = CPTFill(color: CPTColor.redColor())
         plotSymbol.size = CGSizeMake(2, 2)
         plot.plotSymbol = plotSymbol
+        graph.addPlot(plot, toPlotSpace: plotSpace)
 
         // Set up plot space
         var plots:[CPTScatterPlot] = [plot]
@@ -153,6 +154,8 @@ class DataViewLandscape: UIViewController, CPTScatterPlotDataSource, CPTScatterP
         x.title = "time (0.25s)"
         x.axisConstraints = CPTConstraints(lowerOffset: 0.0)
         x.minorTicksPerInterval = 3
+        
+        
         
         var y:CPTXYAxis = axisSet.yAxis
         
@@ -335,14 +338,13 @@ class DataViewLandscape: UIViewController, CPTScatterPlotDataSource, CPTScatterP
             }
             
             if(recording) {
-            //{
             // Call bluetooth here
-            //println("Landscape: Recording")
-            //let tmp = Int.min
-            //if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN){
+
+                //println("Landscape: Recording")
+                //if( appDel.sensorTag.getTemp() != lastTemp || lastTemp.isNaN){
                 //println("Landscape: recorded")
                 lastTemp = appDel.sensorTag.getTemp()
-                lastTemp = (lastTemp+1)%10
+                //lastTemp = (lastTemp+1)%10
                 graphData.append(lastTemp)
                 //println(lastTemp)
                 if let plotspace = graphView.hostedGraph.defaultPlotSpace {
