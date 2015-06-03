@@ -88,7 +88,10 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
     }
     
     func configureHost() -> Void {
+        //graphView.frame = CGRectMake(0, 30, self.view.frame.height, self.view.frame.width)
         graphView.frame = self.view.bounds
+        graphView.frame.offset(dx: 0, dy: 30)
+        //self.view.bounds.
         graphView.allowPinchScaling = true
     }
     
@@ -98,7 +101,7 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         graph.applyTheme(CPTTheme(named: "kCPTDarkGradientTheme"))
         self.graphView.hostedGraph = graph
         // Set title
-        graph.title = "Test Graph"
+        //graph.title = "Test Graph"
         // Create and set text syle
         var titleStyle:CPTMutableTextStyle = CPTMutableTextStyle()
         titleStyle.color = CPTColor.whiteColor()
@@ -109,7 +112,9 @@ class DataViewLandscape: UIViewController, CPTPlotDataSource {
         graph.titleDisplacement = CGPointMake(0, 10)
         // Set padding for plot area
         graph.plotAreaFrame.paddingLeft = 30
-        graph.plotAreaFrame.paddingBottom = 30
+        graph.plotAreaFrame.paddingBottom = 40
+        //graph.paddingTop = 30
+        //graph.plotAreaFrame.paddingTop = 30
         // Enable user interaction for plot space
         graph.defaultPlotSpace.allowsUserInteraction = true
     }
